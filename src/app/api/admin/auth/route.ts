@@ -5,10 +5,14 @@ const SESSION_COOKIE_NAME = "jd_admin_session";
 const SESSION_MAX_AGE = 60 * 60 * 24; // 24 hours
 
 function getSecretKey(): string {
-  return (
-    process.env.ADMIN_SESSION_SECRET ||
-    "jagadhatri_darshan_admin_secret_key_2026_fallback"
-  );
+  const secret = process.env.ADMIN_SESSION_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("ADMIN_SESSION_SECRET environment variable is missing.");
+    }
+    return "dev_local_only_insecure_session_secret_change_in_production";
+  }
+  return secret;
 }
 
 function createSignedSession(email: string): string {
@@ -73,10 +77,21 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { email, password } = body || {};
 
-    const configuredEmail =
-      process.env.ADMIN_EMAIL || "admin@jagadhatridarshan.in";
-    const configuredPassword =
-      process.env.ADMIN_PASSWORD || "krishnanagar2026";
+    const configuredEmail = process.env.ADMIN_EMAIL;
+    const configuredPassword = process.env.ADMIN_PASSWORD;
+
+    if (!configuredEmail || !configuredPassword) {
+      console.error(
+        "ADMIN_EMAIL or ADMIN_PASSWORD is not configured in environment variables."
+      );
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Admin authentication is not configured on the server.",
+        },
+        { status: 500 }
+      );
+    }
 
     if (!email || !password) {
       return NextResponse.json(

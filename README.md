@@ -91,8 +91,8 @@ npm run build
    Navigate directly to **`/admin`** (admin links are hidden from public visitors).
 2. **Configuring Credentials**:
    Credentials are kept strictly server-side in `.env` (never exposed to browser clients or public code):
-   - `ADMIN_EMAIL` (e.g. `admin@jagadhatridarshan.in`)
-   - `ADMIN_PASSWORD` (e.g. `krishnanagar2026`)
+   - `ADMIN_EMAIL` (e.g. `admin@example.com`)
+   - `ADMIN_PASSWORD` (e.g. `your_secure_password_here`)
    - `ADMIN_SESSION_SECRET` (secure random signing string)
 3. **Connecting Remote Supabase**:
    - Run the SQL migration in `supabase/migrations/20261029000001_create_jagadhatri_schema.sql` inside your Supabase project's SQL Editor.
