@@ -162,11 +162,11 @@ export function RoutePlannerView({
       {/* Page Title & Subtitle */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-[#ede4d1]">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-[#7a121d] uppercase tracking-wider mb-1">
-            <Route className="w-3.5 h-3.5 text-[#c59b27]" />
+          <div className="flex items-center gap-2 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider mb-1">
+            <Route className="w-3.5 h-3.5 text-[#d99b26]" />
             <span>Krishnanagar Pandal Hopping</span>
           </div>
-          <h1 className="font-serif font-bold text-2xl sm:text-4xl text-[#5e0c15]">
+          <h1 className="font-serif font-bold text-2xl sm:text-4xl text-[#4a1810]">
             {t.routePlanner.title}
           </h1>
           <p className="text-xs sm:text-sm text-[#57534e] mt-1.5 max-w-2xl">
@@ -179,7 +179,7 @@ export function RoutePlannerView({
           <button
             onClick={handleShareRoute}
             disabled={selectedPandalIds.length === 0}
-            className="px-3.5 py-2 rounded-xl border border-[#c59b27] bg-white hover:bg-stone-50 text-xs sm:text-sm font-semibold text-[#1c1917] flex items-center gap-1.5 transition-all shadow-xs disabled:opacity-50 cursor-pointer"
+            className="px-3.5 py-2 rounded-xl border border-[#d99b26] bg-white hover:bg-stone-50 text-xs sm:text-sm font-semibold text-[#1c1917] flex items-center gap-1.5 transition-all shadow-xs disabled:opacity-50 cursor-pointer"
           >
             {copied ? (
               <>
@@ -188,7 +188,7 @@ export function RoutePlannerView({
               </>
             ) : (
               <>
-                <Share2 className="w-4 h-4 text-[#7a121d]" />
+                <Share2 className="w-4 h-4 text-[#8b2f1e]" />
                 <span>{t.routePlanner.shareRoute}</span>
               </>
             )}
@@ -225,7 +225,7 @@ export function RoutePlannerView({
                 onClick={() => setTravelMode("walking")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                   travelMode === "walking"
-                    ? "bg-[#7a121d] text-white shadow-xs"
+                    ? "bg-[#8b2f1e] text-white shadow-xs"
                     : "bg-stone-100 text-stone-700 hover:bg-stone-200"
                 }`}
               >
@@ -237,7 +237,7 @@ export function RoutePlannerView({
                 onClick={() => setTravelMode("driving")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                   travelMode === "driving"
-                    ? "bg-[#7a121d] text-white shadow-xs"
+                    ? "bg-[#8b2f1e] text-white shadow-xs"
                     : "bg-stone-100 text-stone-700 hover:bg-stone-200"
                 }`}
               >
@@ -307,7 +307,7 @@ export function RoutePlannerView({
 
             {orderedStops.length === 0 ? (
               <div className="text-center py-12 px-4 border-2 border-dashed border-[#ede4d1] rounded-xl space-y-2">
-                <MapPin className="w-8 h-8 text-[#c59b27] mx-auto opacity-75" />
+                <MapPin className="w-8 h-8 text-[#d99b26] mx-auto opacity-75" />
                 <h4 className="font-serif font-bold text-sm text-[#1c1917]">
                   {t.routePlanner.noStops}
                 </h4>
@@ -333,7 +333,7 @@ export function RoutePlannerView({
                       className="flex items-center gap-3 p-3.5 rounded-xl border border-[#ede4d1] bg-[#fcfaf5] hover:bg-stone-50 transition-all shadow-xs"
                     >
                       {/* Step Number Badge */}
-                      <div className="w-7 h-7 rounded-full bg-[#5e0c15] text-[#e6be58] font-bold text-xs flex items-center justify-center shrink-0 border border-[#c59b27]/40 shadow-xs">
+                      <div className="w-7 h-7 rounded-full bg-[#4a1810] text-[#f5ba42] font-bold text-xs flex items-center justify-center shrink-0 border border-[#d99b26]/40 shadow-xs">
                         {index + 1}
                       </div>
 
@@ -346,7 +346,7 @@ export function RoutePlannerView({
 
                       {/* Pandal Info */}
                       <div className="flex-1 min-w-0">
-                        <span className="text-[10px] font-bold text-[#7a121d] uppercase tracking-wider truncate block">
+                        <span className="text-[10px] font-bold text-[#8b2f1e] uppercase tracking-wider truncate block">
                           {displayLocality}
                         </span>
                         <h4 className="font-serif font-bold text-sm text-[#1c1917] truncate">
@@ -401,7 +401,7 @@ export function RoutePlannerView({
 
           {/* Google Maps Multi-Stop Launch Box */}
           {verifiedStopCoords.length > 0 && (
-            <div className="bg-[#5e0c15] text-[#fcfaf5] rounded-2xl p-6 border border-[#c59b27]/40 shadow-xl space-y-4">
+            <div className="bg-[#4a1810] text-[#fcfaf5] rounded-2xl p-6 border border-[#d99b26]/40 shadow-xl space-y-4">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-serif font-bold text-lg text-[#fcfaf5]">
@@ -417,7 +417,7 @@ export function RoutePlannerView({
                       : t.routePlanner.segmentNotice}
                   </p>
                 </div>
-                <Navigation className="w-7 h-7 text-[#e6be58] shrink-0 hidden sm:block" />
+                <Navigation className="w-7 h-7 text-[#f5ba42] shrink-0 hidden sm:block" />
               </div>
 
               {/* If Single Segment (<= 10 stops) */}
@@ -485,7 +485,7 @@ export function RoutePlannerView({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t.filters.searchPlaceholder}
-                className="w-full px-3 py-2 text-xs rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-1 focus:ring-[#7a121d]"
+                className="w-full px-3 py-2 text-xs rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-1 focus:ring-[#8b2f1e]"
               />
               <select
                 value={selectedLocalityFilter}
@@ -532,7 +532,7 @@ export function RoutePlannerView({
                           className="w-10 h-10 rounded-lg object-cover shrink-0 bg-stone-200"
                         />
                         <div className="min-w-0">
-                          <span className="text-[10px] text-[#7a121d] font-bold block truncate">
+                          <span className="text-[10px] text-[#8b2f1e] font-bold block truncate">
                             {displayLocality}
                           </span>
                           <h4 className="font-serif font-bold text-xs text-[#1c1917] truncate">
@@ -544,7 +544,7 @@ export function RoutePlannerView({
                       <button
                         type="button"
                         onClick={() => addStop(pandal.id)}
-                        className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-stone-100 hover:bg-[#7a121d] hover:text-white transition-colors flex items-center gap-1 shrink-0 cursor-pointer text-[#5e0c15]"
+                        className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-stone-100 hover:bg-[#8b2f1e] hover:text-white transition-colors flex items-center gap-1 shrink-0 cursor-pointer text-[#4a1810]"
                         title={t.actions.addToRoute}
                       >
                         <Plus className="w-3.5 h-3.5" />

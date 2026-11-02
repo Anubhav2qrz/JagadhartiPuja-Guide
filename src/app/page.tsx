@@ -71,7 +71,7 @@ export default function HomePage() {
   return (
     <div className="space-y-16 sm:space-y-24">
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[460px] sm:min-h-[640px] flex items-center justify-center bg-[#5e0c15] text-[#fcfaf5] overflow-hidden">
+      <section className="relative min-h-[460px] sm:min-h-[640px] flex items-center justify-center bg-[#4a1810] text-[#fcfaf5] overflow-hidden">
         {/* Festival Background Image with Dark Vignette & Gold Hue */}
         <div className="absolute inset-0 z-0">
           <img
@@ -79,17 +79,17 @@ export default function HomePage() {
             alt="Krishnanagar Jagadhatri Puja"
             className="w-full h-full object-cover object-center opacity-30 filter brightness-75 contrast-125"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#5e0c15] via-[#5e0c15]/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#4a1810] via-[#4a1810]/80 to-transparent" />
           <div className="absolute inset-0 bg-radial from-transparent via-[#500710]/60 to-[#3b050c]/90" />
         </div>
 
         {/* Hero Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 text-center space-y-4 sm:space-y-6">
           {/* Badge */}
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-[#c59b27]/20 border border-[#c59b27]/50 text-[#e6be58] text-[11px] sm:text-sm font-bold backdrop-blur-xs shadow-md max-w-full">
-            <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#e6be58] shrink-0" />
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-[#d99b26]/20 border border-[#d99b26]/50 text-[#f5ba42] text-[11px] sm:text-sm font-bold backdrop-blur-xs shadow-md max-w-full">
+            <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#f5ba42] shrink-0" />
             <span className="truncate">{t.hero.badge}</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#c59b27] shrink-0 hidden sm:inline-block" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#d99b26] shrink-0 hidden sm:inline-block" />
             <span className="truncate hidden sm:inline-block">{t.locationLabel}</span>
           </div>
 
@@ -115,9 +115,9 @@ export default function HomePage() {
 
             <Link
               href="/route-planner"
-              className="w-full sm:w-auto px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-sm sm:text-base font-bold bg-[#7a121d] hover:bg-[#8c1622] text-white border border-[#c59b27]/50 flex items-center justify-center gap-2 transition-all shadow-md active:scale-95"
+              className="w-full sm:w-auto px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-sm sm:text-base font-bold bg-[#8b2f1e] hover:bg-[#a33b25] text-white border border-[#d99b26]/50 flex items-center justify-center gap-2 transition-all shadow-md active:scale-95"
             >
-              <Route className="w-4 h-4 sm:w-5 sm:h-5 text-[#e6be58]" />
+              <Route className="w-4 h-4 sm:w-5 sm:h-5 text-[#f5ba42]" />
               <span>{t.hero.planRouteBtn}</span>
             </Link>
 
@@ -127,7 +127,7 @@ export default function HomePage() {
               className="w-full sm:w-auto px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl text-xs sm:text-sm font-semibold bg-black/40 hover:bg-black/60 text-[#ede4d1] border border-white/20 flex items-center justify-center gap-2 transition-all backdrop-blur-xs cursor-pointer active:scale-95"
             >
               <Crosshair
-                className={`w-4 h-4 text-[#e6be58] ${
+                className={`w-4 h-4 text-[#f5ba42] ${
                   locatingUser ? "animate-spin" : ""
                 }`}
               />
@@ -146,7 +146,7 @@ export default function HomePage() {
           {/* Key Stat Badges */}
           <div className="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto border-t border-white/10 text-left">
             <div className="bg-white/5 backdrop-blur-xs p-3 rounded-xl border border-white/10">
-              <span className="text-lg sm:text-xl font-bold font-serif text-[#e6be58] block">
+              <span className="text-lg sm:text-xl font-bold font-serif text-[#f5ba42] block">
                 10+
               </span>
               <span className="text-[11px] text-[#ede4d1]/80">
@@ -154,7 +154,7 @@ export default function HomePage() {
               </span>
             </div>
             <div className="bg-white/5 backdrop-blur-xs p-3 rounded-xl border border-white/10">
-              <span className="text-lg sm:text-xl font-bold font-serif text-[#e6be58] block">
+              <span className="text-lg sm:text-xl font-bold font-serif text-[#f5ba42] block">
                 1762
               </span>
               <span className="text-[11px] text-[#ede4d1]/80">
@@ -162,7 +162,7 @@ export default function HomePage() {
               </span>
             </div>
             <div className="bg-white/5 backdrop-blur-xs p-3 rounded-xl border border-white/10">
-              <span className="text-lg sm:text-xl font-bold font-serif text-[#e6be58] block">
+              <span className="text-lg sm:text-xl font-bold font-serif text-[#f5ba42] block">
                 100%
               </span>
               <span className="text-[11px] text-[#ede4d1]/80">
@@ -170,7 +170,7 @@ export default function HomePage() {
               </span>
             </div>
             <div className="bg-white/5 backdrop-blur-xs p-3 rounded-xl border border-white/10">
-              <span className="text-lg sm:text-xl font-bold font-serif text-[#e6be58] block">
+              <span className="text-lg sm:text-xl font-bold font-serif text-[#f5ba42] block">
                 GI Tag
               </span>
               <span className="text-[11px] text-[#ede4d1]/80">
@@ -184,9 +184,9 @@ export default function HomePage() {
       {/* 2. OFFICIAL FESTIVAL ANNOUNCEMENTS & POLICE ADVISORIES */}
       {announcements.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#fcfaf5] border-l-4 border-[#c59b27] p-5 sm:p-6 rounded-2xl shadow-sm border border-[#ede4d1] space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#7a121d] uppercase tracking-wider">
-              <ShieldAlert className="w-4 h-4 text-[#c59b27]" />
+          <div className="bg-[#fcfaf5] border-l-4 border-[#d99b26] p-5 sm:p-6 rounded-2xl shadow-sm border border-[#ede4d1] space-y-3">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider">
+              <ShieldAlert className="w-4 h-4 text-[#d99b26]" />
               <span>{t.discovery.advisoriesTitle}</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -212,11 +212,11 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#ede4d1] pb-4">
           <div>
-            <div className="flex items-center gap-1.5 text-xs font-bold text-[#7a121d] uppercase tracking-wider">
-              <Landmark className="w-3.5 h-3.5 text-[#c59b27]" />
+            <div className="flex items-center gap-1.5 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider">
+              <Landmark className="w-3.5 h-3.5 text-[#d99b26]" />
               <span>Krishnanagar Landmarks</span>
             </div>
-            <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#5e0c15] mt-0.5">
+            <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#4a1810] mt-0.5">
               {t.discovery.featuredTitle}
             </h2>
             <p className="text-xs sm:text-sm text-[#78716c] mt-1">
@@ -225,7 +225,7 @@ export default function HomePage() {
           </div>
           <Link
             href="/pandals"
-            className="text-xs sm:text-sm font-bold text-[#7a121d] hover:text-[#5e0c15] flex items-center gap-1 group self-start sm:self-auto"
+            className="text-xs sm:text-sm font-bold text-[#8b2f1e] hover:text-[#4a1810] flex items-center gap-1 group self-start sm:self-auto"
           >
             <span>{t.nav.explore}</span>
             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -244,10 +244,10 @@ export default function HomePage() {
         <div className="bg-[#f7f3e8] rounded-3xl p-6 sm:p-8 border border-[#ede4d1] shadow-xs space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="text-xs font-bold text-[#7a121d] uppercase tracking-wider block">
+              <span className="text-xs font-bold text-[#8b2f1e] uppercase tracking-wider block">
                 {t.discovery.mapPreviewTitle}
               </span>
-              <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#5e0c15] mt-1">
+              <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#4a1810] mt-1">
                 {language === "bn"
                   ? "কৃষ্ণনগরের ম্যাপে সরাসরি মণ্ডপ দর্শন"
                   : "Explore All Verified Pandals on the Map"}
@@ -278,9 +278,9 @@ export default function HomePage() {
 
       {/* 5. MULTI-STOP ROUTE PLANNING PROMO */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-br from-[#5e0c15] to-[#3d050d] text-[#fcfaf5] rounded-3xl p-8 sm:p-12 border border-[#c59b27]/40 shadow-xl relative overflow-hidden">
+        <div className="bg-gradient-to-br from-[#4a1810] to-[#2c0c07] text-[#fcfaf5] rounded-3xl p-8 sm:p-12 border border-[#d99b26]/40 shadow-xl relative overflow-hidden">
           <div className="max-w-2xl space-y-4 relative z-10">
-            <span className="text-xs font-bold text-[#e6be58] uppercase tracking-wider block">
+            <span className="text-xs font-bold text-[#f5ba42] uppercase tracking-wider block">
               {t.discovery.routePromoTitle}
             </span>
             <h2 className="font-serif font-bold text-2xl sm:text-4xl text-[#fcfaf5] leading-tight">
@@ -308,7 +308,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="hidden lg:block absolute -right-6 -bottom-6 w-80 h-80 opacity-15 text-[#c59b27]">
+          <div className="hidden lg:block absolute -right-6 -bottom-6 w-80 h-80 opacity-15 text-[#d99b26]">
             <Route className="w-full h-full" />
           </div>
         </div>
@@ -318,11 +318,11 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#ede4d1] pb-4">
           <div>
-            <div className="flex items-center gap-1.5 text-xs font-bold text-[#7a121d] uppercase tracking-wider">
-              <Utensils className="w-3.5 h-3.5 text-[#c59b27]" />
+            <div className="flex items-center gap-1.5 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider">
+              <Utensils className="w-3.5 h-3.5 text-[#d99b26]" />
               <span>Taste of Krishnanagar</span>
             </div>
-            <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#5e0c15] mt-0.5">
+            <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#4a1810] mt-0.5">
               {language === "bn"
                 ? "খাবার ও পুজো পরিক্রমার প্রয়োজনীয় তথ্য"
                 : "Food, GI Sweets & Visitor Essentials"}
@@ -335,7 +335,7 @@ export default function HomePage() {
           </div>
           <Link
             href="/essentials"
-            className="text-xs sm:text-sm font-bold text-[#7a121d] hover:text-[#5e0c15] flex items-center gap-1 group self-start sm:self-auto"
+            className="text-xs sm:text-sm font-bold text-[#8b2f1e] hover:text-[#4a1810] flex items-center gap-1 group self-start sm:self-auto"
           >
             <span>{language === "bn" ? "সব সুবিধা দেখুন" : "View All Places"}</span>
             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -352,11 +352,11 @@ export default function HomePage() {
       {/* 7. HERITAGE & TRADITIONAL PUJA HIGHLIGHTS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 mb-12">
         <div className="border-b border-[#ede4d1] pb-4">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-[#7a121d] uppercase tracking-wider">
-            <Flame className="w-3.5 h-3.5 text-[#c59b27]" />
+          <div className="flex items-center gap-1.5 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider">
+            <Flame className="w-3.5 h-3.5 text-[#d99b26]" />
             <span>Sacred Traditions</span>
           </div>
-          <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#5e0c15] mt-0.5">
+          <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#4a1810] mt-0.5">
             {t.discovery.heritageTitle}
           </h2>
           <p className="text-xs sm:text-sm text-[#78716c] mt-1">

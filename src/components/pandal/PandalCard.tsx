@@ -77,13 +77,13 @@ export function PandalCard({ pandal }: PandalCardProps) {
         <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
           <div className="flex items-center gap-1.5 flex-wrap">
             {/* Category Badge */}
-            <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-[#5e0c15]/90 text-[#fcfaf5] backdrop-blur-xs border border-[#c59b27]/40 shadow-xs">
+            <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-[#4a1810]/90 text-[#fcfaf5] backdrop-blur-xs border border-[#d99b26]/40 shadow-xs">
               {categoryLabel}
             </span>
 
             {/* Featured Badge */}
             {pandal.is_featured && (
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#c59b27] text-[#1c1917] shadow-xs flex items-center gap-1">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#d99b26] text-[#1c1917] shadow-xs flex items-center gap-1">
                 <Star className="w-3 h-3 fill-current" />
                 <span>Featured</span>
               </span>
@@ -132,7 +132,7 @@ export function PandalCard({ pandal }: PandalCardProps) {
       <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
           {/* Locality */}
-          <div className="flex items-center gap-1 text-xs text-[#7a121d] font-semibold mb-1">
+          <div className="flex items-center gap-1 text-xs text-[#8b2f1e] font-semibold mb-1">
             <MapPin className="w-3.5 h-3.5" />
             <span>{displayLocality}</span>
           </div>
@@ -140,7 +140,7 @@ export function PandalCard({ pandal }: PandalCardProps) {
           {/* Title */}
           <Link
             href={`/pandals/${pandal.slug}`}
-            className="group-hover:text-[#7a121d] transition-colors"
+            className="group-hover:text-[#8b2f1e] transition-colors"
           >
             <h3 className="font-serif font-bold text-lg sm:text-xl text-[#1c1917] leading-tight">
               {displayName}
@@ -161,7 +161,7 @@ export function PandalCard({ pandal }: PandalCardProps) {
           <div className="mt-3 pt-3 border-t border-[#ede4d1] flex items-center justify-between text-[11px] text-[#78716c]">
             {pandal.verified_at ? (
               <div className="flex items-center gap-1">
-                <Clock className="w-3 h-3 text-[#c59b27]" />
+                <Clock className="w-3 h-3 text-[#d99b26]" />
                 <span>
                   {t.status.lastVerified}: {formatDate(pandal.verified_at)}
                 </span>
@@ -218,7 +218,7 @@ export function PandalCard({ pandal }: PandalCardProps) {
                 </>
               ) : (
                 <>
-                  <Plus className="w-3.5 h-3.5 text-[#7a121d]" />
+                  <Plus className="w-3.5 h-3.5 text-[#8b2f1e]" />
                   <span>{t.actions.addToRoute}</span>
                 </>
               )}
@@ -229,7 +229,7 @@ export function PandalCard({ pandal }: PandalCardProps) {
               className="px-3 py-2 rounded-xl text-xs font-semibold bg-stone-100 hover:bg-[#ede4d1] text-[#1c1917] transition-colors flex items-center justify-center gap-1 border border-stone-200"
             >
               <span>{t.actions.viewDetails}</span>
-              <ArrowRight className="w-3 h-3 text-[#7a121d]" />
+              <ArrowRight className="w-3 h-3 text-[#8b2f1e]" />
             </Link>
           </div>
         </div>

@@ -2,15 +2,15 @@
 @import "leaflet/dist/leaflet.css";
 
 :root {
-  --maroon-deep: #5e0c15;
-  --maroon-primary: #7a121d;
-  --maroon-rich: #8c1622;
-  --maroon-light: #a32230;
+  --maroon-deep: #4a1810;
+  --maroon-primary: #8b2f1e;
+  --maroon-rich: #a33b25;
+  --maroon-light: #bc4a31;
   
-  --gold-primary: #c59b27;
-  --gold-light: #e6be58;
-  --gold-dark: #9e7914;
-  --gold-accent: #f3d47d;
+  --gold-primary: #d99b26;
+  --gold-light: #f5ba42;
+  --gold-dark: #b07812;
+  --gold-accent: #fae19c;
 
   --ivory-base: #fcfaf5;
   --ivory-surface: #f7f3e8;
@@ -26,15 +26,15 @@
 }
 
 @theme {
-  --color-maroon-deep: #5e0c15;
-  --color-maroon-primary: #7a121d;
-  --color-maroon-rich: #8c1622;
-  --color-maroon-light: #a32230;
+  --color-maroon-deep: #4a1810;
+  --color-maroon-primary: #8b2f1e;
+  --color-maroon-rich: #a33b25;
+  --color-maroon-light: #bc4a31;
   
-  --color-gold-primary: #c59b27;
-  --color-gold-light: #e6be58;
-  --color-gold-dark: #9e7914;
-  --color-gold-accent: #f3d47d;
+  --color-gold-primary: #d99b26;
+  --color-gold-light: #f5ba42;
+  --color-gold-dark: #b07812;
+  --color-gold-accent: #fae19c;
 
   --color-ivory-base: #fcfaf5;
   --color-ivory-surface: #f7f3e8;
@@ -54,7 +54,7 @@ body {
 
 /* Subtle Bengali Alpana inspired floral divider */
 .alpana-divider {
-  background-image: radial-gradient(circle at center, #c59b27 1.5px, transparent 1.5px);
+  background-image: radial-gradient(circle at center, #d99b26 1.5px, transparent 1.5px);
   background-size: 16px 16px;
   background-repeat: repeat-x;
   height: 6px;
@@ -69,19 +69,19 @@ body {
   transition: all 0.2s ease-in-out;
 }
 .btn-gold-action:hover {
-  background: linear-gradient(135deg, #e6be58 0%, #c59b27 100%);
+  background: linear-gradient(135deg, #f5ba42 0%, #d99b26 100%);
   box-shadow: 0 4px 12px rgba(197, 155, 39, 0.3);
 }
 
 /* Maroon luxury button */
 .btn-maroon-action {
-  background: linear-gradient(135deg, #7a121d 0%, #5e0c15 100%);
+  background: linear-gradient(135deg, #8b2f1e 0%, #4a1810 100%);
   color: #ffffff;
   font-weight: 600;
   transition: all 0.2s ease-in-out;
 }
 .btn-maroon-action:hover {
-  background: linear-gradient(135deg, #8c1622 0%, #6d0f19 100%);
+  background: linear-gradient(135deg, #a33b25 0%, #611e13 100%);
   box-shadow: 0 4px 14px rgba(122, 18, 29, 0.35);
 }
 

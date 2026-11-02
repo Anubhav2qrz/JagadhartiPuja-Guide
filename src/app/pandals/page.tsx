@@ -105,11 +105,11 @@ export default function ExplorePandalsPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
       {/* Page Header */}
       <div className="border-b border-[#ede4d1] pb-6">
-        <div className="flex items-center gap-2 text-xs font-bold text-[#7a121d] uppercase tracking-wider mb-1">
-          <Compass className="w-3.5 h-3.5 text-[#c59b27]" />
+        <div className="flex items-center gap-2 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider mb-1">
+          <Compass className="w-3.5 h-3.5 text-[#d99b26]" />
           <span>{t.locationLabel}</span>
         </div>
-        <h1 className="font-serif font-bold text-2xl sm:text-4xl text-[#5e0c15]">
+        <h1 className="font-serif font-bold text-2xl sm:text-4xl text-[#4a1810]">
           {t.nav.explore}
         </h1>
         <p className="text-xs sm:text-sm text-[#57534e] mt-1.5 max-w-2xl">
@@ -150,7 +150,7 @@ export default function ExplorePandalsPage() {
             className="p-1 rounded-full text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
           >
             <RefreshCw
-              className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin text-[#7a121d]" : ""}`}
+              className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin text-[#8b2f1e]" : ""}`}
             />
           </button>
         </div>
@@ -161,7 +161,7 @@ export default function ExplorePandalsPage() {
           wheelchairOnly) && (
           <button
             onClick={handleReset}
-            className="text-[#7a121d] font-bold hover:underline cursor-pointer"
+            className="text-[#8b2f1e] font-bold hover:underline cursor-pointer"
           >
             {t.actions.clearFilters}
           </button>
@@ -171,7 +171,7 @@ export default function ExplorePandalsPage() {
       {/* Pandal Grid */}
       {filteredAndSortedPandals.length === 0 ? (
         <div className="bg-white rounded-2xl p-12 text-center border border-[#ede4d1] shadow-xs space-y-3">
-          <MapPin className="w-10 h-10 text-[#c59b27] mx-auto opacity-75" />
+          <MapPin className="w-10 h-10 text-[#d99b26] mx-auto opacity-75" />
           <h3 className="font-serif font-bold text-lg text-[#1c1917]">
             {t.empty.noPandals}
           </h3>

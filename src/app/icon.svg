@@ -1,32 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <!-- Background Gradient -->
+    <!-- Background Gradient - Midnight Terracotta -->
     <radialGradient id="bgGrad" cx="50%" cy="45%" r="55%">
-      <stop offset="0%" stop-color="#800f1c"/>
-      <stop offset="70%" stop-color="#550811"/>
-      <stop offset="100%" stop-color="#360309"/>
+      <stop offset="0%" stop-color="#732517"/>
+      <stop offset="65%" stop-color="#4a1810"/>
+      <stop offset="100%" stop-color="#2c0c07"/>
     </radialGradient>
 
-    <!-- Gold Gradients -->
+    <!-- Gold Gradients - Royal Temple Gold & Warm Saffron -->
     <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffe699"/>
-      <stop offset="35%" stop-color="#f5c242"/>
-      <stop offset="70%" stop-color="#d49e1e"/>
-      <stop offset="100%" stop-color="#9a6e08"/>
+      <stop offset="0%" stop-color="#fae19c"/>
+      <stop offset="35%" stop-color="#f5ba42"/>
+      <stop offset="70%" stop-color="#d99b26"/>
+      <stop offset="100%" stop-color="#b07812"/>
     </linearGradient>
 
     <linearGradient id="brightGold" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#fff5cc"/>
-      <stop offset="50%" stop-color="#f5c242"/>
-      <stop offset="100%" stop-color="#c98a0c"/>
+      <stop offset="0%" stop-color="#fff2c2"/>
+      <stop offset="50%" stop-color="#f5ba42"/>
+      <stop offset="100%" stop-color="#d99b26"/>
     </linearGradient>
 
-    <!-- Flame Gradient -->
+    <!-- Flame Gradient - Sacred Saffron to Radiant Gold -->
     <linearGradient id="flameGrad" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#e63946"/>
-      <stop offset="40%" stop-color="#f77f00"/>
-      <stop offset="80%" stop-color="#fcbf49"/>
-      <stop offset="100%" stop-color="#fff3b0"/>
+      <stop offset="0%" stop-color="#d9381e"/>
+      <stop offset="40%" stop-color="#f06c00"/>
+      <stop offset="80%" stop-color="#f5ba42"/>
+      <stop offset="100%" stop-color="#fff8d6"/>
     </linearGradient>
 
     <!-- Inner Glow Filter -->
@@ -45,7 +45,7 @@
   <circle cx="256" cy="256" r="212" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
 
   <!-- Auspicious Corner Rays/Petals (16 rays around the rim) -->
-  <g stroke="url(#goldGrad)" stroke-width="3" opacity="0.65">
+  <g stroke="url(#goldGrad)" stroke-width="3" opacity="0.7">
     <line x1="256" y1="20" x2="256" y2="34"/>
     <line x1="256" y1="478" x2="256" y2="492"/>
     <line x1="20" y1="256" x2="34" y2="256"/>
@@ -63,7 +63,7 @@
 
   <!-- Diya Bowl -->
   <path d="M126 360 Q256 420 386 360 Q394 348 382 342 Q256 376 130 342 Q118 348 126 360 Z" fill="url(#brightGold)" filter="url(#goldGlow)"/>
-  <ellipse cx="256" cy="350" rx="122" ry="12" fill="#5c0710" opacity="0.5"/>
+  <ellipse cx="256" cy="350" rx="122" ry="12" fill="#381008" opacity="0.6"/>
   <ellipse cx="256" cy="349" rx="114" ry="8" fill="url(#goldGrad)"/>
 
   <!-- Central Sacred Motif: Trishul + Devi Third Eye + Divine Flame -->
@@ -89,24 +89,23 @@
 
   <!-- Trishul Base Ring Connector -->
   <circle cx="256" cy="245" r="14" fill="url(#brightGold)"/>
-  <circle cx="256" cy="245" r="7" fill="#800f1c"/>
+  <circle cx="256" cy="245" r="7" fill="#4a1810"/>
 
   <!-- Maa Jagadhatri Divine Third Eye (Trinetra) & Chandan Tilak -->
-  <!-- Flame/Eye Aura -->
   <g transform="translate(0, 30)">
     <!-- Divine Third Eye Contour -->
-    <path d="M256 230 C274 252 274 268 256 288 C238 268 238 252 256 230 Z" fill="#fff9e6" stroke="url(#brightGold)" stroke-width="2"/>
+    <path d="M256 230 C274 252 274 268 256 288 C238 268 238 252 256 230 Z" fill="#fffaf0" stroke="url(#brightGold)" stroke-width="2"/>
     <!-- Eye Iris / Flame Center -->
-    <ellipse cx="256" cy="259" rx="6" ry="10" fill="#2b0307"/>
+    <ellipse cx="256" cy="259" rx="6" ry="10" fill="#2c0c07"/>
     <!-- Sacred Vermillion / Sindoor Bindi -->
-    <circle cx="256" cy="259" r="4.5" fill="#e63946"/>
+    <circle cx="256" cy="259" r="4.5" fill="#d9381e"/>
     <!-- Crescent Moon (Chandra) above Tilak -->
-    <path d="M246 220 C252 225 260 225 266 220 C261 223 251 223 246 220 Z" fill="#ffeaa7"/>
-    <circle cx="256" cy="216" r="2.5" fill="#ffeaa7"/>
+    <path d="M246 220 C252 225 260 225 266 220 C261 223 251 223 246 220 Z" fill="#fae19c"/>
+    <circle cx="256" cy="216" r="2.5" fill="#fae19c"/>
   </g>
 
   <!-- Auspicious Flower/Om Subtle Floral Accents on Base -->
-  <circle cx="256" cy="385" r="6" fill="#e63946"/>
+  <circle cx="256" cy="385" r="6" fill="#d9381e"/>
   <circle cx="230" cy="378" r="4" fill="url(#brightGold)"/>
   <circle cx="282" cy="378" r="4" fill="url(#brightGold)"/>
 </svg>

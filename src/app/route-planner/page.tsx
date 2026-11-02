@@ -39,7 +39,7 @@ export default function RoutePlannerPage() {
     <Suspense
       fallback={
         <div className="max-w-6xl mx-auto px-4 py-16 flex items-center justify-center">
-          <div className="w-10 h-10 border-4 border-[#7a121d] border-t-transparent rounded-full animate-spin" />
+          <div className="w-10 h-10 border-4 border-[#8b2f1e] border-t-transparent rounded-full animate-spin" />
         </div>
       }
     >

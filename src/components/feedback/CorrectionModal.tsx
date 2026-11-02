@@ -61,7 +61,7 @@ export function CorrectionModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#fcfaf5] rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-[#c59b27]/40 relative">
+      <div className="bg-[#fcfaf5] rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-[#d99b26]/40 relative">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-1.5 rounded-full text-[#78716c] hover:text-[#1c1917] hover:bg-[#ede4d1] transition-colors"
@@ -82,7 +82,7 @@ export function CorrectionModal({
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <h3 className="text-xl font-serif font-bold text-[#5e0c15]">
+              <h3 className="text-xl font-serif font-bold text-[#4a1810]">
                 {t.correctionModal.title}
               </h3>
               <p className="text-xs text-[#57534e] mt-1">
@@ -100,7 +100,7 @@ export function CorrectionModal({
                   onChange={(e) =>
                     setSubmissionType(e.target.value as SubmissionType)
                   }
-                  className="w-full text-sm px-3 py-2 rounded-lg border border-[#ede4d1] bg-white text-[#1c1917] focus:ring-2 focus:ring-[#7a121d]"
+                  className="w-full text-sm px-3 py-2 rounded-lg border border-[#ede4d1] bg-white text-[#1c1917] focus:ring-2 focus:ring-[#8b2f1e]"
                 >
                   <option value="correction">Pandal Detail / Location Correction</option>
                   <option value="timing_update">Darshan Timing / Event Update</option>
@@ -117,7 +117,7 @@ export function CorrectionModal({
                   value={pandalName}
                   onChange={(e) => setPandalName(e.target.value)}
                   placeholder="e.g. Chasapara Buri Maa"
-                  className="w-full text-sm px-3 py-2 rounded-lg border border-[#ede4d1] bg-white text-[#1c1917] focus:ring-2 focus:ring-[#7a121d]"
+                  className="w-full text-sm px-3 py-2 rounded-lg border border-[#ede4d1] bg-white text-[#1c1917] focus:ring-2 focus:ring-[#8b2f1e]"
                 />
               </div>
 
@@ -131,7 +131,7 @@ export function CorrectionModal({
                     value={reporterName}
                     onChange={(e) => setReporterName(e.target.value)}
                     placeholder="Your name"
-                    className="w-full text-sm px-3 py-2 rounded-lg border border-[#ede4d1] bg-white text-[#1c1917] focus:ring-2 focus:ring-[#7a121d]"
+                    className="w-full text-sm px-3 py-2 rounded-lg border border-[#ede4d1] bg-white text-[#1c1917] focus:ring-2 focus:ring-[#8b2f1e]"
                   />
                 </div>
                 <div>
@@ -143,7 +143,7 @@ export function CorrectionModal({
                     value={reporterContact}
                     onChange={(e) => setReporterContact(e.target.value)}
                     placeholder="Phone or email"
-                    className="w-full text-sm px-3 py-2 rounded-lg border border-[#ede4d1] bg-white text-[#1c1917] focus:ring-2 focus:ring-[#7a121d]"
+                    className="w-full text-sm px-3 py-2 rounded-lg border border-[#ede4d1] bg-white text-[#1c1917] focus:ring-2 focus:ring-[#8b2f1e]"
                   />
                 </div>
               </div>
@@ -158,7 +158,7 @@ export function CorrectionModal({
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Please state the verified detail, correct address, or official committee notification source..."
-                  className="w-full text-sm px-3 py-2 rounded-lg border border-[#ede4d1] bg-white text-[#1c1917] focus:ring-2 focus:ring-[#7a121d]"
+                  className="w-full text-sm px-3 py-2 rounded-lg border border-[#ede4d1] bg-white text-[#1c1917] focus:ring-2 focus:ring-[#8b2f1e]"
                 />
               </div>
             </div>

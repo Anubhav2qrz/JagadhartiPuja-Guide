@@ -62,11 +62,11 @@ export default function EssentialsPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
       {/* Page Header */}
       <div className="border-b border-[#ede4d1] pb-6">
-        <div className="flex items-center gap-2 text-xs font-bold text-[#7a121d] uppercase tracking-wider mb-1">
-          <Utensils className="w-3.5 h-3.5 text-[#c59b27]" />
+        <div className="flex items-center gap-2 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider mb-1">
+          <Utensils className="w-3.5 h-3.5 text-[#d99b26]" />
           <span>Taste of Krishnanagar & Visitor Amenities</span>
         </div>
-        <h1 className="font-serif font-bold text-2xl sm:text-4xl text-[#5e0c15]">
+        <h1 className="font-serif font-bold text-2xl sm:text-4xl text-[#4a1810]">
           {t.nav.essentials}
         </h1>
         <p className="text-xs sm:text-sm text-[#57534e] mt-1.5 max-w-2xl">
@@ -90,7 +90,7 @@ export default function EssentialsPage() {
                 ? "মিষ্টির দোকান, পার্কিং বা ফার্স্ট এইড কেন্দ্র খুঁজুন..."
                 : "Search sweet shops, parking zones, drinking water..."
             }
-            className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7a121d] transition-all"
+            className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#8b2f1e] transition-all"
           />
         </div>
 
@@ -105,7 +105,7 @@ export default function EssentialsPage() {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 whitespace-nowrap transition-all cursor-pointer ${
                   active
-                    ? "bg-[#5e0c15] text-[#fcfaf5] shadow-xs border border-[#c59b27]/30"
+                    ? "bg-[#4a1810] text-[#fcfaf5] shadow-xs border border-[#d99b26]/30"
                     : "bg-stone-100 text-stone-700 hover:bg-stone-200"
                 }`}
               >
@@ -130,7 +130,7 @@ export default function EssentialsPage() {
                 setSearchQuery("");
                 setSelectedCategory("all");
               }}
-              className="text-[#7a121d] font-bold hover:underline cursor-pointer"
+              className="text-[#8b2f1e] font-bold hover:underline cursor-pointer"
             >
               {t.actions.clearFilters}
             </button>
@@ -139,7 +139,7 @@ export default function EssentialsPage() {
 
         {filteredPlaces.length === 0 ? (
           <div className="bg-white rounded-2xl p-12 text-center border border-[#ede4d1] shadow-xs space-y-3">
-            <MapPin className="w-10 h-10 text-[#c59b27] mx-auto opacity-75" />
+            <MapPin className="w-10 h-10 text-[#d99b26] mx-auto opacity-75" />
             <h3 className="font-serif font-bold text-lg text-[#1c1917]">
               {t.empty.noPlaces}
             </h3>

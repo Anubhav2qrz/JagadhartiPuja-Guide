@@ -32,7 +32,7 @@ const DEFAULT_ZOOM = 14;
 
 // Custom Leaflet Icons for Bengali festival theme
 const createFestivalIcon = (isSelected: boolean, category: PandalCategory) => {
-  const iconColor = isSelected ? "#c59b27" : "#7a121d";
+  const iconColor = isSelected ? "#d99b26" : "#8b2f1e";
   const pinBorder = isSelected ? "#ffffff" : "#ede4d1";
   const size = isSelected ? 42 : 36;
 
@@ -256,7 +256,7 @@ export default function InteractiveMapInner({
                   ? "মণ্ডপের নাম দিয়ে খুঁজুন..."
                   : "Search pandal by name..."
               }
-              className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm bg-transparent rounded-xl focus:outline-none focus:ring-1 focus:ring-[#7a121d]"
+              className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm bg-transparent rounded-xl focus:outline-none focus:ring-1 focus:ring-[#8b2f1e]"
             />
             {searchQuery && (
               <button
@@ -297,7 +297,7 @@ export default function InteractiveMapInner({
           {/* Mobile Drawer Toggle */}
           <button
             onClick={() => setShowDrawer(!showDrawer)}
-            className="px-2.5 py-2 rounded-xl bg-[#7a121d] text-white hover:bg-[#8c1622] transition-colors flex items-center gap-1.5 sm:hidden cursor-pointer shadow-md active:scale-95 shrink-0"
+            className="px-2.5 py-2 rounded-xl bg-[#8b2f1e] text-white hover:bg-[#a33b25] transition-colors flex items-center gap-1.5 sm:hidden cursor-pointer shadow-md active:scale-95 shrink-0"
             title="Toggle pandal list"
             aria-label="Toggle pandal list"
           >
@@ -317,7 +317,7 @@ export default function InteractiveMapInner({
             title={t.actions.locateMe}
           >
             <Crosshair
-              className={`w-4 h-4 text-[#7a121d] ${
+              className={`w-4 h-4 text-[#8b2f1e] ${
                 isLocating ? "animate-spin" : ""
               }`}
             />
@@ -418,7 +418,7 @@ export default function InteractiveMapInner({
                             alt={displayName}
                             className="w-full h-full object-cover"
                           />
-                          <div className="absolute top-2 left-2 bg-[#5e0c15] text-[#fcfaf5] text-[10px] font-bold px-2 py-0.5 rounded-md border border-[#c59b27]/40 shadow-xs">
+                          <div className="absolute top-2 left-2 bg-[#4a1810] text-[#fcfaf5] text-[10px] font-bold px-2 py-0.5 rounded-md border border-[#d99b26]/40 shadow-xs">
                             {t.categories[pandal.category]}
                           </div>
                         </div>
@@ -426,7 +426,7 @@ export default function InteractiveMapInner({
                         {/* Info & Navigation */}
                         <div className="p-3 space-y-2">
                           <div>
-                            <span className="text-[10px] font-bold text-[#7a121d] flex items-center gap-0.5 uppercase tracking-wider">
+                            <span className="text-[10px] font-bold text-[#8b2f1e] flex items-center gap-0.5 uppercase tracking-wider">
                               <MapPin className="w-3 h-3" />
                               {displayLocality}
                             </span>
@@ -450,7 +450,7 @@ export default function InteractiveMapInner({
                             className="w-full py-1.5 px-3 rounded-lg bg-stone-100 hover:bg-[#ede4d1] text-stone-800 text-xs font-semibold flex items-center justify-center gap-1 transition-colors"
                           >
                             <span>{t.actions.viewDetails}</span>
-                            <ExternalLink className="w-3 h-3 text-[#7a121d]" />
+                            <ExternalLink className="w-3 h-3 text-[#8b2f1e]" />
                           </Link>
                         </div>
                       </div>
@@ -481,7 +481,7 @@ export default function InteractiveMapInner({
           {/* Header */}
           <div className="p-4 border-b border-[#ede4d1] flex items-center justify-between bg-[#fcfaf5]">
             <div>
-              <h3 className="font-serif font-bold text-base text-[#5e0c15]">
+              <h3 className="font-serif font-bold text-base text-[#4a1810]">
                 {language === "bn" ? "মণ্ডপ পরিক্রমা তালিকা" : "Krishnanagar Pandals"}
               </h3>
               <p className="text-xs text-[#78716c]">
@@ -507,7 +507,7 @@ export default function InteractiveMapInner({
                 <p className="text-xs mt-1">{t.empty.noPandalsDesc}</p>
                 <button
                   onClick={handleResetView}
-                  className="mt-3 text-xs font-bold text-[#7a121d] hover:underline"
+                  className="mt-3 text-xs font-bold text-[#8b2f1e] hover:underline"
                 >
                   {t.actions.clearFilters}
                 </button>
@@ -530,7 +530,7 @@ export default function InteractiveMapInner({
                     onClick={() => handleSelectPandal(pandal)}
                     className={`p-3 rounded-xl border transition-all cursor-pointer flex gap-3 ${
                       isSelected
-                        ? "bg-[#fdfaf2] border-[#c59b27] shadow-md ring-1 ring-[#c59b27]"
+                        ? "bg-[#fdfaf2] border-[#d99b26] shadow-md ring-1 ring-[#d99b26]"
                         : "bg-white border-[#ede4d1] hover:bg-stone-50"
                     }`}
                   >
@@ -540,7 +540,7 @@ export default function InteractiveMapInner({
                       className="w-16 h-16 rounded-lg object-cover shrink-0 bg-stone-200"
                     />
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1 text-[11px] font-semibold text-[#7a121d]">
+                      <div className="flex items-center gap-1 text-[11px] font-semibold text-[#8b2f1e]">
                         <MapPin className="w-3 h-3" />
                         <span className="truncate">{displayLocality}</span>
                       </div>
@@ -554,7 +554,7 @@ export default function InteractiveMapInner({
                         <Link
                           href={`/pandals/${pandal.slug}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="text-[11px] font-bold text-[#7a121d] hover:underline flex items-center gap-0.5 ml-auto"
+                          className="text-[11px] font-bold text-[#8b2f1e] hover:underline flex items-center gap-0.5 ml-auto"
                         >
                           <span>{t.actions.viewDetails}</span>
                         </Link>

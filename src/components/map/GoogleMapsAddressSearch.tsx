@@ -123,9 +123,9 @@ export default function GoogleMapsAddressSearch({
     <div ref={containerRef} className="relative w-full space-y-2">
       {/* Search Input Box */}
       <div className="relative flex items-center">
-        <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7a121d] pointer-events-none flex items-center justify-center">
+        <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8b2f1e] pointer-events-none flex items-center justify-center">
           {isLoading ? (
-            <Loader2 className="w-4 h-4 animate-spin text-[#7a121d]" />
+            <Loader2 className="w-4 h-4 animate-spin text-[#8b2f1e]" />
           ) : (
             <Search className="w-4 h-4 text-stone-400" />
           )}
@@ -144,7 +144,7 @@ export default function GoogleMapsAddressSearch({
           placeholder={placeholder}
           autoComplete="off"
           spellCheck="false"
-          className="w-full pl-10 pr-10 py-3 text-xs sm:text-sm rounded-xl border border-stone-200 bg-stone-50/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7a121d]/20 focus:border-[#7a121d] transition-all shadow-2xs font-medium text-stone-900 placeholder:text-stone-400"
+          className="w-full pl-10 pr-10 py-3 text-xs sm:text-sm rounded-xl border border-stone-200 bg-stone-50/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#8b2f1e]/20 focus:border-[#8b2f1e] transition-all shadow-2xs font-medium text-stone-900 placeholder:text-stone-400"
         />
 
         {value && (
@@ -166,8 +166,8 @@ export default function GoogleMapsAddressSearch({
       {isOpen && (
         <div className="absolute left-0 right-0 top-full mt-1.5 bg-white rounded-2xl border border-[#ede4d1] shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150">
           <div className="px-3.5 py-2 bg-[#fcfaf5] border-b border-[#ede4d1] flex items-center justify-between">
-            <span className="text-[11px] font-bold text-[#5e0c15] uppercase tracking-wider flex items-center gap-1.5">
-              <Compass className="w-3 h-3 text-[#c59b27]" />
+            <span className="text-[11px] font-bold text-[#4a1810] uppercase tracking-wider flex items-center gap-1.5">
+              <Compass className="w-3 h-3 text-[#d99b26]" />
               {!value ? "Popular Krishnanagar Landmarks" : "Address Suggestions"}
             </span>
             <span className="text-[10px] text-stone-400">
@@ -206,13 +206,13 @@ export default function GoogleMapsAddressSearch({
                       className={`w-8 h-8 rounded-full shrink-0 flex items-center justify-center mt-0.5 border ${
                         isSelected
                           ? "bg-emerald-100 text-emerald-800 border-emerald-300"
-                          : "bg-rose-50 text-[#7a121d] border-rose-200"
+                          : "bg-rose-50 text-[#8b2f1e] border-rose-200"
                       }`}
                     >
                       {isSelected ? (
                         <Check className="w-4 h-4 text-emerald-700" />
                       ) : (
-                        <MapPin className="w-4 h-4 text-[#7a121d]" />
+                        <MapPin className="w-4 h-4 text-[#8b2f1e]" />
                       )}
                     </div>
 

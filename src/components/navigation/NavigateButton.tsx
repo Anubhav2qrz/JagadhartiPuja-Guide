@@ -121,18 +121,18 @@ export function NavigateButton({
           className={`flex-1 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm active:scale-[0.98] transition-all min-h-11 ${
             variant === "primary"
               ? "btn-maroon-action px-4 py-2.5"
-              : "bg-[#f7f3e8] hover:bg-[#ede4d1] text-[#5e0c15] border border-[#c59b27]/50 px-3 py-2"
+              : "bg-[#f7f3e8] hover:bg-[#ede4d1] text-[#4a1810] border border-[#d99b26]/50 px-3 py-2"
           }`}
           title={`${t.actions.navigateGoogleMaps} ${pandalName ? `(${pandalName})` : ""}`}
         >
-          <Navigation className="w-4 h-4 text-[#e6be58] shrink-0" />
+          <Navigation className="w-4 h-4 text-[#f5ba42] shrink-0" />
           <span className="font-semibold tracking-tight">
             {isLocating ? "..." : t.actions.navigateGoogleMaps}
           </span>
         </button>
 
         {showModeSelector && (
-          <div className="flex items-center bg-[#ede4d1]/70 rounded-xl p-1 border border-[#c59b27]/30 shrink-0">
+          <div className="flex items-center bg-[#ede4d1]/70 rounded-xl p-1 border border-[#d99b26]/30 shrink-0">
             <button
               type="button"
               onClick={(e) => {
@@ -141,7 +141,7 @@ export function NavigateButton({
               }}
               className={`p-2 rounded-lg text-xs transition-colors ${
                 travelMode === "walking"
-                  ? "bg-[#7a121d] text-white shadow-xs"
+                  ? "bg-[#8b2f1e] text-white shadow-xs"
                   : "text-[#57534e] hover:text-[#1c1917]"
               }`}
               title={t.routePlanner.walking}
@@ -157,7 +157,7 @@ export function NavigateButton({
               }}
               className={`p-2 rounded-lg text-xs transition-colors ${
                 travelMode === "driving"
-                  ? "bg-[#7a121d] text-white shadow-xs"
+                  ? "bg-[#8b2f1e] text-white shadow-xs"
                   : "text-[#57534e] hover:text-[#1c1917]"
               }`}
               title={t.routePlanner.driving}

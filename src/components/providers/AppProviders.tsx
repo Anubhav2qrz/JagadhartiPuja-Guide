@@ -14,7 +14,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
     <LanguageProvider>
       <FavoritesProvider>
         <RoutePlannerProvider>
-          <div className="min-h-screen flex flex-col bg-[#fcfaf5] text-[#1c1917] selection:bg-[#c59b27]/30 selection:text-[#5e0c15]">
+          <div className="min-h-screen flex flex-col bg-[#fcfaf5] text-[#1c1917] selection:bg-[#d99b26]/30 selection:text-[#4a1810]">
             <Navbar />
             <main className="flex-1 pb-20 lg:pb-0">{children}</main>
             <Footer />

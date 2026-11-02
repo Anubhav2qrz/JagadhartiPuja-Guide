@@ -79,7 +79,7 @@ export function PlaceCard({ place }: PlaceCardProps) {
         </h3>
 
         {/* Address */}
-        <p className="text-xs text-[#7a121d] font-semibold flex items-center gap-1 mt-1">
+        <p className="text-xs text-[#8b2f1e] font-semibold flex items-center gap-1 mt-1">
           <MapPin className="w-3.5 h-3.5 shrink-0" />
           <span>{displayAddress}</span>
         </p>
@@ -92,7 +92,7 @@ export function PlaceCard({ place }: PlaceCardProps) {
         {/* Opening Hours if available */}
         {place.opening_hours && (
           <div className="mt-3 pt-3 border-t border-[#ede4d1] flex items-center gap-1.5 text-xs text-[#78716c]">
-            <Clock className="w-3.5 h-3.5 text-[#c59b27] shrink-0" />
+            <Clock className="w-3.5 h-3.5 text-[#d99b26] shrink-0" />
             <span>
               {typeof place.opening_hours === "string"
                 ? place.opening_hours

@@ -22,11 +22,11 @@ export default function AboutPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12">
       {/* Header */}
       <div className="text-center space-y-3 border-b border-[#ede4d1] pb-8">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#c59b27]/20 border border-[#c59b27]/40 text-[#7a121d] text-xs font-bold">
-          <Landmark className="w-3.5 h-3.5 text-[#c59b27]" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#d99b26]/20 border border-[#d99b26]/40 text-[#8b2f1e] text-xs font-bold">
+          <Landmark className="w-3.5 h-3.5 text-[#d99b26]" />
           <span>Heritage of Nadia, West Bengal</span>
         </div>
-        <h1 className="font-serif font-extrabold text-3xl sm:text-5xl text-[#5e0c15]">
+        <h1 className="font-serif font-extrabold text-3xl sm:text-5xl text-[#4a1810]">
           {language === "bn"
             ? "কৃষ্ণনগর জগদ্ধাত্রী পূজার গৌরবময় ঐতিহ্য"
             : "The Glorious Heritage of Krishnanagar Jagadhatri Puja"}
@@ -38,8 +38,8 @@ export default function AboutPage() {
 
       {/* Chapter 1: The Royal Inception (1762) */}
       <section className="bg-white rounded-3xl p-6 sm:p-8 border border-[#ede4d1] shadow-xs space-y-4">
-        <div className="flex items-center gap-2 text-xs font-bold text-[#7a121d] uppercase tracking-wider">
-          <Calendar className="w-4 h-4 text-[#c59b27]" />
+        <div className="flex items-center gap-2 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider">
+          <Calendar className="w-4 h-4 text-[#d99b26]" />
           <span>Origin: 1762 CE</span>
         </div>
         <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#1c1917]">
@@ -63,8 +63,8 @@ export default function AboutPage() {
 
       {/* Chapter 2: Chasapara Buri Maa */}
       <section className="bg-white rounded-3xl p-6 sm:p-8 border border-[#ede4d1] shadow-xs space-y-4">
-        <div className="flex items-center gap-2 text-xs font-bold text-[#7a121d] uppercase tracking-wider">
-          <Heart className="w-4 h-4 text-[#c59b27]" />
+        <div className="flex items-center gap-2 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider">
+          <Heart className="w-4 h-4 text-[#d99b26]" />
           <span>The Sovereign Mother</span>
         </div>
         <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#1c1917]">
@@ -83,8 +83,8 @@ export default function AboutPage() {
 
       {/* Chapter 3: The World-Famous Sangha Immersion Procession */}
       <section className="bg-white rounded-3xl p-6 sm:p-8 border border-[#ede4d1] shadow-xs space-y-4">
-        <div className="flex items-center gap-2 text-xs font-bold text-[#7a121d] uppercase tracking-wider">
-          <Compass className="w-4 h-4 text-[#c59b27]" />
+        <div className="flex items-center gap-2 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider">
+          <Compass className="w-4 h-4 text-[#d99b26]" />
           <span>Unique Festival Ritual</span>
         </div>
         <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#1c1917]">
@@ -103,7 +103,7 @@ export default function AboutPage() {
 
       {/* Editorial Policy & Verification Statement */}
       <section className="bg-[#fcfaf5] rounded-3xl p-6 sm:p-8 border-2 border-[#ede4d1] space-y-4">
-        <div className="flex items-center gap-2 text-xs font-bold text-[#7a121d] uppercase tracking-wider">
+        <div className="flex items-center gap-2 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider">
           <ShieldCheck className="w-4 h-4 text-emerald-600" />
           <span>Editorial Integrity Policy</span>
         </div>
@@ -136,7 +136,7 @@ export default function AboutPage() {
           </a>
           <Link
             href="/map"
-            className="text-xs font-bold text-[#7a121d] hover:underline"
+            className="text-xs font-bold text-[#8b2f1e] hover:underline"
           >
             {t.discovery.viewFullMap}
           </Link>

@@ -21,7 +21,7 @@ const pickerIcon = L.divIcon({
       justify-content: center;
       filter: drop-shadow(0 2px 5px rgba(0,0,0,0.4));
     ">
-      <svg viewBox="0 0 24 24" width="32" height="32" fill="#7a121d" stroke="#ffffff" stroke-width="2">
+      <svg viewBox="0 0 24 24" width="32" height="32" fill="#8b2f1e" stroke="#ffffff" stroke-width="2">
         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
         <circle cx="12" cy="9" r="3" fill="#ffffff"/>
       </svg>

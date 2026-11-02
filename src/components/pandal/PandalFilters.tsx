@@ -50,7 +50,7 @@ export function PandalFilters({
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder={t.filters.searchPlaceholder}
-          className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7a121d] transition-all"
+          className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#8b2f1e] transition-all"
         />
       </div>
 
@@ -69,7 +69,7 @@ export function PandalFilters({
               onClick={() => onCategoryChange(cat.id)}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 active
-                  ? "bg-[#5e0c15] text-[#fcfaf5] shadow-xs border border-[#c59b27]/30"
+                  ? "bg-[#4a1810] text-[#fcfaf5] shadow-xs border border-[#d99b26]/30"
                   : "bg-stone-100 text-stone-700 hover:bg-stone-200"
               }`}
             >
@@ -89,7 +89,7 @@ export function PandalFilters({
           <select
             value={selectedLocality}
             onChange={(e) => onLocalityChange(e.target.value)}
-            className="w-full text-xs py-2 px-3 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-1 focus:ring-[#7a121d]"
+            className="w-full text-xs py-2 px-3 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-1 focus:ring-[#8b2f1e]"
           >
             <option value="all">{t.filters.allLocalities}</option>
             {localities.map((loc) => (
@@ -110,7 +110,7 @@ export function PandalFilters({
             onChange={(e) =>
               onSortByChange(e.target.value as "featured" | "name" | "locality")
             }
-            className="w-full text-xs py-2 px-3 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-1 focus:ring-[#7a121d]"
+            className="w-full text-xs py-2 px-3 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-1 focus:ring-[#8b2f1e]"
           >
             <option value="featured">{t.filters.sortFeatured}</option>
             <option value="name">{t.filters.sortName}</option>
@@ -125,7 +125,7 @@ export function PandalFilters({
               type="checkbox"
               checked={verifiedOnly}
               onChange={(e) => onVerifiedOnlyChange(e.target.checked)}
-              className="rounded text-[#7a121d] focus:ring-[#7a121d]"
+              className="rounded text-[#8b2f1e] focus:ring-[#8b2f1e]"
             />
             <span>{t.filters.verifiedOnly}</span>
           </label>
@@ -135,7 +135,7 @@ export function PandalFilters({
               type="checkbox"
               checked={wheelchairOnly}
               onChange={(e) => onWheelchairOnlyChange(e.target.checked)}
-              className="rounded text-[#7a121d] focus:ring-[#7a121d]"
+              className="rounded text-[#8b2f1e] focus:ring-[#8b2f1e]"
             />
             <span>{t.filters.wheelchairOnly}</span>
           </label>

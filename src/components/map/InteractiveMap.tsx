@@ -16,9 +16,9 @@ const DynamicMap = dynamic(
     ssr: false,
     loading: () => (
       <div className="w-full h-[calc(100vh-4rem)] sm:h-[calc(100vh-5rem)] bg-[#ede4d1]/30 flex flex-col items-center justify-center p-6 text-center space-y-4">
-        <div className="w-12 h-12 border-4 border-[#7a121d] border-t-transparent rounded-full animate-spin" />
+        <div className="w-12 h-12 border-4 border-[#8b2f1e] border-t-transparent rounded-full animate-spin" />
         <div className="space-y-1">
-          <p className="font-serif font-bold text-lg text-[#5e0c15]">
+          <p className="font-serif font-bold text-lg text-[#4a1810]">
             Loading Krishnanagar Interactive Map...
           </p>
           <p className="text-xs text-[#78716c]">
