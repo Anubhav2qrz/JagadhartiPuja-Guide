@@ -74,7 +74,17 @@ export const dataStore = {
     includeUnpublished?: boolean;
   }): Pandal[] {
     const all = getStored<Pandal[]>(STORAGE_KEYS.PANDALS, memoryPandals);
-    let filtered = all.filter((p) => options?.includeUnpublished || p.is_published);
+    
+    // Deduplicate by slug or ID to prevent phantom duplicates
+    const seenSlugs = new Set<string>();
+    const deduplicated = all.filter((p) => {
+      const key = (p.slug || p.id || "").toLowerCase().trim();
+      if (!key || seenSlugs.has(key)) return false;
+      seenSlugs.add(key);
+      return true;
+    });
+
+    let filtered = deduplicated.filter((p) => options?.includeUnpublished || p.is_published);
 
     if (options?.localityId && options.localityId !== "all") {
       filtered = filtered.filter((p) => p.locality_id === options.localityId);

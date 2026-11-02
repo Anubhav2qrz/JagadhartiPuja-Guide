@@ -80,27 +80,39 @@ export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
+    const slug = searchParams.get("slug");
     const type = searchParams.get("type") || "pandal";
 
-    if (!id) {
+    if (!id && !slug) {
       return NextResponse.json(
-        { success: false, error: "Missing id parameter" },
+        { success: false, error: "Missing id or slug parameter" },
         { status: 400 }
       );
     }
 
     const supabase = getServiceSupabase();
     const table = type === "place" ? "places" : "pandals";
-    const { error } = await supabase.from(table).delete().eq("id", id);
 
-    if (error) {
-      return NextResponse.json(
-        { success: false, error: error.message },
-        { status: 500 }
-      );
+    let deleted = false;
+    // 1. Try deleting by valid UUID if id is a uuid
+    if (id && isUuid(id)) {
+      const { error: uuidErr } = await supabase.from(table).delete().eq("id", id);
+      if (!uuidErr) deleted = true;
     }
 
-    return NextResponse.json({ success: true, id });
+    // 2. Try deleting by slug
+    const targetSlug = slug || (id && !isUuid(id) ? id.replace(/^(pandal|place|loc)-/, "") : null);
+    if (targetSlug) {
+      const { error: slugErr } = await supabase.from(table).delete().eq("slug", targetSlug);
+      if (!slugErr) deleted = true;
+    }
+
+    // 3. For places without slug, try deleting by name
+    if (type === "place" && !deleted && id) {
+      await supabase.from(table).delete().eq("name", id);
+    }
+
+    return NextResponse.json({ success: true, id, slug });
   } catch (err: any) {
     return NextResponse.json(
       { success: false, error: err?.message || "Delete failed" },

@@ -283,14 +283,18 @@ export default function AdminPage() {
 
   const handleDeletePandal = async (id: string) => {
     if (confirm("Are you sure you want to delete this pandal listing?")) {
+      const targetPandal = pandals.find((p) => p.id === id);
       dataStore.deletePandal(id);
       refreshData();
       showSuccess("Pandal deleted locally. Removing from Supabase Cloud...");
       try {
-        await fetch(`/api/sync-supabase?id=${encodeURIComponent(id)}&type=pandal`, {
+        const params = new URLSearchParams({ type: "pandal", id });
+        if (targetPandal?.slug) {
+          params.set("slug", targetPandal.slug);
+        }
+        await fetch(`/api/sync-supabase?${params.toString()}`, {
           method: "DELETE",
         });
-        await dataStore.syncToCloud();
         showSuccess("☁️ Pandal deleted from Supabase Cloud.");
       } catch {
         // Fallback
