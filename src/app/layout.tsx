@@ -44,13 +44,20 @@ export const metadata: Metadata = {
     description:
       "The comprehensive, mobile-first guide to Krishnanagar Jagadhatri Puja pandals, sweets, and Google Maps directions.",
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Jagadhatri Darshan",
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  userScalable: true,
   themeColor: "#5e0c15",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

@@ -8,7 +8,8 @@ import { PandalCard } from "@/components/pandal/PandalCard";
 import { PlaceCard } from "@/components/essentials/PlaceCard";
 import { InteractiveMap } from "@/components/map/InteractiveMap";
 import {
-  Sparkles,
+  Flame,
+  Landmark,
   MapPin,
   Route,
   Compass,
@@ -86,7 +87,7 @@ export default function HomePage() {
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center space-y-6">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#c59b27]/20 border border-[#c59b27]/50 text-[#e6be58] text-xs sm:text-sm font-bold backdrop-blur-xs shadow-md">
-            <Sparkles className="w-4 h-4 text-[#e6be58]" />
+            <Flame className="w-4 h-4 text-[#e6be58]" />
             <span>{t.hero.badge}</span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#c59b27]" />
             <span>{t.locationLabel}</span>
@@ -212,7 +213,7 @@ export default function HomePage() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#ede4d1] pb-4">
           <div>
             <div className="flex items-center gap-1.5 text-xs font-bold text-[#7a121d] uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5 text-[#c59b27]" />
+              <Landmark className="w-3.5 h-3.5 text-[#c59b27]" />
               <span>Krishnanagar Landmarks</span>
             </div>
             <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#5e0c15] mt-0.5">
@@ -352,7 +353,7 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 mb-12">
         <div className="border-b border-[#ede4d1] pb-4">
           <div className="flex items-center gap-1.5 text-xs font-bold text-[#7a121d] uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5 text-[#c59b27]" />
+            <Flame className="w-3.5 h-3.5 text-[#c59b27]" />
             <span>Sacred Traditions</span>
           </div>
           <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#5e0c15] mt-0.5">

@@ -3,7 +3,7 @@
 import React from "react";
 import { Locality } from "@/types";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { Search, RotateCcw, Check, Sparkles, Filter } from "lucide-react";
+import { Search, RotateCcw, Check, Filter } from "lucide-react";
 
 interface PandalFiltersProps {
   localities: Locality[];

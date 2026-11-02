@@ -9,7 +9,6 @@ import {
   Utensils,
   Search,
   RotateCcw,
-  Sparkles,
   MapPin,
   Coffee,
   Car,

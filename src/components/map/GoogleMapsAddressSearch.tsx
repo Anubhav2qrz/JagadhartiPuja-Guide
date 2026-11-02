@@ -6,7 +6,7 @@ import {
   MapPin,
   X,
   Loader2,
-  Sparkles,
+  Compass,
   ExternalLink,
   Check,
 } from "lucide-react";
@@ -167,7 +167,7 @@ export default function GoogleMapsAddressSearch({
         <div className="absolute left-0 right-0 top-full mt-1.5 bg-white rounded-2xl border border-[#ede4d1] shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150">
           <div className="px-3.5 py-2 bg-[#fcfaf5] border-b border-[#ede4d1] flex items-center justify-between">
             <span className="text-[11px] font-bold text-[#5e0c15] uppercase tracking-wider flex items-center gap-1.5">
-              <Sparkles className="w-3 h-3 text-[#c59b27]" />
+              <Compass className="w-3 h-3 text-[#c59b27]" />
               {!value ? "Popular Krishnanagar Landmarks" : "Address Suggestions"}
             </span>
             <span className="text-[10px] text-stone-400">

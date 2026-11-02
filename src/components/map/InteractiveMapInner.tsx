@@ -21,7 +21,6 @@ import {
   MapPin,
   ExternalLink,
   Layers,
-  Sparkles,
   AlertCircle,
   X,
   List,
@@ -298,11 +297,12 @@ export default function InteractiveMapInner({
           {/* Mobile Drawer Toggle */}
           <button
             onClick={() => setShowDrawer(!showDrawer)}
-            className="p-2 rounded-xl bg-[#7a121d] text-white hover:bg-[#8c1622] transition-colors flex items-center gap-1 sm:hidden cursor-pointer"
+            className="px-2.5 py-2 rounded-xl bg-[#7a121d] text-white hover:bg-[#8c1622] transition-colors flex items-center gap-1.5 sm:hidden cursor-pointer shadow-md active:scale-95 shrink-0"
             title="Toggle pandal list"
+            aria-label="Toggle pandal list"
           >
             <List className="w-4 h-4" />
-            <span className="text-xs font-semibold">
+            <span className="text-xs font-bold">
               {filteredPandals.length}
             </span>
           </button>
@@ -462,9 +462,17 @@ export default function InteractiveMapInner({
           )}
         </div>
 
+        {/* Mobile Backdrop Overlay */}
+        {showDrawer && (
+          <div
+            className="fixed inset-0 bg-black/40 z-15 md:hidden backdrop-blur-xs transition-opacity"
+            onClick={() => setShowDrawer(false)}
+          />
+        )}
+
         {/* Synchronized Side List (Desktop: persistent sidebar, Mobile: toggleable drawer) */}
         <div
-          className={`absolute md:relative z-20 top-0 bottom-0 right-0 w-80 md:w-96 bg-white/95 backdrop-blur-md border-l border-[#ede4d1] shadow-xl flex flex-col transition-transform duration-300 ${
+          className={`absolute md:relative z-20 top-0 bottom-0 right-0 w-[88vw] max-w-sm md:w-96 bg-white/98 backdrop-blur-md border-l border-[#ede4d1] shadow-xl flex flex-col transition-transform duration-300 ${
             showDrawer
               ? "translate-x-0"
               : "translate-x-full md:translate-x-0"

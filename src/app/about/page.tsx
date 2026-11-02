@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import {
-  Sparkles,
+  Landmark,
   MapPin,
   Compass,
   ShieldCheck,
@@ -12,6 +12,7 @@ import {
   Calendar,
   Heart,
   ExternalLink,
+  MessageCircle,
 } from "lucide-react";
 
 export default function AboutPage() {
@@ -22,7 +23,7 @@ export default function AboutPage() {
       {/* Header */}
       <div className="text-center space-y-3 border-b border-[#ede4d1] pb-8">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#c59b27]/20 border border-[#c59b27]/40 text-[#7a121d] text-xs font-bold">
-          <Sparkles className="w-3.5 h-3.5 text-[#c59b27]" />
+          <Landmark className="w-3.5 h-3.5 text-[#c59b27]" />
           <span>Heritage of Nadia, West Bengal</span>
         </div>
         <h1 className="font-serif font-extrabold text-3xl sm:text-5xl text-[#5e0c15]">
@@ -116,7 +117,7 @@ export default function AboutPage() {
             ? "জগদ্ধাত্রী দর্শন কোনো কাল্পনিক সময়সূচি বা অসত্য জনপ্রিয়তা রেটিং প্রচার করে না। প্রতিটি মণ্ডপের স্থানাঙ্ক মাঠপর্যায়ে নিশ্চিত করা হয়। যে সকল মণ্ডপের অবস্থান যাচাই সম্পন্ন হয়নি, সেগুলোতে নেভিগেশন স্থগিত রাখা হয় যেন দর্শনার্থীরা বিভ্রান্ত না হন।"
             : "Jagadhatri Darshan strictly adheres to content integrity. We never fabricate coordinates, travel times, visitor ratings, or unverified announcements. Unverified listings are clearly demarcated, and navigation links remain disabled until coordinates are authenticated by official committee records or GPS field audits."}
         </p>
-        <div className="pt-2 flex items-center gap-4">
+        <div className="pt-2 flex flex-wrap items-center gap-4">
           <Link
             href="/pandals"
             className="btn-maroon-action px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5"
@@ -124,6 +125,15 @@ export default function AboutPage() {
             <Compass className="w-4 h-4" />
             <span>{t.hero.exploreBtn}</span>
           </Link>
+          <a
+            href="https://wa.me/917001919941?text=Hello!%20I%20have%20a%20query%20regarding%20Jagadhatri%20Puja%20Krishnanagar."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2.5 rounded-xl text-xs font-bold bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center gap-1.5 shadow-sm transition-all"
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span>WhatsApp Support: +91 70019 19941</span>
+          </a>
           <Link
             href="/map"
             className="text-xs font-bold text-[#7a121d] hover:underline"

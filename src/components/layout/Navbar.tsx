@@ -15,7 +15,8 @@ import {
   X,
   Languages,
   ShieldCheck,
-  Sparkles,
+  Flame,
+  MessageCircle,
 } from "lucide-react";
 
 export function Navbar() {
@@ -52,7 +53,7 @@ export function Navbar() {
             className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none"
           >
             <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-gradient-to-br from-[#c59b27] via-[#e6be58] to-[#9e7914] flex items-center justify-center shadow-inner text-[#5e0c15] font-serif font-bold text-lg sm:text-xl border border-[#f3d47d]/40 group-hover:scale-105 transition-transform">
-              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
+              <Flame className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
@@ -155,6 +156,23 @@ export function Navbar() {
               </Link>
             );
           })}
+
+          {/* Mobile Direct WhatsApp Helpline */}
+          <div className="pt-3 mt-2 border-t border-[#c59b27]/20">
+            <a
+              href="https://wa.me/917001919941?text=Hello!%20I%20need%20assistance%20with%20the%20Jagadhatri%20Darshan%20Krishnanagar%20Guide."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-lg bg-[#25D366] text-white font-bold text-sm shadow-md transition-all active:scale-98"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>
+                {language === "bn"
+                  ? "হোয়াটসঅ্যাপ সাপোর্ট (+91 70019 19941)"
+                  : "WhatsApp Support (+91 70019 19941)"}
+              </span>
+            </a>
+          </div>
         </div>
       )}
     </header>

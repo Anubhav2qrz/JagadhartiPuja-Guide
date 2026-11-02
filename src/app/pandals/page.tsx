@@ -5,7 +5,7 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useDataStore } from "@/lib/data/useDataStore";
 import { PandalCard } from "@/components/pandal/PandalCard";
 import { PandalFilters } from "@/components/pandal/PandalFilters";
-import { Sparkles, MapPin, Compass } from "lucide-react";
+import { MapPin, Compass } from "lucide-react";
 
 export default function ExplorePandalsPage() {
   const { t, language } = useLanguage();

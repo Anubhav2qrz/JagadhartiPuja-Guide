@@ -26,7 +26,6 @@ import {
   Crosshair,
   AlertTriangle,
   RotateCcw,
-  Sparkles,
   ExternalLink,
 } from "lucide-react";
 
@@ -163,7 +162,7 @@ export function RoutePlannerView({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-[#ede4d1]">
         <div>
           <div className="flex items-center gap-2 text-xs font-bold text-[#7a121d] uppercase tracking-wider mb-1">
-            <Sparkles className="w-3.5 h-3.5 text-[#c59b27]" />
+            <Route className="w-3.5 h-3.5 text-[#c59b27]" />
             <span>Krishnanagar Pandal Hopping</span>
           </div>
           <h1 className="font-serif font-bold text-2xl sm:text-4xl text-[#5e0c15]">

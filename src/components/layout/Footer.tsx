@@ -5,13 +5,14 @@ import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { CorrectionModal } from "@/components/feedback/CorrectionModal";
 import {
-  Sparkles,
+  Flame,
   MapPin,
   Heart,
   PhoneCall,
   ShieldCheck,
   FileEdit,
   ExternalLink,
+  MessageCircle,
 } from "lucide-react";
 
 export function Footer() {
@@ -27,7 +28,7 @@ export function Footer() {
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#c59b27] to-[#9e7914] flex items-center justify-center text-[#5e0c15] font-bold">
-                  <Sparkles className="w-4 h-4" />
+                  <Flame className="w-4 h-4" />
                 </div>
                 <h3 className="font-serif font-bold text-xl text-[#fcfaf5]">
                   {t.appName}
@@ -114,6 +115,18 @@ export function Footer() {
                 <div className="flex items-center gap-2">
                   <PhoneCall className="w-3.5 h-3.5 text-[#e6be58]" />
                   <span>Fire Brigade: 101 / 03472-252101</span>
+                </div>
+
+                <div className="pt-2">
+                  <a
+                    href="https://wa.me/917001919941?text=Hello!%20I%20need%20assistance%20with%20the%20Jagadhatri%20Darshan%20Krishnanagar%20Guide."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 p-2 rounded-lg bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[#25D366] font-semibold text-xs transition-colors"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>WhatsApp Support: +91 70019 19941</span>
+                  </a>
                 </div>
               </div>
             </div>

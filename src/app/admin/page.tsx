@@ -34,7 +34,6 @@ import {
   MessageSquare,
   Lock,
   LogOut,
-  Sparkles,
   ExternalLink,
   Save,
   X,

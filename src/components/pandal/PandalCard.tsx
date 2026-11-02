@@ -17,7 +17,7 @@ import {
   AlertCircle,
   MapPin,
   Clock,
-  Sparkles,
+  Star,
   Accessibility,
   ArrowRight,
 } from "lucide-react";
@@ -71,7 +71,7 @@ export function PandalCard({ pandal }: PandalCardProps) {
             {/* Featured Badge */}
             {pandal.is_featured && (
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#c59b27] text-[#1c1917] shadow-xs flex items-center gap-1">
-                <Sparkles className="w-3 h-3" />
+                <Star className="w-3 h-3 fill-current" />
                 <span>Featured</span>
               </span>
             )}

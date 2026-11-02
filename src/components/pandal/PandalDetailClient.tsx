@@ -10,7 +10,7 @@ import { NavigateButton } from "@/components/navigation/NavigateButton";
 import { CorrectionModal } from "@/components/feedback/CorrectionModal";
 import { formatDate, formatTime } from "@/lib/utils";
 import {
-  Sparkles,
+  Star,
   MapPin,
   Clock,
   CheckCircle2,
@@ -124,7 +124,7 @@ export function PandalDetailClient({ pandal }: PandalDetailClientProps) {
 
               {pandal.is_featured && (
                 <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#c59b27] text-[#1c1917] flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5" />
+                  <Star className="w-3.5 h-3.5 fill-current" />
                   <span>Featured</span>
                 </span>
               )}
