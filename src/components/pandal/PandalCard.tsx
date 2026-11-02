@@ -54,10 +54,23 @@ export function PandalCard({ pandal }: PandalCardProps) {
       {/* Pandal Cover Image & Badges */}
       <div className="relative aspect-16/10 w-full overflow-hidden bg-stone-200">
         <img
-          src={pandal.cover_image_url}
+          src={
+            pandal.cover_image_url ||
+            "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg"
+          }
           alt={displayName}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
+          onError={(e) => {
+            const target = e.currentTarget;
+            if (
+              !target.src.includes("Burima%2C_Krishnanagar.jpg") &&
+              !target.src.includes("Idol_of_goddess_Jagaddhatri.jpg")
+            ) {
+              target.src =
+                "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg";
+            }
+          }}
         />
 
         {/* Top Floating Badges */}

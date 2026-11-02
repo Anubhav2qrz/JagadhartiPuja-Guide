@@ -426,7 +426,10 @@ export const dataStore = {
     pandals?: Pandal[];
   }> {
     try {
-      const res = await fetch("/api/sync-supabase");
+      const res = await fetch(`/api/sync-supabase?_t=${Date.now()}`, {
+        cache: "no-store",
+        headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+      });
       const json = await res.json();
       if (
         json.success &&

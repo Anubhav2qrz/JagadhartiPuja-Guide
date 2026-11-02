@@ -3,6 +3,15 @@ import { getServiceSupabase } from "@/lib/supabase/client";
 import { Pandal, Locality, Place } from "@/types";
 import { randomUUID } from "crypto";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+const NO_CACHE_HEADERS = {
+  "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+  Pragma: "no-cache",
+  Expires: "0",
+};
+
 function isUuid(str?: string | null): boolean {
   if (!str) return false;
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str);
@@ -49,13 +58,16 @@ export async function GET() {
       });
     }
 
-    return NextResponse.json({
-      success: true,
-      pandals: pandalsRes.data || [],
-      localities: localitiesRes.data || [],
-      places: placesRes.data || [],
-      count: pandalsRes.data?.length || 0,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        pandals: pandalsRes.data || [],
+        localities: localitiesRes.data || [],
+        places: placesRes.data || [],
+        count: pandalsRes.data?.length || 0,
+      },
+      { headers: NO_CACHE_HEADERS }
+    );
   } catch (err: any) {
     return NextResponse.json({
       success: false,

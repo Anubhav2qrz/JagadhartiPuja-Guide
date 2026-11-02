@@ -3,13 +3,24 @@
 import React, { useState, useMemo } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useDataStore } from "@/lib/data/useDataStore";
+import { dataStore } from "@/lib/data/store";
 import { PandalCard } from "@/components/pandal/PandalCard";
 import { PandalFilters } from "@/components/pandal/PandalFilters";
-import { MapPin, Compass } from "lucide-react";
+import { MapPin, Compass, RefreshCw } from "lucide-react";
 
 export default function ExplorePandalsPage() {
   const { t, language } = useLanguage();
   const { pandals: allPandals, localities } = useDataStore();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleManualRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      await dataStore.fetchFromCloud();
+    } finally {
+      setTimeout(() => setIsRefreshing(false), 600);
+    }
+  };
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocality, setSelectedLocality] = useState("all");
@@ -128,10 +139,21 @@ export default function ExplorePandalsPage() {
 
       {/* Results Count & Active Status */}
       <div className="flex items-center justify-between text-xs text-[#78716c] px-1">
-        <span>
-          {filteredAndSortedPandals.length}{" "}
-          {language === "bn" ? "টি মণ্ডপ পাওয়া গেছে" : "pandals found"}
-        </span>
+        <div className="flex items-center gap-1.5">
+          <span>
+            {filteredAndSortedPandals.length}{" "}
+            {language === "bn" ? "টি মণ্ডপ পাওয়া গেছে" : "pandals found"}
+          </span>
+          <button
+            onClick={handleManualRefresh}
+            title={language === "bn" ? "তথ্য রিফ্রেশ করুন" : "Refresh data from cloud"}
+            className="p-1 rounded-full text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
+          >
+            <RefreshCw
+              className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin text-[#7a121d]" : ""}`}
+            />
+          </button>
+        </div>
         {(searchQuery ||
           selectedLocality !== "all" ||
           selectedCategory !== "all" ||

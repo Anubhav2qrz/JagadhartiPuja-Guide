@@ -226,9 +226,20 @@ export function PandalDetailClient({ pandal }: PandalDetailClientProps) {
           <div className="bg-white rounded-3xl overflow-hidden border border-[#ede4d1] shadow-xs">
             <div className="relative aspect-16/10 w-full bg-stone-200">
               <img
-                src={uniqueImages[activeImageIndex] || pandal.cover_image_url}
+                src={
+                  uniqueImages[activeImageIndex] ||
+                  pandal.cover_image_url ||
+                  "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg"
+                }
                 alt={displayName}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.src.includes("Burima%2C_Krishnanagar.jpg")) {
+                    target.src =
+                      "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg";
+                  }
+                }}
               />
             </div>
 

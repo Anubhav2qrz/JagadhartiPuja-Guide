@@ -290,9 +290,9 @@ export const SEED_PANDALS: Pandal[] = [
     locality: SEED_LOCALITIES[5],
     latitude: 23.405938,
     longitude: 88.500063,
-    cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/5/52/Maa_jagadhatri_%28Chotoma%29%2C_Krishnanagar.jpg",
+    cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
     gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/5/52/Maa_jagadhatri_%28Chotoma%29%2C_Krishnanagar.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
     ],
     category: "heritage",
@@ -325,9 +325,9 @@ export const SEED_PANDALS: Pandal[] = [
     locality: SEED_LOCALITIES[6],
     latitude: null,
     longitude: null,
-    cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Goddess_Jagaddhatri_idol_at_Krishnanagar.jpg",
+    cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
     gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/c/cb/Goddess_Jagaddhatri_idol_at_Krishnanagar.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
     ],
     category: "heritage",
@@ -1025,9 +1025,9 @@ export const SEED_PANDALS: Pandal[] = [
     locality: SEED_LOCALITIES[6],
     latitude: null,
     longitude: null,
-    cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Goddess_Jagaddhatri_idol_at_Krishnanagar.jpg",
+    cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
     gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/c/cb/Goddess_Jagaddhatri_idol_at_Krishnanagar.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
     ],
     category: "heritage",
@@ -1550,9 +1550,9 @@ export const SEED_PANDALS: Pandal[] = [
     locality: SEED_LOCALITIES[6],
     latitude: 23.393813,
     longitude: 88.499938,
-    cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Goddess_Jagaddhatri_idol_at_Krishnanagar.jpg",
+    cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
     gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/c/cb/Goddess_Jagaddhatri_idol_at_Krishnanagar.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
     ],
     category: "traditional",
