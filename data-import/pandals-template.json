@@ -1,0 +1,55 @@
+[
+  {
+    "name": "Chasapara Buri Maa",
+    "name_bn": "চাষাপাড়া বুড়িমা",
+    "slug": "chasapara-buri-maa",
+    "locality_slug": "chasapara",
+    "category": "heritage",
+    "description": "Supreme icon of Krishnanagar Jagadhatri Puja, venerated with gold ornaments and thousands of kg of bhog.",
+    "description_bn": "কৃষ্ণনগর জগদ্ধাত্রী পূজার প্রধানতম আকর্ষণ ও ভক্তির কেন্দ্রবিন্দু চাষাপাড়া বুড়িমা।",
+    "address": "Chasapara Main Road, Near Buri Maa Temple Ground, Krishnanagar, Nadia - 741101",
+    "address_bn": "চাষাপাড়া মেইন রোড, বুড়িমা মন্দির প্রাঙ্গণ, কৃষ্ণনগর, নদিয়া - ৭৪১১০১",
+    "latitude": 23.4072,
+    "longitude": 88.5028,
+    "is_verified": true,
+    "verified_at": "2026-10-25T11:00:00Z",
+    "darshan_start": "2026-11-17T06:00:00+05:30",
+    "darshan_end": "2026-11-20T04:00:00+05:30",
+    "cover_image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg",
+    "gallery": [
+      "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg"
+    ],
+    "accessibility": {
+      "wheelchair_accessible": true,
+      "notes": "Dedicated senior citizen and wheelchair lane at North Gate."
+    },
+    "committee_contact": "+91 3472 252001",
+    "is_featured": true,
+    "is_published": true
+  },
+  {
+    "name": "Krishnanagar Rajbari (Rajrajeshwari)",
+    "name_bn": "কৃষ্ণনগর রাজবাড়ি (রাজরাজেশ্বরী)",
+    "slug": "krishnanagar-rajbari",
+    "locality_slug": "rajbari",
+    "category": "heritage",
+    "description": "Historical cradle of Jagadhatri Puja in Nadia inaugurated by Maharaja Krishna Chandra Roy in 1762.",
+    "description_bn": "কৃষ্ণনগরে জগদ্ধাত্রী পূজার আদি সূচনা স্থল। ১৭৬২ সালে মহারাজা কৃষ্ণচন্দ্র রায় প্রবর্তিত পূজা।",
+    "address": "Krishnanagar Palace Compound, Rajbari, Krishnanagar, Nadia - 741101",
+    "address_bn": "কৃষ্ণনগর রাজবাড়ি চত্বর, কৃষ্ণনগর, নদিয়া - ৭৪১১০১",
+    "latitude": 23.4024,
+    "longitude": 88.4947,
+    "is_verified": true,
+    "verified_at": "2026-10-24T15:30:00Z",
+    "darshan_start": "2026-11-17T07:00:00+05:30",
+    "darshan_end": "2026-11-20T23:00:00+05:30",
+    "cover_image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Jagaddhatri_Krishnanagar_Rajbati.jpg",
+    "accessibility": {
+      "wheelchair_accessible": true
+    },
+    "committee_contact": "+91 3472 252110",
+    "is_featured": true,
+    "is_published": true
+  }
+]
+

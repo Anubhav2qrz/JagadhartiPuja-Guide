@@ -1,26 +1,110 @@
 @import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --maroon-deep: #5e0c15;
+  --maroon-primary: #7a121d;
+  --maroon-rich: #8c1622;
+  --maroon-light: #a32230;
+  
+  --gold-primary: #c59b27;
+  --gold-light: #e6be58;
+  --gold-dark: #9e7914;
+  --gold-accent: #f3d47d;
+
+  --ivory-base: #fcfaf5;
+  --ivory-surface: #f7f3e8;
+  --ivory-card: #ffffff;
+  --ivory-border: #ede4d1;
+
+  --charcoal-deep: #1c1917;
+  --charcoal-muted: #57534e;
+  --charcoal-subtle: #78716c;
+
+  --background: var(--ivory-base);
+  --foreground: var(--charcoal-deep);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@theme {
+  --color-maroon-deep: #5e0c15;
+  --color-maroon-primary: #7a121d;
+  --color-maroon-rich: #8c1622;
+  --color-maroon-light: #a32230;
+  
+  --color-gold-primary: #c59b27;
+  --color-gold-light: #e6be58;
+  --color-gold-dark: #9e7914;
+  --color-gold-accent: #f3d47d;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ivory-base: #fcfaf5;
+  --color-ivory-surface: #f7f3e8;
+  --color-ivory-card: #ffffff;
+  --color-ivory-border: #ede4d1;
+
+  --color-charcoal-deep: #1c1917;
+  --color-charcoal-muted: #57534e;
+  --color-charcoal-subtle: #78716c;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* Subtle Bengali Alpana inspired floral divider */
+.alpana-divider {
+  background-image: radial-gradient(circle at center, #c59b27 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+  background-repeat: repeat-x;
+  height: 6px;
+  opacity: 0.6;
+}
+
+/* Gold gradient button */
+.btn-gold-action {
+  background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+  color: #1a1406;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+.btn-gold-action:hover {
+  background: linear-gradient(135deg, #e6be58 0%, #c59b27 100%);
+  box-shadow: 0 4px 12px rgba(197, 155, 39, 0.3);
+}
+
+/* Maroon luxury button */
+.btn-maroon-action {
+  background: linear-gradient(135deg, #7a121d 0%, #5e0c15 100%);
+  color: #ffffff;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+.btn-maroon-action:hover {
+  background: linear-gradient(135deg, #8c1622 0%, #6d0f19 100%);
+  box-shadow: 0 4px 14px rgba(122, 18, 29, 0.35);
+}
+
+/* Custom leaflet map controls styling */
+.leaflet-container {
+  font-family: inherit !important;
+  z-index: 10;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+  padding: 0 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2) !important;
+  overflow: hidden;
+  border: 1px solid #ede4d1;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+
+/* Smooth mobile tap targets */
+button, a {
+  -webkit-tap-highlight-color: transparent;
 }
