@@ -3,9 +3,6 @@ import { getServiceSupabase } from "@/lib/supabase/client";
 import { Pandal, Locality, Place } from "@/types";
 import { randomUUID } from "crypto";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
 const NO_CACHE_HEADERS = {
   "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0",
   "CDN-Cache-Control": "no-store",
