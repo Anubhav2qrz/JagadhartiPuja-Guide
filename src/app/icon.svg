@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#800f1c"/>
+      <stop offset="70%" stop-color="#550811"/>
+      <stop offset="100%" stop-color="#360309"/>
+    </radialGradient>
+
+    <!-- Gold Gradients -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe699"/>
+      <stop offset="35%" stop-color="#f5c242"/>
+      <stop offset="70%" stop-color="#d49e1e"/>
+      <stop offset="100%" stop-color="#9a6e08"/>
+    </linearGradient>
+
+    <linearGradient id="brightGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff5cc"/>
+      <stop offset="50%" stop-color="#f5c242"/>
+      <stop offset="100%" stop-color="#c98a0c"/>
+    </linearGradient>
+
+    <!-- Flame Gradient -->
+    <linearGradient id="flameGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#e63946"/>
+      <stop offset="40%" stop-color="#f77f00"/>
+      <stop offset="80%" stop-color="#fcbf49"/>
+      <stop offset="100%" stop-color="#fff3b0"/>
+    </linearGradient>
+
+    <!-- Inner Glow Filter -->
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Circular Base -->
+  <circle cx="256" cy="256" r="248" fill="url(#bgGrad)"/>
+
+  <!-- Ornate Outer Gold Ring -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="url(#goldGrad)" stroke-width="8"/>
+  <circle cx="256" cy="256" r="222" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-dasharray="6,8"/>
+  <circle cx="256" cy="256" r="212" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+
+  <!-- Auspicious Corner Rays/Petals (16 rays around the rim) -->
+  <g stroke="url(#goldGrad)" stroke-width="3" opacity="0.65">
+    <line x1="256" y1="20" x2="256" y2="34"/>
+    <line x1="256" y1="478" x2="256" y2="492"/>
+    <line x1="20" y1="256" x2="34" y2="256"/>
+    <line x1="478" y1="256" x2="492" y2="256"/>
+    <line x1="89" y1="89" x2="99" y2="99"/>
+    <line x1="413" y1="413" x2="423" y2="423"/>
+    <line x1="413" y1="89" x2="423" y2="99"/>
+    <line x1="89" y1="413" x2="99" y2="423"/>
+  </g>
+
+  <!-- Sacred Diya (Pradeep) Base -->
+  <!-- Diya Stand -->
+  <path d="M226 405 L286 405 L276 385 L236 385 Z" fill="url(#brightGold)"/>
+  <path d="M200 418 L312 418 L302 405 L210 405 Z" fill="url(#goldGrad)"/>
+
+  <!-- Diya Bowl -->
+  <path d="M126 360 Q256 420 386 360 Q394 348 382 342 Q256 376 130 342 Q118 348 126 360 Z" fill="url(#brightGold)" filter="url(#goldGlow)"/>
+  <ellipse cx="256" cy="350" rx="122" ry="12" fill="#5c0710" opacity="0.5"/>
+  <ellipse cx="256" cy="349" rx="114" ry="8" fill="url(#goldGrad)"/>
+
+  <!-- Central Sacred Motif: Trishul + Devi Third Eye + Divine Flame -->
+
+  <!-- Trishul Central Shaft -->
+  <path d="M251 345 L261 345 L261 150 L251 150 Z" fill="url(#brightGold)"/>
+
+  <!-- Trishul Central Spearhead / Flame -->
+  <path d="M256 80 Q272 135 272 180 Q272 205 256 220 Q240 205 240 180 Q240 135 256 80 Z" fill="url(#flameGrad)" filter="url(#goldGlow)"/>
+
+  <!-- Inner Sacred Core Flame -->
+  <path d="M256 115 Q266 150 266 180 Q266 195 256 205 Q246 195 246 180 Q246 150 256 115 Z" fill="#ffffff" opacity="0.85"/>
+
+  <!-- Trishul Left Prong (Crescent Curve) -->
+  <path d="M246 250 C215 250 165 235 158 175 C156 160 164 150 172 152 C178 153 182 165 186 182 C196 218 226 225 246 225 Z" fill="url(#brightGold)"/>
+  <!-- Left Spear Tip -->
+  <path d="M162 165 Q174 135 182 120 Q186 142 182 165 Z" fill="url(#brightGold)"/>
+
+  <!-- Trishul Right Prong (Crescent Curve) -->
+  <path d="M266 250 C297 250 347 235 354 175 C356 160 348 150 340 152 C334 153 330 165 326 182 C316 218 286 225 266 225 Z" fill="url(#brightGold)"/>
+  <!-- Right Spear Tip -->
+  <path d="M350 165 Q338 135 330 120 Q326 142 330 165 Z" fill="url(#brightGold)"/>
+
+  <!-- Trishul Base Ring Connector -->
+  <circle cx="256" cy="245" r="14" fill="url(#brightGold)"/>
+  <circle cx="256" cy="245" r="7" fill="#800f1c"/>
+
+  <!-- Maa Jagadhatri Divine Third Eye (Trinetra) & Chandan Tilak -->
+  <!-- Flame/Eye Aura -->
+  <g transform="translate(0, 30)">
+    <!-- Divine Third Eye Contour -->
+    <path d="M256 230 C274 252 274 268 256 288 C238 268 238 252 256 230 Z" fill="#fff9e6" stroke="url(#brightGold)" stroke-width="2"/>
+    <!-- Eye Iris / Flame Center -->
+    <ellipse cx="256" cy="259" rx="6" ry="10" fill="#2b0307"/>
+    <!-- Sacred Vermillion / Sindoor Bindi -->
+    <circle cx="256" cy="259" r="4.5" fill="#e63946"/>
+    <!-- Crescent Moon (Chandra) above Tilak -->
+    <path d="M246 220 C252 225 260 225 266 220 C261 223 251 223 246 220 Z" fill="#ffeaa7"/>
+    <circle cx="256" cy="216" r="2.5" fill="#ffeaa7"/>
+  </g>
+
+  <!-- Auspicious Flower/Om Subtle Floral Accents on Base -->
+  <circle cx="256" cy="385" r="6" fill="#e63946"/>
+  <circle cx="230" cy="378" r="4" fill="url(#brightGold)"/>
+  <circle cx="282" cy="378" r="4" fill="url(#brightGold)"/>
+</svg>
