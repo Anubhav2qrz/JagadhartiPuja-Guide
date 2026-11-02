@@ -14,6 +14,7 @@ import {
 } from "@/lib/maps";
 import {
   Navigation,
+  Route,
   Footprints,
   Car,
   ArrowUp,
