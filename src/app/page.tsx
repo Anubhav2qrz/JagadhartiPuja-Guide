@@ -71,7 +71,7 @@ export default function HomePage() {
   return (
     <div className="space-y-16 sm:space-y-24">
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[580px] sm:min-h-[660px] flex items-center justify-center bg-[#5e0c15] text-[#fcfaf5] overflow-hidden">
+      <section className="relative min-h-[460px] sm:min-h-[640px] flex items-center justify-center bg-[#5e0c15] text-[#fcfaf5] overflow-hidden">
         {/* Festival Background Image with Dark Vignette & Gold Hue */}
         <div className="absolute inset-0 z-0">
           <img
@@ -84,47 +84,47 @@ export default function HomePage() {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center space-y-6">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 text-center space-y-4 sm:space-y-6">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#c59b27]/20 border border-[#c59b27]/50 text-[#e6be58] text-xs sm:text-sm font-bold backdrop-blur-xs shadow-md">
-            <Flame className="w-4 h-4 text-[#e6be58]" />
-            <span>{t.hero.badge}</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#c59b27]" />
-            <span>{t.locationLabel}</span>
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-[#c59b27]/20 border border-[#c59b27]/50 text-[#e6be58] text-[11px] sm:text-sm font-bold backdrop-blur-xs shadow-md max-w-full">
+            <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#e6be58] shrink-0" />
+            <span className="truncate">{t.hero.badge}</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#c59b27] shrink-0 hidden sm:inline-block" />
+            <span className="truncate hidden sm:inline-block">{t.locationLabel}</span>
           </div>
 
           {/* Heading */}
-          <h1 className="font-serif font-extrabold text-3xl sm:text-5xl md:text-6xl tracking-tight text-[#fcfaf5] leading-tight sm:leading-none max-w-4xl mx-auto">
+          <h1 className="font-serif font-extrabold text-2xl sm:text-5xl md:text-6xl tracking-tight text-[#fcfaf5] leading-snug sm:leading-none max-w-4xl mx-auto">
             {t.hero.title}
           </h1>
 
           {/* Tagline / Subtitle */}
-          <p className="text-base sm:text-lg md:text-xl text-[#ede4d1]/90 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-xs sm:text-base md:text-xl text-[#ede4d1]/90 max-w-2xl mx-auto leading-relaxed font-light px-2 sm:px-0">
             {t.hero.subtitle}
           </p>
 
           {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 pt-2 sm:pt-4 max-w-md mx-auto sm:max-w-none">
             <Link
               href="/pandals"
-              className="btn-gold-action w-full sm:w-auto px-7 py-3.5 rounded-xl text-sm sm:text-base font-bold flex items-center justify-center gap-2 shadow-xl active:scale-95"
+              className="btn-gold-action w-full sm:w-auto px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl text-sm sm:text-base font-bold flex items-center justify-center gap-2 shadow-xl active:scale-95"
             >
-              <Compass className="w-5 h-5" />
+              <Compass className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>{t.hero.exploreBtn}</span>
             </Link>
 
             <Link
               href="/route-planner"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl text-sm sm:text-base font-bold bg-[#7a121d] hover:bg-[#8c1622] text-white border border-[#c59b27]/50 flex items-center justify-center gap-2 transition-all shadow-md active:scale-95"
+              className="w-full sm:w-auto px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-sm sm:text-base font-bold bg-[#7a121d] hover:bg-[#8c1622] text-white border border-[#c59b27]/50 flex items-center justify-center gap-2 transition-all shadow-md active:scale-95"
             >
-              <Route className="w-5 h-5 text-[#e6be58]" />
+              <Route className="w-4 h-4 sm:w-5 sm:h-5 text-[#e6be58]" />
               <span>{t.hero.planRouteBtn}</span>
             </Link>
 
             <button
               onClick={handleNearMeClick}
               disabled={locatingUser}
-              className="w-full sm:w-auto px-5 py-3.5 rounded-xl text-xs sm:text-sm font-semibold bg-black/40 hover:bg-black/60 text-[#ede4d1] border border-white/20 flex items-center justify-center gap-2 transition-all backdrop-blur-xs cursor-pointer active:scale-95"
+              className="w-full sm:w-auto px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl text-xs sm:text-sm font-semibold bg-black/40 hover:bg-black/60 text-[#ede4d1] border border-white/20 flex items-center justify-center gap-2 transition-all backdrop-blur-xs cursor-pointer active:scale-95"
             >
               <Crosshair
                 className={`w-4 h-4 text-[#e6be58] ${
