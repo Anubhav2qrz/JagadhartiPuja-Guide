@@ -44,9 +44,14 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#5e0c15] text-[#fcfaf5] shadow-md border-b border-[#c59b27]/30 pt-[env(safe-area-inset-top,0px)]">
+    <header
+      className="sticky top-0 z-40 bg-[#5e0c15] text-[#fcfaf5] shadow-md border-b border-[#c59b27]/30"
+      style={{
+        paddingTop: "max(0.5rem, env(safe-area-inset-top, 0px))",
+      }}
+    >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between min-h-[3.75rem] sm:min-h-20 py-1.5 sm:py-0">
+        <div className="flex items-center justify-between min-h-[4rem] sm:min-h-20 py-2 sm:py-0">
           {/* Brand Logo & Name */}
           <Link
             href="/"
@@ -56,11 +61,11 @@ export function Navbar() {
               <Flame className="w-4 h-4 sm:w-6 sm:h-6" />
             </div>
             <div className="min-w-0">
-              <div className="flex items-center gap-1 sm:gap-1.5">
-                <span className="font-serif font-bold text-base sm:text-2xl tracking-tight text-[#fcfaf5] truncate block leading-tight">
+              <div className="flex items-center gap-1 sm:gap-1.5 flex-nowrap">
+                <span className="font-serif font-bold text-[15px] sm:text-2xl tracking-tight text-[#fcfaf5] truncate block leading-snug">
                   {t.appName}
                 </span>
-                <span className="text-[9px] sm:text-[10px] font-semibold bg-[#c59b27] text-[#1c1917] px-1 py-0.2 rounded uppercase tracking-wider shrink-0">
+                <span className="text-[9px] sm:text-[10px] font-semibold bg-[#c59b27] text-[#1c1917] px-1 py-0.5 rounded uppercase tracking-wider shrink-0 leading-none">
                   2026
                 </span>
               </div>

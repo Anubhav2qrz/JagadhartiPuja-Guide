@@ -128,8 +128,22 @@ export default function AdminPage() {
         setIsCheckingAuth(false);
       }
     };
-    checkServerSession();
-    refreshData();
+
+    const init = async () => {
+      await checkServerSession();
+      refreshData();
+      // Auto-fetch latest state from Supabase Cloud on dashboard load
+      try {
+        const cloudRes = await dataStore.fetchFromCloud();
+        if (cloudRes.success) {
+          refreshData();
+        }
+      } catch {
+        // Offline / cached fallback
+      }
+    };
+
+    init();
   }, []);
 
   const refreshData = () => {
@@ -161,6 +175,10 @@ export default function AdminPage() {
         sessionStorage.setItem("jd_admin_session", "true");
         setAuthError("");
         refreshData();
+        dataStore
+          .fetchFromCloud()
+          .then(() => refreshData())
+          .catch(() => {});
       } else {
         setAuthError(
           data.error || "Invalid email or password. Please try again."
@@ -185,7 +203,7 @@ export default function AdminPage() {
     sessionStorage.removeItem("jd_admin_session");
   };
 
-  // SUPABASE CLOUD SYNC ACTION
+  // SUPABASE CLOUD SYNC ACTIONS
   const handleSyncToCloud = async () => {
     setIsSyncingToCloud(true);
     setCloudSyncResult(null);
@@ -216,37 +234,84 @@ export default function AdminPage() {
     }
   };
 
+  const handleFetchFromCloud = async () => {
+    setIsSyncingToCloud(true);
+    try {
+      const res = await dataStore.fetchFromCloud();
+      refreshData();
+      if (res.success) {
+        showSuccess(
+          `☁️ Loaded ${res.count || pandals.length} pandals directly from Supabase Cloud!`
+        );
+      } else {
+        showSuccess("Could not pull fresh data from cloud. Local cache active.");
+      }
+    } catch {
+      showSuccess("Network error connecting to Supabase Cloud.");
+    } finally {
+      setIsSyncingToCloud(false);
+    }
+  };
+
   // PANDAL ACTIONS
-  const handleSavePandal = (e: React.FormEvent) => {
+  const handleSavePandal = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingPandal || !editingPandal.name) return;
 
     dataStore.savePandal(editingPandal as any);
     refreshData();
     setEditingPandal(null);
-    showSuccess("Pandal listing and coordinates saved successfully!");
+    showSuccess("Pandal saved locally! Syncing with Supabase Cloud...");
 
-    // Background sync to Supabase Cloud
-    dataStore.syncToCloud().catch(() => {});
-  };
-
-  const handleDeletePandal = (id: string) => {
-    if (confirm("Are you sure you want to delete this pandal listing?")) {
-      dataStore.deletePandal(id);
-      refreshData();
-      showSuccess("Pandal deleted.");
+    // Immediate sync to Supabase Cloud
+    try {
+      const res = await dataStore.syncToCloud();
+      if (res.success) {
+        showSuccess("☁️ Pandal synchronized with Supabase Cloud!");
+      } else {
+        setCloudSyncResult({
+          success: false,
+          message: res.error || "Failed to synchronize with Supabase Cloud",
+          is_permission_error: res.is_permission_error,
+          sql_fix: res.sql_fix,
+        });
+      }
+    } catch {
+      showSuccess("Pandal saved locally. Cloud sync will retry on next connection.");
     }
   };
 
-  const handleTogglePublish = (pandal: Pandal) => {
+  const handleDeletePandal = async (id: string) => {
+    if (confirm("Are you sure you want to delete this pandal listing?")) {
+      dataStore.deletePandal(id);
+      refreshData();
+      showSuccess("Pandal deleted locally. Removing from Supabase Cloud...");
+      try {
+        await fetch(`/api/sync-supabase?id=${encodeURIComponent(id)}&type=pandal`, {
+          method: "DELETE",
+        });
+        await dataStore.syncToCloud();
+        showSuccess("☁️ Pandal deleted from Supabase Cloud.");
+      } catch {
+        // Fallback
+      }
+    }
+  };
+
+  const handleTogglePublish = async (pandal: Pandal) => {
     dataStore.savePandal({
       ...pandal,
       is_published: !pandal.is_published,
     });
     refreshData();
+    try {
+      await dataStore.syncToCloud();
+    } catch {
+      // Fallback
+    }
   };
 
-  const handleToggleVerify = (pandal: Pandal) => {
+  const handleToggleVerify = async (pandal: Pandal) => {
     const isNowVerified = !pandal.is_verified;
     dataStore.savePandal({
       ...pandal,
@@ -259,6 +324,11 @@ export default function AdminPage() {
         ? "Marked as GPS Verified."
         : "Marked as Verification Pending."
     );
+    try {
+      await dataStore.syncToCloud();
+    } catch {
+      // Fallback
+    }
   };
 
   const handleThumbnailUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -548,7 +618,20 @@ export default function AdminPage() {
           </h1>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+          {/* Fetch latest from Cloud Button */}
+          <button
+            onClick={handleFetchFromCloud}
+            disabled={isSyncingToCloud}
+            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-stone-100 hover:bg-stone-200 text-stone-700 transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+            title="Download the latest pandals, coordinates, and places directly from Supabase Cloud"
+          >
+            <RefreshCw
+              className={`w-4 h-4 ${isSyncingToCloud ? "animate-spin" : ""}`}
+            />
+            <span>Fetch Latest</span>
+          </button>
+
           {/* Sync to Supabase Cloud Button */}
           <button
             onClick={handleSyncToCloud}

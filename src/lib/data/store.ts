@@ -423,6 +423,7 @@ export const dataStore = {
     is_permission_error?: boolean;
     sql_fix?: string;
     count?: number;
+    pandals?: Pandal[];
   }> {
     try {
       const res = await fetch("/api/sync-supabase");
@@ -434,9 +435,20 @@ export const dataStore = {
       ) {
         setStored(STORAGE_KEYS.PANDALS, json.pandals);
         memoryPandals = json.pandals;
+
+        if (Array.isArray(json.localities) && json.localities.length > 0) {
+          setStored(STORAGE_KEYS.LOCALITIES, json.localities);
+          memoryLocalities = json.localities;
+        }
+
+        if (Array.isArray(json.places) && json.places.length > 0) {
+          setStored(STORAGE_KEYS.PLACES, json.places);
+          memoryPlaces = json.places;
+        }
+
         if (typeof window !== "undefined") {
           window.dispatchEvent(
-            new CustomEvent("jd_data_updated", { detail: { type: "pandal" } })
+            new CustomEvent("jd_data_updated", { detail: { type: "cloud_sync" } })
           );
         }
       }

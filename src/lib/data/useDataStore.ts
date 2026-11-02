@@ -21,7 +21,21 @@ export function useDataStore() {
     setPlaces(dataStore.getPlaces());
     setAnnouncements(dataStore.getAnnouncements());
 
-    // 2. Listen to custom internal update events and localStorage events
+    // 2. Cross-device Cloud Sync: Fetch latest verified updates from Supabase
+    dataStore
+      .fetchFromCloud()
+      .then((res) => {
+        if (res.success && res.pandals) {
+          setPandals(dataStore.getPandals());
+          setLocalities(dataStore.getLocalities());
+          setPlaces(dataStore.getPlaces());
+        }
+      })
+      .catch(() => {
+        // Graceful offline fallback to localStorage & seed data
+      });
+
+    // 3. Listen to custom internal update events and localStorage events
     const handleUpdate = () => {
       setPandals(dataStore.getPandals());
       setLocalities(dataStore.getLocalities());

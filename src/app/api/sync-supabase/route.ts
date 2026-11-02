@@ -17,23 +17,33 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO anon, authen
 export async function GET() {
   try {
     const supabase = getServiceSupabase();
-    const { data: pandals, error } = await supabase
-      .from("pandals")
-      .select("*, locality:localities(*)")
-      .order("name", { ascending: true });
+    const [pandalsRes, localitiesRes, placesRes] = await Promise.all([
+      supabase
+        .from("pandals")
+        .select("*, locality:localities(*)")
+        .order("name", { ascending: true }),
+      supabase
+        .from("localities")
+        .select("*")
+        .order("name", { ascending: true }),
+      supabase
+        .from("places")
+        .select("*")
+        .order("name", { ascending: true }),
+    ]);
 
-    if (error) {
-      console.error("[Supabase GET Error]:", error);
+    if (pandalsRes.error) {
+      console.error("[Supabase GET Error]:", pandalsRes.error);
       const isPermission =
-        error.code === "42501" ||
-        error.message?.toLowerCase().includes("permission denied");
+        pandalsRes.error.code === "42501" ||
+        pandalsRes.error.message?.toLowerCase().includes("permission denied");
 
       return NextResponse.json({
         success: false,
         error: isPermission
           ? "Database permissions need configuration in Supabase."
           : "Unable to retrieve pandals from cloud database. Local cache active.",
-        technical_details: error.message,
+        technical_details: pandalsRes.error.message,
         is_permission_error: isPermission,
         sql_fix: isPermission ? SQL_FIX_COMMAND : undefined,
       });
@@ -41,14 +51,49 @@ export async function GET() {
 
     return NextResponse.json({
       success: true,
-      pandals: pandals || [],
-      count: pandals?.length || 0,
+      pandals: pandalsRes.data || [],
+      localities: localitiesRes.data || [],
+      places: placesRes.data || [],
+      count: pandalsRes.data?.length || 0,
     });
   } catch (err: any) {
     return NextResponse.json({
       success: false,
       error: err?.message || "Internal server error connecting to Supabase",
     });
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+    const type = searchParams.get("type") || "pandal";
+
+    if (!id) {
+      return NextResponse.json(
+        { success: false, error: "Missing id parameter" },
+        { status: 400 }
+      );
+    }
+
+    const supabase = getServiceSupabase();
+    const table = type === "place" ? "places" : "pandals";
+    const { error } = await supabase.from(table).delete().eq("id", id);
+
+    if (error) {
+      return NextResponse.json(
+        { success: false, error: error.message },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ success: true, id });
+  } catch (err: any) {
+    return NextResponse.json(
+      { success: false, error: err?.message || "Delete failed" },
+      { status: 500 }
+    );
   }
 }
 
