@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServiceSupabase } from "@/lib/supabase/client";
 import { Pandal, Locality, Place } from "@/types";
 import { randomUUID } from "crypto";
+import { formatOpeningHours } from "@/lib/utils";
 
 const NO_CACHE_HEADERS = {
   "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0",
@@ -20,7 +21,9 @@ const SQL_FIX_COMMAND = `GRANT USAGE ON SCHEMA public TO anon, authenticated, se
 GRANT ALL ON ALL TABLES IN SCHEMA public TO anon, authenticated, service_role;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO anon, authenticated, service_role;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO anon, authenticated, service_role;`;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO anon, authenticated, service_role;
+ALTER TABLE IF EXISTS public.places DROP CONSTRAINT IF EXISTS places_category_check;
+ALTER TABLE IF EXISTS public.places ADD CONSTRAINT places_category_check CHECK (category IN ('sweet_shop', 'food_stall', 'restaurant', 'cafe', 'parking', 'restroom', 'water', 'first_aid'));`;
 
 export async function GET() {
   try {
@@ -286,7 +289,10 @@ export async function POST(request: Request) {
           address_bn: pl.address_bn || null,
           latitude: pl.latitude,
           longitude: pl.longitude,
-          opening_hours: pl.opening_hours ? { hours: pl.opening_hours } : null,
+          opening_hours: (() => {
+            const cleanHours = formatOpeningHours(pl.opening_hours);
+            return cleanHours ? { hours: cleanHours } : null;
+          })(),
           is_published: pl.is_published ?? true,
           is_verified: pl.is_verified ?? true,
           updated_at: new Date().toISOString(),

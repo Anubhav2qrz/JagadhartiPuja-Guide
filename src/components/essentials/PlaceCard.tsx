@@ -4,6 +4,7 @@ import React from "react";
 import { Place } from "@/types";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { NavigateButton } from "@/components/navigation/NavigateButton";
+import { formatOpeningHours } from "@/lib/utils";
 import {
   Utensils,
   Coffee,
@@ -92,16 +93,16 @@ export function PlaceCard({ place }: PlaceCardProps) {
         </p>
 
         {/* Opening Hours if available */}
-        {place.opening_hours && (
-          <div className="mt-3 pt-3 border-t border-[#ede4d1] flex items-center gap-1.5 text-xs text-[#78716c]">
-            <Clock className="w-3.5 h-3.5 text-[#d99b26] shrink-0" />
-            <span>
-              {typeof place.opening_hours === "string"
-                ? place.opening_hours
-                : JSON.stringify(place.opening_hours)}
-            </span>
-          </div>
-        )}
+        {(() => {
+          const hours = formatOpeningHours(place.opening_hours);
+          if (!hours) return null;
+          return (
+            <div className="mt-3 pt-3 border-t border-[#ede4d1] flex items-center gap-1.5 text-xs text-[#78716c]">
+              <Clock className="w-3.5 h-3.5 text-[#d99b26] shrink-0" />
+              <span>{hours}</span>
+            </div>
+          );
+        })()}
       </div>
 
       {/* Direct Google Maps Navigation */}

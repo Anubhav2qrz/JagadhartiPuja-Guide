@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { dataStore } from "../src/lib/data/store";
+import { formatOpeningHours } from "../src/lib/utils";
 
 describe("DataStore & Search/Filter Operations", () => {
   beforeEach(() => {
@@ -125,6 +126,31 @@ describe("DataStore & Search/Filter Operations", () => {
       expect(c.latitude).toBeGreaterThan(23.3);
       expect(c.longitude).toBeGreaterThan(88.4);
     });
+  });
+
+  it("safely unwraps and formats deeply nested opening hours JSON objects", () => {
+    expect(formatOpeningHours("10:00 AM - 10:00 PM")).toBe("10:00 AM - 10:00 PM");
+    expect(formatOpeningHours(null)).toBeNull();
+    expect(formatOpeningHours(undefined)).toBeNull();
+
+    // Single nesting
+    expect(formatOpeningHours({ hours: "07:30 AM - 10:30 PM" })).toBe("07:30 AM - 10:30 PM");
+
+    // Deeply nested JSON object (the Supabase sync glitch)
+    const deeplyNested = {
+      hours: {
+        hours: {
+          hours: {
+            hours: "07:30 AM - 10:30 PM",
+          },
+        },
+      },
+    };
+    expect(formatOpeningHours(deeplyNested)).toBe("07:30 AM - 10:30 PM");
+
+    // Deeply nested stringified JSON
+    const stringifiedNested = JSON.stringify(deeplyNested);
+    expect(formatOpeningHours(stringifiedNested)).toBe("07:30 AM - 10:30 PM");
   });
 });
 

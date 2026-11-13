@@ -34,6 +34,40 @@ export function formatTime(timeString?: string | null): string {
 }
 
 /**
+ * Safely extracts human-readable opening hours text from a string, JSON string,
+ * or nested object (e.g. Supabase JSONB or recursively nested { hours: ... }).
+ */
+export function formatOpeningHours(raw?: any): string | null {
+  if (!raw) return null;
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (trimmed.startsWith("{") && trimmed.includes("hours")) {
+      try {
+        return formatOpeningHours(JSON.parse(trimmed));
+      } catch {
+        return trimmed;
+      }
+    }
+    return trimmed;
+  }
+  let curr = raw;
+  let safetyLimit = 100;
+  while (curr && typeof curr === "object" && safetyLimit-- > 0) {
+    if (typeof curr.hours === "string") {
+      return formatOpeningHours(curr.hours);
+    }
+    if (typeof curr.hours === "object" && curr.hours !== null) {
+      curr = curr.hours;
+      continue;
+    }
+    const values = Object.values(curr).filter((v) => typeof v === "string");
+    if (values.length > 0) return values.join(", ");
+    break;
+  }
+  return null;
+}
+
+/**
  * Compresses an image file in the browser using HTML5 Canvas.
  * Produces a lightweight JPEG data URL (~80-150KB) so localStorage
  * quota is never exceeded and network payloads remain fast.

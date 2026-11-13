@@ -12,11 +12,12 @@ import {
   SEED_PLACES,
   SEED_ANNOUNCEMENTS,
 } from "./seed-data";
+import { formatOpeningHours } from "@/lib/utils";
 
 const STORAGE_KEYS = {
   PANDALS: "jd_pandals_v2",
   LOCALITIES: "jd_localities_v2",
-  PLACES: "jd_places_v3",
+  PLACES: "jd_places_v4",
   ANNOUNCEMENTS: "jd_announcements_v1",
   SUBMISSIONS: "jd_submissions_v1",
 };
@@ -268,7 +269,17 @@ export const dataStore = {
     const storedIds = new Set(stored.map((p) => p.id));
     const missingSeeds = SEED_PLACES.filter((sp) => !storedIds.has(sp.id));
     const all = missingSeeds.length > 0 ? [...stored, ...missingSeeds] : stored;
-    let filtered = all.filter((p) => p.is_published);
+    
+    // Sanitize opening hours so nested/corrupted JSON objects are always unwrapped cleanly
+    const sanitized = all.map((p) => {
+      const cleanHours = formatOpeningHours(p.opening_hours);
+      if (cleanHours && cleanHours !== p.opening_hours) {
+        return { ...p, opening_hours: cleanHours };
+      }
+      return p;
+    });
+
+    let filtered = sanitized.filter((p) => p.is_published);
 
     if (options?.category && options.category !== "all") {
       filtered = filtered.filter((p) => p.category === options.category);
@@ -290,11 +301,13 @@ export const dataStore = {
   savePlace(place: Partial<Place> & { name: string; latitude: number; longitude: number }): Place {
     const all = getStored<Place[]>(STORAGE_KEYS.PLACES, memoryPlaces);
     const existingIndex = all.findIndex((p) => p.id === place.id);
+    const cleanHours = formatOpeningHours(place.opening_hours) || (place.opening_hours as string) || null;
 
     if (existingIndex >= 0) {
       const updated: Place = {
         ...all[existingIndex],
         ...place,
+        opening_hours: cleanHours,
         updated_at: new Date().toISOString(),
       };
       all[existingIndex] = updated;
@@ -313,7 +326,7 @@ export const dataStore = {
         address_bn: place.address_bn || "কৃষ্ণনগর, নদিয়া",
         latitude: place.latitude,
         longitude: place.longitude,
-        opening_hours: place.opening_hours || null,
+        opening_hours: cleanHours,
         is_published: place.is_published ?? true,
         is_verified: place.is_verified ?? true,
         updated_at: new Date().toISOString(),
@@ -470,13 +483,17 @@ export const dataStore = {
         }
 
         if (Array.isArray(json.places) && json.places.length > 0) {
+          const sanitizedPlaces = json.places.map((p: Place) => ({
+            ...p,
+            opening_hours: formatOpeningHours(p.opening_hours) || p.opening_hours,
+          }));
           const cloudNames = new Set(
-            json.places.map((p: Place) => (p.name || "").toLowerCase().trim())
+            sanitizedPlaces.map((p: Place) => (p.name || "").toLowerCase().trim())
           );
           const missingSeeds = SEED_PLACES.filter(
             (sp) => !cloudNames.has((sp.name || "").toLowerCase().trim())
           );
-          const mergedPlaces = [...json.places, ...missingSeeds];
+          const mergedPlaces = [...sanitizedPlaces, ...missingSeeds];
           setStored(STORAGE_KEYS.PLACES, mergedPlaces);
           memoryPlaces = mergedPlaces;
         }
