@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useDataStore } from "@/lib/data/useDataStore";
 import { dataStore } from "@/lib/data/store";
 import { PandalCard } from "@/components/pandal/PandalCard";
 import { PandalFilters } from "@/components/pandal/PandalFilters";
-import { MapPin, Compass, RefreshCw } from "lucide-react";
+import { MapPin, Compass, RefreshCw, Zap } from "lucide-react";
 
 export default function ExplorePandalsPage() {
   const { t, language } = useLanguage();
@@ -104,19 +105,32 @@ export default function ExplorePandalsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
       {/* Page Header */}
-      <div className="border-b border-[#ede4d1] pb-6">
-        <div className="flex items-center gap-2 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider mb-1">
-          <Compass className="w-3.5 h-3.5 text-[#d99b26]" />
-          <span>{t.locationLabel}</span>
+      <div className="border-b border-[#ede4d1] pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider mb-1">
+            <Compass className="w-3.5 h-3.5 text-[#d99b26]" />
+            <span>{t.locationLabel}</span>
+          </div>
+          <h1 className="font-serif font-bold text-2xl sm:text-4xl text-[#4a1810]">
+            {t.nav.explore}
+          </h1>
+          <p className="text-xs sm:text-sm text-[#57534e] mt-1.5 max-w-2xl">
+            {language === "bn"
+              ? "কৃষ্ণনগরের সকল প্রধান, ঐতিহ্যবাহী ও শিল্পমণ্ডিত মণ্ডপের পূর্ণাঙ্গ ডিরেক্টরি। সঠিক জিপিএস অবস্থান ও গুগল ম্যাপস নেভিগেশন।"
+              : "The comprehensive directory of historic, heritage, and theme Jagadhatri Puja pandals across Krishnanagar with verified navigation."}
+          </p>
         </div>
-        <h1 className="font-serif font-bold text-2xl sm:text-4xl text-[#4a1810]">
-          {t.nav.explore}
-        </h1>
-        <p className="text-xs sm:text-sm text-[#57534e] mt-1.5 max-w-2xl">
-          {language === "bn"
-            ? "কৃষ্ণনগরের সকল প্রধান, ঐতিহ্যবাহী ও শিল্পমণ্ডিত মণ্ডপের পূর্ণাঙ্গ ডিরেক্টরি। সঠিক জিপিএস অবস্থান ও গুগল ম্যাপস নেভিগেশন।"
-            : "The comprehensive directory of historic, heritage, and theme Jagadhatri Puja pandals across Krishnanagar with verified navigation."}
-        </p>
+
+        <Link
+          href="/route-planner?autoroute=gps"
+          className="btn-gold-action px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 self-start md:self-auto shadow-md shrink-0 active:scale-95"
+          title="Auto generate shortest hopping tour"
+        >
+          <Zap className="w-4 h-4 text-[#1c1917]" />
+          <span>
+            {language === "bn" ? "⚡ অটো রুট পরিক্রমা" : "⚡ Smart Auto Route"}
+          </span>
+        </Link>
       </div>
 
       {/* Filter Component */}

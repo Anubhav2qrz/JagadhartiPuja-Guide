@@ -186,32 +186,43 @@ export async function POST(request: Request) {
       }
 
       const formattedPandals = pandals.map((p) => {
-        const localitySlug =
-          typeof p.locality === "object" && p.locality
-            ? p.locality.slug
-            : p.locality_id?.replace("loc-", "");
+        let resolvedLocalityId: string | null = null;
+        if (p.locality_id && isUuid(p.locality_id)) {
+          resolvedLocalityId = p.locality_id;
+        } else if (p.locality && typeof p.locality === "object" && p.locality.slug) {
+          resolvedLocalityId = locMap.get(p.locality.slug) || null;
+        } else if (p.locality_id) {
+          const cleanLoc = p.locality_id.replace(/^loc-/, "");
+          resolvedLocalityId = locMap.get(cleanLoc) || (isUuid(cleanLoc) ? cleanLoc : null);
+        }
 
-        const resolvedLocalityId = localitySlug
-          ? locMap.get(localitySlug) || null
-          : null;
+        const cleanSlug =
+          p.slug?.trim() ||
+          p.name
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, "") ||
+          `pandal-${Date.now()}`;
 
         const id =
-          pandalMap.get(p.slug) ||
+          pandalMap.get(cleanSlug) ||
           (isUuid(p.id) ? p.id : randomUUID());
 
         return {
           id,
-          name: p.name,
-          name_bn: p.name_bn || p.name,
-          slug: p.slug,
-          description: p.description || "",
-          description_bn: p.description_bn || null,
-          address: p.address,
-          address_bn: p.address_bn || null,
+          name: p.name.trim(),
+          name_bn: p.name_bn?.trim() || p.name.trim(),
+          slug: cleanSlug,
+          description: p.description ?? "",
+          description_bn: p.description_bn ?? null,
+          address: p.address?.trim() || "Krishnanagar, Nadia",
+          address_bn: p.address_bn?.trim() || null,
           locality_id: resolvedLocalityId,
           latitude: typeof p.latitude === "number" ? p.latitude : null,
           longitude: typeof p.longitude === "number" ? p.longitude : null,
-          cover_image_url: p.cover_image_url,
+          cover_image_url:
+            p.cover_image_url?.trim() ||
+            "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg",
           gallery: p.gallery || [],
           category: p.category || "traditional",
           darshan_start: p.darshan_start || null,

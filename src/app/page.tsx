@@ -22,6 +22,7 @@ import {
   Utensils,
   ChevronRight,
   Crosshair,
+  Zap,
 } from "lucide-react";
 
 export default function HomePage() {
@@ -104,7 +105,7 @@ export default function HomePage() {
           </p>
 
           {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 pt-2 sm:pt-4 max-w-md mx-auto sm:max-w-none">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 pt-2 sm:pt-4 max-w-md mx-auto sm:max-w-none flex-wrap">
             <Link
               href="/pandals"
               className="btn-gold-action w-full sm:w-auto px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl text-sm sm:text-base font-bold flex items-center justify-center gap-2 shadow-xl active:scale-95"
@@ -114,8 +115,17 @@ export default function HomePage() {
             </Link>
 
             <Link
-              href="/route-planner"
+              href="/route-planner?autoroute=gps"
               className="w-full sm:w-auto px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-sm sm:text-base font-bold bg-[#8b2f1e] hover:bg-[#a33b25] text-white border border-[#d99b26]/50 flex items-center justify-center gap-2 transition-all shadow-md active:scale-95"
+              title="Automatically generates shortest route to nearest pandals"
+            >
+              <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-[#f5ba42] fill-[#f5ba42]" />
+              <span>{language === "bn" ? "⚡ অটো রুট পরিক্রমা" : "⚡ Smart Auto Route"}</span>
+            </Link>
+
+            <Link
+              href="/route-planner"
+              className="w-full sm:w-auto px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-sm sm:text-base font-semibold bg-black/40 hover:bg-black/60 text-[#ede4d1] border border-white/20 flex items-center justify-center gap-2 transition-all backdrop-blur-xs active:scale-95"
             >
               <Route className="w-4 h-4 sm:w-5 sm:h-5 text-[#f5ba42]" />
               <span>{t.hero.planRouteBtn}</span>
@@ -124,7 +134,7 @@ export default function HomePage() {
             <button
               onClick={handleNearMeClick}
               disabled={locatingUser}
-              className="w-full sm:w-auto px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl text-xs sm:text-sm font-semibold bg-black/40 hover:bg-black/60 text-[#ede4d1] border border-white/20 flex items-center justify-center gap-2 transition-all backdrop-blur-xs cursor-pointer active:scale-95"
+              className="w-full sm:w-auto px-4 py-2.5 sm:px-5 sm:py-3.5 rounded-xl text-xs sm:text-sm font-semibold bg-black/30 hover:bg-black/50 text-[#ede4d1]/90 border border-white/10 flex items-center justify-center gap-2 transition-all backdrop-blur-xs cursor-pointer active:scale-95"
             >
               <Crosshair
                 className={`w-4 h-4 text-[#f5ba42] ${

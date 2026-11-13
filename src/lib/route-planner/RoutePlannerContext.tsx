@@ -1,7 +1,13 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { Coordinate, TravelMode } from "@/lib/maps";
+import {
+  Coordinate,
+  TravelMode,
+  generateNearestPandalRoute,
+  optimizeRouteOrder,
+  AutoRoutePandalInput,
+} from "@/lib/maps";
 
 interface RoutePlannerContextType {
   selectedPandalIds: string[];
@@ -19,6 +25,15 @@ interface RoutePlannerContextType {
   setStartOrigin: (coord: Coordinate | null, name?: string) => void;
   getShareableRouteUrl: () => string;
   loadFromPandalIds: (ids: string[]) => void;
+  generateAutoRoute: (
+    origin: Coordinate,
+    availablePandals: AutoRoutePandalInput[],
+    maxStops?: number,
+    originName?: string
+  ) => { orderedPandalIds: string[]; totalDistanceKm: number };
+  optimizeCurrentRoute: (
+    pandals: Array<{ id: string; latitude: number | null; longitude: number | null }>
+  ) => void;
 }
 
 const RoutePlannerContext = createContext<RoutePlannerContextType | undefined>(
@@ -149,6 +164,31 @@ export function RoutePlannerProvider({
     }
   };
 
+  const generateAutoRoute = (
+    origin: Coordinate,
+    availablePandals: AutoRoutePandalInput[],
+    maxStops = 8,
+    originName = ""
+  ) => {
+    const result = generateNearestPandalRoute({
+      origin,
+      availablePandals,
+      maxStops,
+    });
+    if (result.orderedPandalIds.length > 0) {
+      saveStops(result.orderedPandalIds);
+      setStartOrigin(origin, originName);
+    }
+    return result;
+  };
+
+  const optimizeCurrentRoute = (
+    pandals: Array<{ id: string; latitude: number | null; longitude: number | null }>
+  ) => {
+    const optimized = optimizeRouteOrder(pandals, startOrigin);
+    saveStops(optimized);
+  };
+
   return (
     <RoutePlannerContext.Provider
       value={{
@@ -167,6 +207,8 @@ export function RoutePlannerProvider({
         setStartOrigin,
         getShareableRouteUrl,
         loadFromPandalIds,
+        generateAutoRoute,
+        optimizeCurrentRoute,
       }}
     >
       {children}

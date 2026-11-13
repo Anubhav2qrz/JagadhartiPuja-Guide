@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { dataStore } from "@/lib/data/store";
+import { compressImageFile } from "@/lib/utils";
 import {
   Pandal,
   Locality,
@@ -90,6 +91,8 @@ export default function AdminPage() {
 
   // Form notification
   const [actionSuccess, setActionSuccess] = useState<string | null>(null);
+  const [isSavingPandal, setIsSavingPandal] = useState(false);
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
 
   // Address search / geocoding state
   const [addressSearchQuery, setAddressSearchQuery] = useState("");
@@ -256,18 +259,26 @@ export default function AdminPage() {
   // PANDAL ACTIONS
   const handleSavePandal = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!editingPandal || !editingPandal.name) return;
+    if (!editingPandal || !editingPandal.name?.trim()) {
+      alert("Please provide at least a pandal name before saving.");
+      return;
+    }
 
-    dataStore.savePandal(editingPandal as any);
-    refreshData();
-    setEditingPandal(null);
-    showSuccess("Pandal saved locally! Syncing with Supabase Cloud...");
-
-    // Immediate sync to Supabase Cloud
+    setIsSavingPandal(true);
     try {
+      // 1. Save pandal in local reactive data store
+      dataStore.savePandal(editingPandal as any);
+      refreshData();
+      showSuccess("Pandal saved locally! Syncing with Supabase Cloud...");
+
+      // 2. Synchronize to Supabase Cloud
       const res = await dataStore.syncToCloud();
       if (res.success) {
-        showSuccess("☁️ Pandal synchronized with Supabase Cloud!");
+        // Refresh local cache with latest IDs from cloud
+        await dataStore.fetchFromCloud();
+        refreshData();
+        showSuccess("☁️ Pandal successfully saved and synchronized with Supabase Cloud!");
+        setEditingPandal(null);
       } else {
         setCloudSyncResult({
           success: false,
@@ -275,9 +286,19 @@ export default function AdminPage() {
           is_permission_error: res.is_permission_error,
           sql_fix: res.sql_fix,
         });
+        showSuccess(
+          res.is_permission_error
+            ? "Pandal saved locally. Cloud write permission required."
+            : `Pandal saved locally. Cloud sync: ${res.error || "error"}`
+        );
+        setEditingPandal(null);
       }
-    } catch {
+    } catch (err: any) {
+      console.error("Save pandal error:", err);
       showSuccess("Pandal saved locally. Cloud sync will retry on next connection.");
+      setEditingPandal(null);
+    } finally {
+      setIsSavingPandal(false);
     }
   };
 
@@ -335,39 +356,70 @@ export default function AdminPage() {
     }
   };
 
-  const handleThumbnailUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleThumbnailUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const dataUrl = event.target?.result as string;
-      if (dataUrl && editingPandal) {
+    setIsUploadingPhoto(true);
+    try {
+      const compressedDataUrl = await compressImageFile(file, 1200, 1200, 0.75);
+      if (compressedDataUrl && editingPandal) {
         setEditingPandal({
           ...editingPandal,
-          cover_image_url: dataUrl,
+          cover_image_url: compressedDataUrl,
         });
-        showSuccess("Thumbnail updated from uploaded picture!");
+        showSuccess("Thumbnail photo optimized and updated!");
       }
-    };
-    reader.readAsDataURL(file);
+    } catch (err) {
+      console.warn("Canvas compression fallback to standard reader:", err);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target?.result as string;
+        if (dataUrl && editingPandal) {
+          setEditingPandal({
+            ...editingPandal,
+            cover_image_url: dataUrl,
+          });
+          showSuccess("Thumbnail updated from uploaded picture!");
+        }
+      };
+      reader.readAsDataURL(file);
+    } finally {
+      setIsUploadingPhoto(false);
+    }
   };
 
-  const handleAddGalleryPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAddGalleryPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const dataUrl = event.target?.result as string;
-      if (dataUrl && editingPandal) {
+    setIsUploadingPhoto(true);
+    try {
+      const compressedDataUrl = await compressImageFile(file, 1200, 1200, 0.75);
+      if (compressedDataUrl && editingPandal) {
         const currentGallery = editingPandal.gallery || [];
         setEditingPandal({
           ...editingPandal,
-          gallery: [...currentGallery, dataUrl],
+          gallery: [...currentGallery, compressedDataUrl],
         });
-        showSuccess("Photo added to pandal gallery!");
+        showSuccess("Photo optimized and added to pandal gallery!");
       }
-    };
-    reader.readAsDataURL(file);
+    } catch (err) {
+      console.warn("Canvas compression fallback to standard reader:", err);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target?.result as string;
+        if (dataUrl && editingPandal) {
+          const currentGallery = editingPandal.gallery || [];
+          setEditingPandal({
+            ...editingPandal,
+            gallery: [...currentGallery, dataUrl],
+          });
+          showSuccess("Photo added to pandal gallery!");
+        }
+      };
+      reader.readAsDataURL(file);
+    } finally {
+      setIsUploadingPhoto(false);
+    }
   };
 
   const handleSetAsThumbnail = (imgUrl: string) => {
@@ -1377,11 +1429,16 @@ export default function AdminPage() {
                     <div className="flex items-center gap-2 flex-wrap">
                       {/* Upload from device */}
                       <label className="btn-maroon-action px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95">
-                        <Upload className="w-3.5 h-3.5 text-[#f5ba42]" />
-                        <span>Upload Photo from Device</span>
+                        {isUploadingPhoto ? (
+                          <RefreshCw className="w-3.5 h-3.5 text-[#f5ba42] animate-spin" />
+                        ) : (
+                          <Upload className="w-3.5 h-3.5 text-[#f5ba42]" />
+                        )}
+                        <span>{isUploadingPhoto ? "Optimizing Image..." : "Upload Photo from Device"}</span>
                         <input
                           type="file"
                           accept="image/*"
+                          disabled={isUploadingPhoto}
                           className="hidden"
                           onChange={handleThumbnailUpload}
                         />
@@ -1417,12 +1474,17 @@ export default function AdminPage() {
                     </label>
 
                     {/* Upload into Gallery */}
-                    <label className="text-xs font-semibold text-[#8b2f1e] hover:underline flex items-center gap-1 cursor-pointer">
-                      <Plus className="w-3.5 h-3.5" />
-                      <span>Add Photo to Gallery</span>
+                    <label className={`text-xs font-semibold text-[#8b2f1e] hover:underline flex items-center gap-1 cursor-pointer ${isUploadingPhoto ? "opacity-50 pointer-events-none" : ""}`}>
+                      {isUploadingPhoto ? (
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <Plus className="w-3.5 h-3.5" />
+                      )}
+                      <span>{isUploadingPhoto ? "Optimizing..." : "Add Photo to Gallery"}</span>
                       <input
                         type="file"
                         accept="image/*"
+                        disabled={isUploadingPhoto}
                         className="hidden"
                         onChange={handleAddGalleryPhoto}
                       />
@@ -1724,10 +1786,20 @@ export default function AdminPage() {
                 </button>
                 <button
                   type="submit"
-                  className="btn-maroon-action px-6 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-md"
+                  disabled={isSavingPandal || isUploadingPhoto}
+                  className="btn-maroon-action px-6 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <Save className="w-4 h-4" />
-                  <span>Save Pandal</span>
+                  {isSavingPandal ? (
+                    <>
+                      <RefreshCw className="w-4 h-4 animate-spin text-[#f5ba42]" />
+                      <span>Saving & Syncing...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Save className="w-4 h-4" />
+                      <span>Save Pandal</span>
+                    </>
+                  )}
                 </button>
               </div>
             </form>

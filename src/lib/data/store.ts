@@ -124,12 +124,18 @@ export const dataStore = {
     const all = getStored<Pandal[]>(STORAGE_KEYS.PANDALS, memoryPandals);
     const existingIndex = all.findIndex((p) => p.id === pandal.id);
 
-    const slug =
-      pandal.slug ||
-      pandal.name
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "");
+    const cleanSlug = pandal.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+
+    const baseSlug = pandal.slug || cleanSlug || `pandal-${Date.now()}`;
+    let slug = baseSlug;
+    let counter = 1;
+    while (all.some((p) => p.id !== pandal.id && p.slug === slug)) {
+      counter++;
+      slug = `${baseSlug}-${counter}`;
+    }
 
     const resolvedLocality = pandal.locality_id
       ? dataStore.getLocalities().find((l) => l.id === pandal.locality_id)
@@ -141,6 +147,12 @@ export const dataStore = {
         ...pandal,
         slug,
         locality: resolvedLocality || all[existingIndex].locality,
+        cover_image_url:
+          pandal.cover_image_url?.trim() ||
+          all[existingIndex].cover_image_url ||
+          "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg",
+        description: pandal.description ?? all[existingIndex].description ?? "",
+        category: pandal.category || all[existingIndex].category || "traditional",
         updated_at: new Date().toISOString(),
       };
       all[existingIndex] = updated;
@@ -155,19 +167,19 @@ export const dataStore = {
     } else {
       const newPandal: Pandal = {
         id: pandal.id || `pandal-${Date.now()}`,
-        name: pandal.name,
-        name_bn: pandal.name_bn || pandal.name,
+        name: pandal.name.trim(),
+        name_bn: pandal.name_bn?.trim() || pandal.name.trim(),
         slug,
-        description: pandal.description || "",
-        description_bn: pandal.description_bn || "",
-        address: pandal.address || "Krishnanagar, Nadia",
-        address_bn: pandal.address_bn || "কৃষ্ণনগর, নদিয়া",
+        description: pandal.description?.trim() || "",
+        description_bn: pandal.description_bn?.trim() || undefined,
+        address: pandal.address?.trim() || "Krishnanagar, Nadia",
+        address_bn: pandal.address_bn?.trim() || "কৃষ্ণনগর, নদিয়া",
         locality_id: pandal.locality_id || null,
         locality: resolvedLocality || null,
-        latitude: pandal.latitude ?? null,
-        longitude: pandal.longitude ?? null,
+        latitude: typeof pandal.latitude === "number" ? pandal.latitude : null,
+        longitude: typeof pandal.longitude === "number" ? pandal.longitude : null,
         cover_image_url:
-          pandal.cover_image_url ||
+          pandal.cover_image_url?.trim() ||
           "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg",
         gallery: pandal.gallery || [],
         category: pandal.category || "traditional",

@@ -28,6 +28,9 @@ import {
   AlertTriangle,
   RotateCcw,
   ExternalLink,
+  Zap,
+  Sparkles,
+  CheckCircle2,
 } from "lucide-react";
 
 interface RoutePlannerViewProps {
@@ -53,6 +56,8 @@ export function RoutePlannerView({
     setTravelMode,
     setStartOrigin,
     getShareableRouteUrl,
+    generateAutoRoute,
+    optimizeCurrentRoute,
   } = useRoutePlanner();
 
   const [copied, setCopied] = useState(false);
@@ -61,6 +66,44 @@ export function RoutePlannerView({
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocalityFilter, setSelectedLocalityFilter] =
     useState<string>("all");
+
+  // Auto-routing states
+  const [selectedOriginPreset, setSelectedOriginPreset] = useState<string>("gps");
+  const [autoRouteStopsLimit, setAutoRouteStopsLimit] = useState<number>(8);
+  const [isGeneratingAutoRoute, setIsGeneratingAutoRoute] = useState(false);
+  const [autoRouteMessage, setAutoRouteMessage] = useState<string | null>(null);
+  const [isOptimizing, setIsOptimizing] = useState(false);
+
+  const PRESET_ORIGINS = [
+    {
+      id: "gps",
+      name: "My GPS Location",
+      nameBn: "আমার অবস্থান",
+      icon: "📍",
+      coord: null,
+    },
+    {
+      id: "station",
+      name: "Krishnanagar Station",
+      nameBn: "কৃষ্ণনগর স্টেশন",
+      icon: "🚆",
+      coord: { latitude: 23.3948, longitude: 88.512 },
+    },
+    {
+      id: "rajbari",
+      name: "Krishnanagar Rajbari",
+      nameBn: "রাজবাড়ি",
+      icon: "👑",
+      coord: { latitude: 23.397453, longitude: 88.498662 },
+    },
+    {
+      id: "chasapara",
+      name: "Chasapara (Buri Maa)",
+      nameBn: "চাষাপাড়া (বুড়িমা)",
+      icon: "🛕",
+      coord: { latitude: 23.410188, longitude: 88.496313 },
+    },
+  ];
 
   // Map selected IDs to full Pandal objects, preserving the user's explicit order
   const orderedStops: Pandal[] = selectedPandalIds
@@ -138,6 +181,107 @@ export function RoutePlannerView({
     }
   };
 
+  // Smart Auto-Routing Generator Handler
+  const handleGenerateSmartAutoRoute = (
+    presetId = selectedOriginPreset,
+    maxStops = autoRouteStopsLimit
+  ) => {
+    setIsGeneratingAutoRoute(true);
+    setAutoRouteMessage(null);
+    setLocationError(null);
+
+    const executeWithOrigin = (coord: Coordinate, originName: string) => {
+      const result = generateAutoRoute(coord, allPandals, maxStops, originName);
+      setIsGeneratingAutoRoute(false);
+      if (result.orderedPandalIds.length === 0) {
+        setAutoRouteMessage(
+          language === "bn"
+            ? "নিকটবর্তী কোনো ভেরিফায়েড মণ্ডপ খুঁজে পাওয়া যায়নি।"
+            : "No verified pandals found with coordinates."
+        );
+      } else {
+        setAutoRouteMessage(
+          language === "bn"
+            ? `⚡ ${result.orderedPandalIds.length}টি নিকটবর্তী মণ্ডপ নিয়ে সংক্ষিপ্ততম পরিক্রমা তৈরি করা হয়েছে! (আনুমানিক ${result.totalDistanceKm} কিমি)`
+            : `⚡ Auto-routed ${result.orderedPandalIds.length} nearest pandals! (~${result.totalDistanceKm} km)`
+        );
+        setTimeout(() => setAutoRouteMessage(null), 6000);
+      }
+    };
+
+    if (presetId === "gps") {
+      if (!("geolocation" in navigator)) {
+        setIsGeneratingAutoRoute(false);
+        setLocationError("Geolocation not supported by browser.");
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const coord: Coordinate = {
+            latitude: pos.coords.latitude,
+            longitude: pos.coords.longitude,
+          };
+          executeWithOrigin(coord, t.routePlanner.currentLocation);
+        },
+        () => {
+          // If GPS denied, gracefully fall back to Krishnanagar Station
+          const fallback = PRESET_ORIGINS[1];
+          executeWithOrigin(fallback.coord!, fallback.name);
+          setLocationError(
+            language === "bn"
+              ? "লোকেশন পারমিশন মেলেনি; কৃষ্ণনগর স্টেশন থেকে রুট তৈরি করা হলো।"
+              : "Location access denied; defaulted starting point to Krishnanagar Station."
+          );
+        },
+        { timeout: 7000 }
+      );
+    } else {
+      const preset =
+        PRESET_ORIGINS.find((p) => p.id === presetId) || PRESET_ORIGINS[1];
+      if (preset && preset.coord) {
+        executeWithOrigin(
+          preset.coord,
+          language === "bn" ? preset.nameBn : preset.name
+        );
+      }
+    }
+  };
+
+  // Reorder existing stops to eliminate backtracking
+  const handleOptimizeExistingStops = () => {
+    if (orderedStops.length < 2) return;
+    setIsOptimizing(true);
+    optimizeCurrentRoute(orderedStops);
+    setTimeout(() => {
+      setIsOptimizing(false);
+      setAutoRouteMessage(
+        language === "bn"
+          ? "✨ আপনার মণ্ডপের ক্রম সংক্ষিপ্ততম দূরত্বের জন্য অপ্টিমাইজ করা হয়েছে!"
+          : "✨ Stops reordered for the shortest walking path!"
+      );
+      setTimeout(() => setAutoRouteMessage(null), 4000);
+    }, 250);
+  };
+
+  // Check URL query parameters on mount (e.g. ?autoroute=gps)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const autorouteParam = params.get("autoroute");
+    if (autorouteParam) {
+      if (autorouteParam === "gps") {
+        setSelectedOriginPreset("gps");
+        handleGenerateSmartAutoRoute("gps", 8);
+      } else if (autorouteParam === "station") {
+        setSelectedOriginPreset("station");
+        handleGenerateSmartAutoRoute("station", 8);
+      } else if (autorouteParam === "rajbari") {
+        setSelectedOriginPreset("rajbari");
+        handleGenerateSmartAutoRoute("rajbari", 8);
+      }
+    }
+  }, []);
+
   // Filter available pandals for quick-add list
   const availablePandals = allPandals.filter((p) => {
     if (selectedPandalIds.includes(p.id)) return false;
@@ -209,6 +353,127 @@ export function RoutePlannerView({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Itinerary Stops & Controls (7 Cols) */}
         <div className="lg:col-span-7 space-y-6">
+          {/* ⚡ Smart Auto-Route Circuit Generator Card */}
+          <div className="bg-linear-to-br from-[#fffdf8] to-[#fbf7ed] rounded-3xl p-5 sm:p-6 border-2 border-[#d99b26]/50 shadow-md space-y-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#f5ba42]/20 border border-[#d99b26]/40 text-[#8b2f1e] text-[10px] font-bold uppercase tracking-wider mb-1.5">
+                  <Zap className="w-3 h-3 text-[#d99b26] fill-[#d99b26]" />
+                  <span>Smart Hopping Circuit</span>
+                </div>
+                <h2 className="font-serif font-bold text-lg sm:text-xl text-[#4a1810]">
+                  {language === "bn"
+                    ? "স্বয়ংক্রিয় নিকটতম পরিক্রমা তৈরি করুন"
+                    : "Auto-Generate Nearest Pandal Route"}
+                </h2>
+                <p className="text-xs text-[#57534e] mt-1 leading-relaxed">
+                  {language === "bn"
+                    ? "আপনার অবস্থান থেকে সবচেয়ে কাছের মণ্ডপগুলো পরপর সাজিয়ে একটি নিখুঁত পরিক্রমা তৈরি করুন, কোনো অপ্রয়োজনীয় হাঁটাচলা ছাড়াই।"
+                    : "Automatically routes from your nearest location stop-by-stop to minimize travel time and eliminate backtracking."}
+                </p>
+              </div>
+            </div>
+
+            {/* Starting Origin Selector */}
+            <div className="space-y-1.5 pt-1">
+              <label className="block text-xs font-bold text-[#4a1810]">
+                {language === "bn" ? "১. সূচনা বিন্দু নির্বাচন করুন:" : "1. Select Starting Point:"}
+              </label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {PRESET_ORIGINS.map((preset) => {
+                  const isSelected = selectedOriginPreset === preset.id;
+                  return (
+                    <button
+                      key={preset.id}
+                      type="button"
+                      onClick={() => setSelectedOriginPreset(preset.id)}
+                      className={`p-2.5 rounded-xl text-xs font-semibold flex flex-col items-center justify-center gap-1 transition-all cursor-pointer border ${
+                        isSelected
+                          ? "bg-[#8b2f1e] text-[#f5ba42] border-[#4a1810] shadow-sm scale-[1.02]"
+                          : "bg-white text-stone-700 border-stone-200 hover:border-[#d99b26]/60 hover:bg-stone-50"
+                      }`}
+                    >
+                      <span className="text-base">{preset.icon}</span>
+                      <span className="text-[11px] font-bold text-center leading-tight">
+                        {language === "bn" ? preset.nameBn : preset.name}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Stops Count Selector */}
+            <div className="space-y-1.5 pt-1">
+              <label className="block text-xs font-bold text-[#4a1810]">
+                {language === "bn" ? "২. পরিক্রমার পরিধি / মণ্ডপ সংখ্যা:" : "2. Tour Size & Number of Stops:"}
+              </label>
+              <div className="grid grid-cols-4 gap-2">
+                {[
+                  { count: 5, label: "5 Stops", sub: "~1.5 hrs" },
+                  { count: 8, label: "8 Stops", sub: "~3 hrs" },
+                  { count: 12, label: "12 Stops", sub: "~5 hrs" },
+                  { count: 25, label: "All Verified", sub: "Grand" },
+                ].map((option) => {
+                  const isSelected = autoRouteStopsLimit === option.count;
+                  return (
+                    <button
+                      key={option.count}
+                      type="button"
+                      onClick={() => setAutoRouteStopsLimit(option.count)}
+                      className={`p-2 rounded-xl text-center transition-all cursor-pointer border ${
+                        isSelected
+                          ? "bg-[#4a1810] text-white border-[#d99b26] shadow-sm"
+                          : "bg-white text-stone-700 border-stone-200 hover:border-stone-400"
+                      }`}
+                    >
+                      <div className="text-xs font-bold">{option.label}</div>
+                      <div className="text-[9px] opacity-75">{option.sub}</div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Generate Action Button */}
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={() => handleGenerateSmartAutoRoute()}
+                disabled={isGeneratingAutoRoute}
+                className="btn-maroon-action w-full py-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-md cursor-pointer disabled:opacity-60"
+              >
+                {isGeneratingAutoRoute ? (
+                  <>
+                    <Zap className="w-4 h-4 text-[#f5ba42] animate-bounce" />
+                    <span>
+                      {language === "bn"
+                        ? "পরিক্রমা গণনা করা হচ্ছে..."
+                        : "Calculating Nearest Route..."}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <Zap className="w-4 h-4 text-[#f5ba42] fill-[#f5ba42]" />
+                    <span>
+                      {language === "bn"
+                        ? `⚡ ${autoRouteStopsLimit}টি নিকটবর্তী মণ্ডপের অটো রুট তৈরি করুন`
+                        : `⚡ Generate ${autoRouteStopsLimit}-Stop Auto Route`}
+                    </span>
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* Notification / Feedback Banner */}
+            {autoRouteMessage && (
+              <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-xs text-emerald-900 font-medium flex items-center gap-2 animate-in fade-in">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>{autoRouteMessage}</span>
+              </div>
+            )}
+          </div>
+
           {/* Starting Point & Travel Mode Settings Card */}
           <div className="bg-white rounded-2xl p-5 border border-[#ede4d1] shadow-xs space-y-4">
             <h3 className="font-serif font-bold text-base text-[#1c1917]">
@@ -294,14 +559,35 @@ export function RoutePlannerView({
 
           {/* Selected Itinerary Stops */}
           <div className="bg-white rounded-2xl p-5 border border-[#ede4d1] shadow-xs">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-serif font-bold text-base text-[#1c1917]">
-                {t.routePlanner.selectedStops} ({orderedStops.length})
-              </h3>
-              {totalDistanceKm > 0 && (
-                <span className="text-xs text-[#78716c] font-medium">
-                  {t.routePlanner.approxDistance}: ~{totalDistanceKm} km
-                </span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+              <div className="flex items-center gap-2">
+                <h3 className="font-serif font-bold text-base text-[#1c1917]">
+                  {t.routePlanner.selectedStops} ({orderedStops.length})
+                </h3>
+                {totalDistanceKm > 0 && (
+                  <span className="text-xs text-[#78716c] font-medium">
+                    • ~{totalDistanceKm} km
+                  </span>
+                )}
+              </div>
+
+              {orderedStops.length >= 2 && (
+                <button
+                  type="button"
+                  onClick={handleOptimizeExistingStops}
+                  disabled={isOptimizing}
+                  className="px-3 py-1.5 rounded-xl border border-[#d99b26] bg-[#fcfaf5] hover:bg-[#8b2f1e] hover:text-white text-xs font-semibold text-[#8b2f1e] flex items-center gap-1.5 transition-all shadow-2xs cursor-pointer self-start sm:self-auto"
+                  title="Reorder these stops to minimize walking/driving distance"
+                >
+                  <Sparkles className={`w-3.5 h-3.5 ${isOptimizing ? "animate-spin" : ""}`} />
+                  <span>
+                    {isOptimizing
+                      ? "Optimizing..."
+                      : language === "bn"
+                      ? "✨ পরিক্রমার ক্রম সাজান"
+                      : "✨ Optimize Stop Order"}
+                  </span>
+                </button>
               )}
             </div>
 

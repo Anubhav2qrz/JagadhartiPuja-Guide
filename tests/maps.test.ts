@@ -7,6 +7,8 @@ import {
   chunkRouteForGoogleMaps,
   calculateHaversineDistanceKm,
   MAX_GOOGLE_MAPS_WAYPOINTS,
+  generateNearestPandalRoute,
+  optimizeRouteOrder,
 } from "../src/lib/maps";
 
 describe("Coordinate Validation", () => {
@@ -153,6 +155,74 @@ describe("Haversine Distance Calculator", () => {
     );
     expect(dist).toBeGreaterThan(0.5);
     expect(dist).toBeLessThan(1.5);
+  });
+});
+
+describe("Nearest-Neighbor Auto-Routing Engine", () => {
+  const pandals = [
+    { id: "p1", name: "P1", latitude: 23.400, longitude: 88.500, is_verified: true },
+    { id: "p2", name: "P2", latitude: 23.410, longitude: 88.510, is_verified: true },
+    { id: "p3", name: "P3", latitude: 23.401, longitude: 88.501, is_verified: true },
+    { id: "p4", name: "P4", latitude: 23.450, longitude: 88.550, is_verified: true },
+  ];
+
+  it("selects nearest pandal first from origin and builds sequential circuit", () => {
+    const origin = { latitude: 23.400, longitude: 88.500 };
+    const route = generateNearestPandalRoute({
+      origin,
+      availablePandals: pandals,
+      maxStops: 3,
+    });
+
+    expect(route.orderedPandalIds.length).toBe(3);
+    // Closest to origin (23.400, 88.500) is p1 (0km away), then p3 (~0.14km away), then p2
+    expect(route.orderedPandalIds[0]).toBe("p1");
+    expect(route.orderedPandalIds[1]).toBe("p3");
+    expect(route.orderedPandalIds[2]).toBe("p2");
+    expect(route.totalDistanceKm).toBeGreaterThan(0);
+  });
+
+  it("respects maxStops limit", () => {
+    const origin = { latitude: 23.400, longitude: 88.500 };
+    const route = generateNearestPandalRoute({
+      origin,
+      availablePandals: pandals,
+      maxStops: 2,
+    });
+    expect(route.orderedPandalIds.length).toBe(2);
+  });
+
+  it("filters out invalid coordinates cleanly", () => {
+    const invalidList = [
+      { id: "invalid1", name: "No coords", latitude: null, longitude: null, is_verified: false },
+      { id: "valid1", name: "Has coords", latitude: 23.4, longitude: 88.5, is_verified: true },
+    ];
+    const route = generateNearestPandalRoute({
+      origin: { latitude: 23.4, longitude: 88.5 },
+      availablePandals: invalidList,
+      maxStops: 5,
+    });
+    expect(route.orderedPandalIds).toEqual(["valid1"]);
+  });
+});
+
+describe("Route Order Optimizer (Backtracking Elimination)", () => {
+  it("reorders stops to minimize travel distance", () => {
+    const unorderedStops = [
+      { id: "far", latitude: 23.450, longitude: 88.550 },
+      { id: "near1", latitude: 23.401, longitude: 88.501 },
+      { id: "near2", latitude: 23.402, longitude: 88.502 },
+    ];
+    const origin = { latitude: 23.400, longitude: 88.500 };
+
+    const optimized = optimizeRouteOrder(unorderedStops, origin);
+    // Closest to origin is near1, then near2, then far
+    expect(optimized).toEqual(["near1", "near2", "far"]);
+  });
+
+  it("handles empty or single stop gracefully", () => {
+    expect(optimizeRouteOrder([])).toEqual([]);
+    expect(optimizeRouteOrder([{ id: "only", latitude: 23.4, longitude: 88.5 }])).toEqual(["only"]);
   });
 });
 

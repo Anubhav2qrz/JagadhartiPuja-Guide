@@ -264,3 +264,159 @@ export function calculateHaversineDistanceKm(
   return Math.round(R * c * 100) / 100;
 }
 
+export interface AutoRoutePandalInput {
+  id: string;
+  name?: string;
+  latitude: number | null;
+  longitude: number | null;
+  is_verified?: boolean;
+  is_featured?: boolean;
+}
+
+export interface AutoRouteOptions {
+  origin: Coordinate;
+  availablePandals: AutoRoutePandalInput[];
+  maxStops?: number;
+}
+
+/**
+ * Finds the nearest pandals to the given origin and orders them sequentially
+ * using the Nearest-Neighbor Traveling Salesperson Problem (TSP) algorithm
+ * to create an optimal, non-zigzagging pandal hopping route.
+ */
+export function generateNearestPandalRoute(
+  options: AutoRouteOptions
+): {
+  orderedPandalIds: string[];
+  totalDistanceKm: number;
+} {
+  const { origin, availablePandals, maxStops = 8 } = options;
+
+  if (!isValidCoordinate(origin.latitude, origin.longitude)) {
+    return { orderedPandalIds: [], totalDistanceKm: 0 };
+  }
+
+  // Filter only pandals that have valid coordinates
+  const validPandals = availablePandals.filter(
+    (p): p is typeof p & { latitude: number; longitude: number } =>
+      typeof p.latitude === "number" &&
+      typeof p.longitude === "number" &&
+      isValidCoordinate(p.latitude, p.longitude)
+  );
+
+  if (validPandals.length === 0) {
+    return { orderedPandalIds: [], totalDistanceKm: 0 };
+  }
+
+  const unvisited = [...validPandals];
+  const orderedPandalIds: string[] = [];
+  let currentCoord: Coordinate = origin;
+  let totalDistanceKm = 0;
+
+  const targetCount = Math.min(maxStops, unvisited.length);
+
+  while (orderedPandalIds.length < targetCount && unvisited.length > 0) {
+    let nearestIndex = -1;
+    let minDistance = Infinity;
+
+    for (let i = 0; i < unvisited.length; i++) {
+      const p = unvisited[i];
+      const dist = calculateHaversineDistanceKm(currentCoord, {
+        latitude: p.latitude,
+        longitude: p.longitude,
+      });
+      if (dist < minDistance) {
+        minDistance = dist;
+        nearestIndex = i;
+      }
+    }
+
+    if (nearestIndex === -1) break;
+
+    const [nearestPandal] = unvisited.splice(nearestIndex, 1);
+    orderedPandalIds.push(nearestPandal.id);
+    totalDistanceKm += minDistance;
+    currentCoord = {
+      latitude: nearestPandal.latitude,
+      longitude: nearestPandal.longitude,
+    };
+  }
+
+  return {
+    orderedPandalIds,
+    totalDistanceKm: Math.round(totalDistanceKm * 100) / 100,
+  };
+}
+
+/**
+ * Optimizes the order of an existing list of pandals starting from an origin coordinate
+ * so that each subsequent stop is the closest remaining stop (eliminating backtracking).
+ */
+export function optimizeRouteOrder(
+  pandals: Array<{
+    id: string;
+    latitude: number | null;
+    longitude: number | null;
+  }>,
+  origin?: Coordinate | null
+): string[] {
+  if (pandals.length <= 2) {
+    return pandals.map((p) => p.id);
+  }
+
+  // Separate pandals with coordinates from those without
+  const withCoords = pandals.filter(
+    (p): p is typeof p & { latitude: number; longitude: number } =>
+      typeof p.latitude === "number" &&
+      typeof p.longitude === "number" &&
+      isValidCoordinate(p.latitude, p.longitude)
+  );
+  const withoutCoords = pandals.filter(
+    (p) =>
+      typeof p.latitude !== "number" ||
+      typeof p.longitude !== "number" ||
+      !isValidCoordinate(p.latitude, p.longitude)
+  );
+
+  if (withCoords.length === 0) {
+    return pandals.map((p) => p.id);
+  }
+
+  const unvisited = [...withCoords];
+  const orderedIds: string[] = [];
+  let currentCoord: Coordinate;
+
+  if (origin && isValidCoordinate(origin.latitude, origin.longitude)) {
+    currentCoord = origin;
+  } else {
+    // If origin wasn't provided, keep first stop as starting point
+    const first = unvisited.shift()!;
+    orderedIds.push(first.id);
+    currentCoord = { latitude: first.latitude, longitude: first.longitude };
+  }
+
+  while (unvisited.length > 0) {
+    let nearestIndex = 0;
+    let minDistance = Infinity;
+
+    for (let i = 0; i < unvisited.length; i++) {
+      const p = unvisited[i];
+      const dist = calculateHaversineDistanceKm(currentCoord, {
+        latitude: p.latitude,
+        longitude: p.longitude,
+      });
+      if (dist < minDistance) {
+        minDistance = dist;
+        nearestIndex = i;
+      }
+    }
+
+    const [nearest] = unvisited.splice(nearestIndex, 1);
+    orderedIds.push(nearest.id);
+    currentCoord = { latitude: nearest.latitude, longitude: nearest.longitude };
+  }
+
+  // Append any pandals without coordinates at the end
+  return [...orderedIds, ...withoutCoords.map((p) => p.id)];
+}
+
