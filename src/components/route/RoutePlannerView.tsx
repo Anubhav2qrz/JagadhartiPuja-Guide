@@ -29,7 +29,6 @@ import {
   RotateCcw,
   ExternalLink,
   Zap,
-  Sparkles,
   CheckCircle2,
 } from "lucide-react";
 
@@ -141,6 +140,7 @@ export function RoutePlannerView({
       totalDistanceKm += calculateHaversineDistanceKm(prev, curr);
       prev = curr;
     }
+    totalDistanceKm = Math.round(totalDistanceKm * 10) / 10;
   }
 
   // Handle Geolocation for Starting Point
@@ -256,8 +256,8 @@ export function RoutePlannerView({
       setIsOptimizing(false);
       setAutoRouteMessage(
         language === "bn"
-          ? "✨ আপনার মণ্ডপের ক্রম সংক্ষিপ্ততম দূরত্বের জন্য অপ্টিমাইজ করা হয়েছে!"
-          : "✨ Stops reordered for the shortest walking path!"
+          ? "⚡ আপনার মণ্ডপের ক্রম সংক্ষিপ্ততম দূরত্বের জন্য অপ্টিমাইজ করা হয়েছে!"
+          : "⚡ Stops reordered for the shortest walking path!"
       );
       setTimeout(() => setAutoRouteMessage(null), 4000);
     }, 250);
@@ -579,13 +579,13 @@ export function RoutePlannerView({
                   className="px-3 py-1.5 rounded-xl border border-[#d99b26] bg-[#fcfaf5] hover:bg-[#8b2f1e] hover:text-white text-xs font-semibold text-[#8b2f1e] flex items-center gap-1.5 transition-all shadow-2xs cursor-pointer self-start sm:self-auto"
                   title="Reorder these stops to minimize walking/driving distance"
                 >
-                  <Sparkles className={`w-3.5 h-3.5 ${isOptimizing ? "animate-spin" : ""}`} />
+                  <Zap className={`w-3.5 h-3.5 text-[#d99b26] ${isOptimizing ? "animate-spin" : ""}`} />
                   <span>
                     {isOptimizing
                       ? "Optimizing..."
                       : language === "bn"
-                      ? "✨ পরিক্রমার ক্রম সাজান"
-                      : "✨ Optimize Stop Order"}
+                      ? "⚡ পরিক্রমার ক্রম সাজান"
+                      : "⚡ Optimize Stop Order"}
                   </span>
                 </button>
               )}

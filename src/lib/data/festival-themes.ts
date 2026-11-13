@@ -450,3 +450,4 @@ export const FESTIVAL_THEMES_2026: FestivalThemeItem[] = [
     locality: "Ghurni",
   },
 ];
+
