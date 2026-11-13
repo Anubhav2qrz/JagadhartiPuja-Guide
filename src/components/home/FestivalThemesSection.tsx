@@ -8,7 +8,7 @@ import {
 } from "@/lib/data/festival-themes";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import {
-  Sparkles,
+  Palette,
   Search,
   X,
   Share2,
@@ -98,7 +98,7 @@ export function FestivalThemesSection({
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#ede4d1] pb-5">
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f5ba42]/20 border border-[#d99b26]/50 text-[#8b2f1e] text-[11px] font-bold uppercase tracking-wider mb-2">
-            <Sparkles className="w-3.5 h-3.5 text-[#d99b26] fill-[#d99b26]" />
+            <Palette className="w-3.5 h-3.5 text-[#d99b26]" />
             <span>
               {language === "bn"
                 ? "কৃষ্ণনগর জগদ্ধাত্রী মহোৎসব ২০২৬"
@@ -452,7 +452,7 @@ export function FestivalThemesSection({
       {/* Empty State */}
       {filteredThemes.length === 0 && (
         <div className="bg-white rounded-2xl p-10 text-center border border-[#ede4d1] space-y-3">
-          <Sparkles className="w-8 h-8 text-[#d99b26] mx-auto opacity-50" />
+          <Palette className="w-8 h-8 text-[#d99b26] mx-auto opacity-50" />
           <h4 className="font-serif font-bold text-base text-[#1c1917]">
             {language === "bn"
               ? "কোনো থিম খুঁজে পাওয়া যায়নি"

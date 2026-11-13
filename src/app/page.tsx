@@ -24,7 +24,7 @@ import {
   ChevronRight,
   Crosshair,
   Zap,
-  Sparkles,
+  Palette,
 } from "lucide-react";
 
 export default function HomePage() {
@@ -120,8 +120,8 @@ export default function HomePage() {
               href="#themes"
               className="w-full sm:w-auto px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-sm sm:text-base font-bold bg-[#d99b26]/25 hover:bg-[#d99b26]/40 text-[#f5ba42] border border-[#d99b26]/70 flex items-center justify-center gap-2 transition-all backdrop-blur-xs shadow-md active:scale-95"
             >
-              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#f5ba42] fill-[#f5ba42]" />
-              <span>{language === "bn" ? "✨ ২০২৬ মণ্ডপ থিম (৪৮)" : "✨ 2026 Themes (48)"}</span>
+              <Palette className="w-4 h-4 sm:w-5 sm:h-5 text-[#f5ba42]" />
+              <span>{language === "bn" ? "২০২৬ মণ্ডপ থিম (৪৮)" : "2026 Themes (48)"}</span>
             </a>
 
             <Link
@@ -130,7 +130,7 @@ export default function HomePage() {
               title="Automatically generates shortest route to nearest pandals"
             >
               <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-[#f5ba42] fill-[#f5ba42]" />
-              <span>{language === "bn" ? "⚡ অটো রুট পরিক্রমা" : "⚡ Smart Auto Route"}</span>
+              <span>{language === "bn" ? "অটো রুট পরিক্রমা" : "Smart Auto Route"}</span>
             </Link>
 
             <button
