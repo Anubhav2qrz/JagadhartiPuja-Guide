@@ -47,7 +47,14 @@ export default function HomePage() {
   const themePandals = allPandals
     .filter((p) => p.category === "theme")
     .slice(0, 3);
-  const foodPlaces = places.filter((pl) => pl.category === "sweet_shop").slice(0, 2);
+  const foodPlaces = places
+    .filter(
+      (pl) =>
+        pl.category === "restaurant" ||
+        pl.category === "cafe" ||
+        pl.category === "sweet_shop"
+    )
+    .slice(0, 4);
 
   // Hero Locate Me action (user-initiated only)
   const handleNearMeClick = () => {
@@ -339,13 +346,13 @@ export default function HomePage() {
             </div>
             <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#4a1810] mt-0.5">
               {language === "bn"
-                ? "খাবার ও পুজো পরিক্রমার প্রয়োজনীয় তথ্য"
-                : "Food, GI Sweets & Visitor Essentials"}
+                ? "খাবার, ক্যাফে ও পুজো পরিক্রমার প্রয়োজনীয় তথ্য"
+                : "Dining, Cafes, GI Sweets & Essentials"}
             </h2>
             <p className="text-xs sm:text-sm text-[#78716c] mt-1">
               {language === "bn"
-                ? "ঐতিহাসিক সরপুরিয়া-সরভাজা, অনুমোদিত পুজো পার্কিং এবং জরুরি প্রাথমিক চিকিৎসা।"
-                : "Official festival parking, emergency medical points, and legendary heritage sweet shops."}
+                ? "ঐতিহাসিক সরপুরিয়া-সরভাজা, বিখ্যাত রেস্তোরাঁ ও ক্যাফে, অনুমোদিত পুজো পার্কিং এবং জরুরি প্রাথমিক চিকিৎসা।"
+                : "Legendary heritage sweet shops, famous multi-cuisine restaurants, youth cafes, and festival essentials."}
             </p>
           </div>
           <Link

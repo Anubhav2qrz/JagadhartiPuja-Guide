@@ -27,6 +27,16 @@ export default function EssentialsPage() {
   const categories = [
     { id: "all", label: t.essentialsCategories.all, icon: Utensils },
     {
+      id: "restaurant",
+      label: t.essentialsCategories.restaurant,
+      icon: Utensils,
+    },
+    {
+      id: "cafe",
+      label: t.essentialsCategories.cafe,
+      icon: Coffee,
+    },
+    {
       id: "sweet_shop",
       label: t.essentialsCategories.sweet_shop,
       icon: Coffee,
@@ -71,8 +81,8 @@ export default function EssentialsPage() {
         </h1>
         <p className="text-xs sm:text-sm text-[#57534e] mt-1.5 max-w-2xl">
           {language === "bn"
-            ? "ঐতিহাসিক জিআই স্বীকৃতিপ্রাপ্ত সরপুরিয়া ও সরভাজা মিষ্টির দোকান, উৎসবের অনুমোদিত পার্কিং অঞ্চল, পানীয় জল ও জেলা হাসপাতালের জরুরি প্রাথমিক চিকিৎসা কেন্দ্র।"
-            : "Direct Google Maps navigation to verified Krishnanagar GI-tagged sweet shops (Sarpuria & Sarbhaja), designated festival parking zones, drinking water, and round-the-clock medical points."}
+            ? "বিখ্যাত রেস্তোরাঁ ও ক্যাফে, ঐতিহাসিক জিআই স্বীকৃতিপ্রাপ্ত সরপুরিয়া ও সরভাজা মিষ্টির দোকান, উৎসবের অনুমোদিত পার্কিং অঞ্চল ও জরুরি চিকিৎসা কেন্দ্র।"
+            : "Direct Google Maps navigation to famous multi-cuisine restaurants, youth cafes, verified Krishnanagar GI-tagged sweet shops (Sarpuria & Sarbhaja), designated festival parking zones, and medical aid."}
         </p>
       </div>
 

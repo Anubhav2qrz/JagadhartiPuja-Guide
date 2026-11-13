@@ -55,6 +55,7 @@ export interface Translations {
     sweet_shop: string;
     food_stall: string;
     restaurant: string;
+    cafe: string;
     parking: string;
     restroom: string;
     water: string;
@@ -200,7 +201,8 @@ export const translations: Record<Language, Translations> = {
       all: "All Facilities",
       sweet_shop: "Sweet Shops (Sarpuria)",
       food_stall: "Food & Refreshments",
-      restaurant: "Restaurants",
+      restaurant: "Restaurants & Dining",
+      cafe: "Cafés & Coffee",
       parking: "Festival Parking",
       restroom: "Restrooms & Toilets",
       water: "Drinking Water",
@@ -355,7 +357,8 @@ export const translations: Record<Language, Translations> = {
       all: "সকল সুবিধা",
       sweet_shop: "মিষ্টির দোকান (সরপুরিয়া)",
       food_stall: "খাবার ও রিফ্রেশমেন্ট",
-      restaurant: "রেস্তোরাঁ",
+      restaurant: "রেস্তোরাঁ ও ডাইনিং",
+      cafe: "ক্যাফে ও কফি শপ",
       parking: "পূজা পার্কিং",
       restroom: "শৌচাগার",
       water: "বিশুদ্ধ পানীয় জল",

@@ -16,7 +16,7 @@ import {
 const STORAGE_KEYS = {
   PANDALS: "jd_pandals_v2",
   LOCALITIES: "jd_localities_v2",
-  PLACES: "jd_places_v2",
+  PLACES: "jd_places_v3",
   ANNOUNCEMENTS: "jd_announcements_v1",
   SUBMISSIONS: "jd_submissions_v1",
 };
@@ -264,7 +264,10 @@ export const dataStore = {
 
   // PLACES
   getPlaces(options?: { category?: string; search?: string }): Place[] {
-    const all = getStored<Place[]>(STORAGE_KEYS.PLACES, memoryPlaces);
+    const stored = getStored<Place[]>(STORAGE_KEYS.PLACES, memoryPlaces);
+    const storedIds = new Set(stored.map((p) => p.id));
+    const missingSeeds = SEED_PLACES.filter((sp) => !storedIds.has(sp.id));
+    const all = missingSeeds.length > 0 ? [...stored, ...missingSeeds] : stored;
     let filtered = all.filter((p) => p.is_published);
 
     if (options?.category && options.category !== "all") {
@@ -467,8 +470,15 @@ export const dataStore = {
         }
 
         if (Array.isArray(json.places) && json.places.length > 0) {
-          setStored(STORAGE_KEYS.PLACES, json.places);
-          memoryPlaces = json.places;
+          const cloudNames = new Set(
+            json.places.map((p: Place) => (p.name || "").toLowerCase().trim())
+          );
+          const missingSeeds = SEED_PLACES.filter(
+            (sp) => !cloudNames.has((sp.name || "").toLowerCase().trim())
+          );
+          const mergedPlaces = [...json.places, ...missingSeeds];
+          setStored(STORAGE_KEYS.PLACES, mergedPlaces);
+          memoryPlaces = mergedPlaces;
         }
 
         if (typeof window !== "undefined") {

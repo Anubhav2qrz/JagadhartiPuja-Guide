@@ -105,5 +105,26 @@ describe("DataStore & Search/Filter Operations", () => {
     const reviewed = dataStore.getSubmissions().find((s) => s.id === sub.id);
     expect(reviewed?.status).toBe("approved");
   });
+
+  it("retrieves and filters places including restaurants and cafes", () => {
+    const allPlaces = dataStore.getPlaces();
+    expect(allPlaces.length).toBeGreaterThanOrEqual(14);
+
+    const restaurants = dataStore.getPlaces({ category: "restaurant" });
+    expect(restaurants.length).toBeGreaterThanOrEqual(4);
+    restaurants.forEach((r) => {
+      expect(r.category).toBe("restaurant");
+      expect(r.latitude).toBeGreaterThan(23.3);
+      expect(r.longitude).toBeGreaterThan(88.4);
+    });
+
+    const cafes = dataStore.getPlaces({ category: "cafe" });
+    expect(cafes.length).toBeGreaterThanOrEqual(4);
+    cafes.forEach((c) => {
+      expect(c.category).toBe("cafe");
+      expect(c.latitude).toBeGreaterThan(23.3);
+      expect(c.longitude).toBeGreaterThan(88.4);
+    });
+  });
 });
 

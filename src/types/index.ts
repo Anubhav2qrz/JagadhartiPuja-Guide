@@ -50,6 +50,7 @@ export type PlaceCategory =
   | "sweet_shop"
   | "food_stall"
   | "restaurant"
+  | "cafe"
   | "parking"
   | "restroom"
   | "water"

@@ -27,6 +27,8 @@ export function PlaceCard({ place }: PlaceCardProps) {
     switch (place.category) {
       case "sweet_shop":
         return <Coffee className="w-4 h-4 text-amber-600" />;
+      case "cafe":
+        return <Coffee className="w-4 h-4 text-emerald-600" />;
       case "restaurant":
       case "food_stall":
         return <Utensils className="w-4 h-4 text-orange-600" />;

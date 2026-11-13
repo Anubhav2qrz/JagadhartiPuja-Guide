@@ -566,7 +566,7 @@ export function RoutePlannerView({
                 </h3>
                 {totalDistanceKm > 0 && (
                   <span className="text-xs text-[#78716c] font-medium">
-                    • ~{totalDistanceKm} km
+                    • ~{Number(totalDistanceKm.toFixed(1))} km
                   </span>
                 )}
               </div>
@@ -584,8 +584,8 @@ export function RoutePlannerView({
                     {isOptimizing
                       ? "Optimizing..."
                       : language === "bn"
-                      ? "⚡ পরিক্রমার ক্রম সাজান"
-                      : "⚡ Optimize Stop Order"}
+                      ? "পরিক্রমার ক্রম সাজান"
+                      : "Optimize Stop Order"}
                   </span>
                 </button>
               )}
