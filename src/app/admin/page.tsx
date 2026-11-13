@@ -50,6 +50,7 @@ import {
   Cloud,
   RefreshCw,
   AlertCircle,
+  Flame,
 } from "lucide-react";
 import {
   searchAddressGeocode,
@@ -93,6 +94,13 @@ export default function AdminPage() {
   const [actionSuccess, setActionSuccess] = useState<string | null>(null);
   const [isSavingPandal, setIsSavingPandal] = useState(false);
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
+  const modalScrollRef = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (editingPandal && modalScrollRef.current) {
+      modalScrollRef.current.scrollTop = 0;
+    }
+  }, [editingPandal]);
 
   // Address search / geocoding state
   const [addressSearchQuery, setAddressSearchQuery] = useState("");
@@ -259,15 +267,31 @@ export default function AdminPage() {
   // PANDAL ACTIONS
   const handleSavePandal = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!editingPandal || !editingPandal.name?.trim()) {
-      alert("Please provide at least a pandal name before saving.");
+    const englishName = (editingPandal?.name || "").trim();
+    const bengaliName = (editingPandal?.name_bn || "").trim();
+    const primaryName = englishName || bengaliName;
+
+    if (!primaryName) {
+      alert("Please enter a pandal name before saving.");
       return;
     }
+
+    const preparedPandal: Partial<Pandal> = {
+      ...editingPandal,
+      name: primaryName,
+      name_bn: bengaliName || primaryName,
+      cover_image_url:
+        editingPandal?.cover_image_url?.trim() ||
+        "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg",
+      description: editingPandal?.description?.trim() || "",
+      address: editingPandal?.address?.trim() || "Krishnanagar, Nadia",
+      category: editingPandal?.category || "traditional",
+    };
 
     setIsSavingPandal(true);
     try {
       // 1. Save pandal in local reactive data store
-      dataStore.savePandal(editingPandal as any);
+      dataStore.savePandal(preparedPandal as any);
       refreshData();
       showSuccess("Pandal saved locally! Syncing with Supabase Cloud...");
 
@@ -1234,64 +1258,87 @@ export default function AdminPage() {
 
       {/* PANDAL EDIT / CREATE MODAL WITH INTERACTIVE MAP PICKER */}
       {editingPandal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
-          <div className="bg-[#fcfaf5] rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-[#d99b26]/40 relative my-8">
+        <div
+          ref={modalScrollRef}
+          className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-xs p-3 sm:p-6 md:p-8 flex justify-center items-start"
+        >
+          <div className="bg-[#fcfaf5] text-stone-900 rounded-3xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl border border-[#d99b26]/50 relative my-4 sm:my-8 animate-in fade-in zoom-in-95 duration-150">
             <button
+              type="button"
               onClick={() => setEditingPandal(null)}
-              className="absolute top-5 right-5 p-1.5 text-stone-400 hover:text-stone-900 rounded-full hover:bg-[#ede4d1]"
+              className="absolute top-5 right-5 p-2 text-stone-500 hover:text-stone-900 rounded-full hover:bg-[#ede4d1] transition-colors cursor-pointer"
+              title="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
 
             <form onSubmit={handleSavePandal} className="space-y-5">
-              <div>
-                <h3 className="font-serif font-bold text-xl text-[#4a1810]">
+              {/* Modal Header */}
+              <div className="border-b border-[#ede4d1] pb-4 pr-10">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider mb-1">
+                  <Flame className="w-4 h-4 text-[#d99b26]" />
+                  <span>{editingPandal.id ? "Edit Pandal Listing" : "New Krishnanagar Pandal"}</span>
+                </div>
+                <h3 className="font-serif font-bold text-2xl text-[#4a1810]">
                   {editingPandal.id ? "Edit Pandal Listing" : "Add New Pandal"}
                 </h3>
-                <p className="text-xs text-[#78716c] mt-0.5">
-                  Ensure coordinates and timings adhere to authentic Krishnanagar verification standards.
+                <p className="text-xs text-stone-600 mt-1">
+                  Enter pandal name and details below. Updates automatically save locally and synchronize with Supabase Cloud.
                 </p>
               </div>
 
-              {/* English & Bengali Names */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-semibold text-stone-700 mb-1">
-                    Pandal Name (English) *
+              {/* 1. PANDAL NAME SECTION (HIGH VISIBILITY) */}
+              <div className="p-4 sm:p-5 bg-white rounded-2xl border-2 border-[#d99b26]/50 shadow-xs space-y-3">
+                <div className="flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-[#8b2f1e] text-[#f5ba42] flex items-center justify-center font-bold text-xs shrink-0">
+                    1
+                  </span>
+                  <label className="text-sm font-bold text-[#4a1810]">
+                    Pandal Name & Identification
                   </label>
-                  <input
-                    type="text"
-                    required
-                    value={editingPandal.name || ""}
-                    onChange={(e) =>
-                      setEditingPandal({ ...editingPandal, name: e.target.value })
-                    }
-                    className="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-stone-200 bg-white"
-                  />
                 </div>
-                <div>
-                  <label className="block text-xs font-semibold text-stone-700 mb-1">
-                    Pandal Name (বাংলা) *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={editingPandal.name_bn || ""}
-                    onChange={(e) =>
-                      setEditingPandal({
-                        ...editingPandal,
-                        name_bn: e.target.value,
-                      })
-                    }
-                    className="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-stone-200 bg-white"
-                  />
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  <div>
+                    <label className="block text-xs font-bold text-stone-900 mb-1">
+                      Pandal Name (English) <span className="text-rose-600">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Chasapara Barowari"
+                      value={editingPandal.name || ""}
+                      onChange={(e) =>
+                        setEditingPandal({ ...editingPandal, name: e.target.value })
+                      }
+                      className="w-full text-sm font-semibold px-3.5 py-2.5 rounded-xl border border-stone-300 bg-stone-50 focus:bg-white text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#8b2f1e]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-stone-900 mb-1">
+                      Pandal Name (বাংলা) <span className="text-stone-400 font-normal">(ঐচ্ছিক)</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="যেমন: চাষাপাড়া বারোয়ারী"
+                      value={editingPandal.name_bn || ""}
+                      onChange={(e) =>
+                        setEditingPandal({
+                          ...editingPandal,
+                          name_bn: e.target.value,
+                        })
+                      }
+                      className="w-full text-sm font-semibold px-3.5 py-2.5 rounded-xl border border-stone-300 bg-stone-50 focus:bg-white text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#8b2f1e]"
+                    />
+                  </div>
                 </div>
               </div>
 
               {/* Category & Locality */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-stone-700 mb-1">
+                  <label className="block text-xs font-bold text-stone-900 mb-1">
                     Category
                   </label>
                   <select
@@ -1302,7 +1349,7 @@ export default function AdminPage() {
                         category: e.target.value as PandalCategory,
                       })
                     }
-                    className="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-stone-200 bg-white"
+                    className="w-full text-sm font-medium px-3.5 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#8b2f1e]"
                   >
                     <option value="heritage">Royal & Heritage</option>
                     <option value="traditional">Sabeki & Traditional</option>
@@ -1312,7 +1359,7 @@ export default function AdminPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-stone-700 mb-1">
+                  <label className="block text-xs font-bold text-stone-900 mb-1">
                     Locality
                   </label>
                   <select
@@ -1323,7 +1370,7 @@ export default function AdminPage() {
                         locality_id: e.target.value || null,
                       })
                     }
-                    className="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-stone-200 bg-white"
+                    className="w-full text-sm font-medium px-3.5 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#8b2f1e]"
                   >
                     <option value="">Select locality...</option>
                     {localities.map((loc) => (
@@ -1337,11 +1384,12 @@ export default function AdminPage() {
 
               {/* Description */}
               <div>
-                <label className="block text-xs font-semibold text-stone-700 mb-1">
+                <label className="block text-xs font-bold text-stone-900 mb-1">
                   Description
                 </label>
                 <textarea
                   rows={2}
+                  placeholder="Enter pandal description, history or significance..."
                   value={editingPandal.description || ""}
                   onChange={(e) =>
                     setEditingPandal({
@@ -1349,13 +1397,13 @@ export default function AdminPage() {
                       description: e.target.value,
                     })
                   }
-                  className="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-stone-200 bg-white"
+                  className="w-full text-sm font-medium px-3.5 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#8b2f1e]"
                 />
               </div>
 
               {/* Address */}
               <div>
-                <label className="block text-xs font-semibold text-stone-700 mb-1">
+                <label className="block text-xs font-bold text-stone-900 mb-1">
                   Verified Street Address
                 </label>
                 <input
@@ -1368,7 +1416,7 @@ export default function AdminPage() {
                     })
                   }
                   placeholder="e.g. Chasapara Main Road, Krishnanagar"
-                  className="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-stone-200 bg-white"
+                  className="w-full text-sm font-medium px-3.5 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#8b2f1e]"
                 />
               </div>
 

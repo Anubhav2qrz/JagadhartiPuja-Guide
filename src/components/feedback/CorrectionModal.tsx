@@ -60,8 +60,8 @@ export function CorrectionModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-[#fcfaf5] rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-[#d99b26]/40 relative">
+    <div className="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 bg-black/60 backdrop-blur-xs flex items-start sm:items-center justify-center animate-in fade-in duration-200">
+      <div className="bg-[#fcfaf5] rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-[#d99b26]/40 relative my-auto">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-1.5 rounded-full text-[#78716c] hover:text-[#1c1917] hover:bg-[#ede4d1] transition-colors"
