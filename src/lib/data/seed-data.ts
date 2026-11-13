@@ -1814,10 +1814,52 @@ export const SEED_PLACES: Place[] = [
     is_published: true,
     is_verified: true,
     updated_at: "2026-10-26T10:00:00Z"
+  },
+  {
+    id: "place-govt-college-parking",
+    name: "Krishnanagar Government College Grounds Festival Parking",
+    name_bn: "কৃষ্ণনগর গভর্নমেন্ট কলেজ মাঠ উৎসব পার্কিং",
+    category: "parking",
+    description: "Designated festival parking area reported near Government College grounds for two-wheelers and four-wheelers during peak puja days.",
+    description_bn: "উৎসবের ব্যস্ত দিনগুলিতে দুই চাকা ও চার চাকার গাড়ির জন্য কলেজ মাঠ সংলগ্ন নির্দিষ্ট পার্কিং জোন।",
+    address: "College Street, Near Krishnanagar Govt. College, Nadia - 741101",
+    address_bn: "কলেজ স্ট্রিট, কৃষ্ণনগর গভর্নমেন্ট কলেজের কাছে, নদিয়া - ৭৪১১০১",
+    latitude: 23.4065,
+    longitude: 88.5028,
+    opening_hours: "24 Hours during festival days",
+    is_published: true,
+    is_verified: true,
+    updated_at: "2026-11-13T10:00:00Z"
+  },
+  {
+    id: "place-court-parking",
+    name: "Krishnanagar District Court Premises Parking",
+    name_bn: "কৃষ্ণনগর জেলা আদালত চত্বর উৎসব পার্কিং",
+    category: "parking",
+    description: "Designated vehicle parking area reported near District Court premises, within accessible walking distance of central pandals.",
+    description_bn: "জেলা আদালত চত্বরের কাছে নির্ধারিত পার্কিং ব্যবস্থা, যেখান থেকে শহরের মূল মণ্ডপগুলিতে সহজে হাঁটা যায়।",
+    address: "Court Road, Near Sadar Hospital, Krishnanagar, Nadia - 741101",
+    address_bn: "কোর্ট রোড, সদর হাসপাতালের কাছে, কৃষ্ণনগর, নদিয়া - ৭৪১১০১",
+    latitude: 23.4022,
+    longitude: 88.5035,
+    opening_hours: "24 Hours during festival days",
+    is_published: true,
+    is_verified: true,
+    updated_at: "2026-11-13T10:00:00Z"
   }
 ];
 
 export const SEED_ANNOUNCEMENTS: Announcement[] = [
+  {
+    id: "ann-traffic-crowd-management-2026",
+    title: "Traffic and crowd management",
+    title_bn: "যানচলাচল ও ভিড় নিয়ন্ত্রণ নির্দেশিকা (Traffic & Crowd Management)",
+    body: "During the busiest festival days:\n• Expect road restrictions around Chasapara, Post Office More, Rajbari Road and Bowbazar.\n• Some areas may become pedestrian-only.\n• Totos may operate on designated peripheral routes.\n• Parking areas are reported near Government College grounds and the Court premises.\n\nThese are details published by a local festival information portal; check Nadia Police announcements for the final 2026 arrangements",
+    body_bn: "উৎসবের সবচেয়ে ব্যস্ত দিনগুলির জন্য বিশেষ নির্দেশিকা:\n• চাষাপাড়া, পোস্ট অফিস মোড়, রাজবাড়ি রোড এবং বউবাজার সংলগ্ন এলাকায় যান চলাচলে বিধিনিষেধ থাকবে।\n• কিছু এলাকা শুধুমাত্র পথচারীদের জন্য নির্দিষ্ট (নো-ভেহিকেল জোন) হতে পারে।\n• টোটো নির্দিষ্ট পেরিফেরাল (বাইরের সংযোগকারী) রুটে চলাচল করতে পারে।\n• কৃষ্ণনগর গভঃ কলেজ মাঠ এবং আদালত (কোর্ট) চত্বরের কাছে পার্কিং ব্যবস্থার তথ্য রয়েছে।\n\n(একটি স্থানীয় উৎসব তথ্য পোর্টাল দ্বারা প্রকাশিত তথ্য; ২০২৬-এর চূড়ান্ত সরকারি ব্যবস্থার জন্য নদিয়া জেলা পুলিশের আনুষ্ঠানিক বিজ্ঞপ্তি অনুসরণ করুন)",
+    severity: "warning",
+    published_at: "2026-11-13T10:00:00Z",
+    is_published: true
+  },
   {
     id: "ann-traffic-advisory-2026",
     title: "Krishnanagar Traffic Police Festival Traffic Advisory",

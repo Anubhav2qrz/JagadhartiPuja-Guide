@@ -18,7 +18,7 @@ const STORAGE_KEYS = {
   PANDALS: "jd_pandals_v2",
   LOCALITIES: "jd_localities_v2",
   PLACES: "jd_places_v4",
-  ANNOUNCEMENTS: "jd_announcements_v1",
+  ANNOUNCEMENTS: "jd_announcements_v2",
   SUBMISSIONS: "jd_submissions_v1",
 };
 
@@ -347,10 +347,13 @@ export const dataStore = {
 
   // ANNOUNCEMENTS
   getAnnouncements(): Announcement[] {
-    const all = getStored<Announcement[]>(
+    const stored = getStored<Announcement[]>(
       STORAGE_KEYS.ANNOUNCEMENTS,
       memoryAnnouncements
     );
+    const storedIds = new Set(stored.map((a) => a.id));
+    const missingSeeds = SEED_ANNOUNCEMENTS.filter((sa) => !storedIds.has(sa.id));
+    const all = missingSeeds.length > 0 ? [...stored, ...missingSeeds] : stored;
     return all.filter((a) => a.is_published);
   },
 

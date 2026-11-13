@@ -69,3 +69,4 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["travel", "navigation", "lifestyle", "festivals"],
   };
 }
+

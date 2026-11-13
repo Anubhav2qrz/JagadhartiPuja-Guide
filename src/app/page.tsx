@@ -203,25 +203,61 @@ export default function HomePage() {
       {/* 2. OFFICIAL FESTIVAL ANNOUNCEMENTS & POLICE ADVISORIES */}
       {announcements.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#fcfaf5] border-l-4 border-[#d99b26] p-5 sm:p-6 rounded-2xl shadow-sm border border-[#ede4d1] space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider">
-              <ShieldAlert className="w-4 h-4 text-[#d99b26]" />
-              <span>{t.discovery.advisoriesTitle}</span>
+          <div className="bg-[#fcfaf5] border-l-4 border-[#d99b26] p-5 sm:p-6 rounded-2xl shadow-sm border border-[#ede4d1] space-y-4">
+            <div className="flex items-center justify-between gap-2 border-b border-[#ede4d1] pb-3">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#8b2f1e] uppercase tracking-wider">
+                <ShieldAlert className="w-4 h-4 text-[#d99b26]" />
+                <span>{t.discovery.advisoriesTitle}</span>
+              </div>
+              <span className="text-[11px] text-[#78716c] font-medium hidden sm:inline">
+                {language === "bn" ? "নদিয়া জেলা ট্রাফিক ও প্রশাসনিক বিজ্ঞপ্তি" : "Nadia Traffic & Festival Directives"}
+              </span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {announcements.map((ann) => (
-                <div
-                  key={ann.id}
-                  className="bg-white p-4 rounded-xl border border-[#ede4d1] space-y-1 shadow-2xs"
-                >
-                  <h4 className="font-serif font-bold text-sm text-[#1c1917]">
-                    {language === "bn" ? ann.title_bn : ann.title}
-                  </h4>
-                  <p className="text-xs text-[#57534e] leading-relaxed">
-                    {language === "bn" ? ann.body_bn : ann.body}
-                  </p>
-                </div>
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {announcements.map((ann) => {
+                const isCrowdAdvisory = ann.id === "ann-traffic-crowd-management-2026";
+                return (
+                  <div
+                    key={ann.id}
+                    className={`bg-white p-4 sm:p-5 rounded-xl border space-y-2 shadow-2xs flex flex-col justify-between ${
+                      isCrowdAdvisory
+                        ? "border-[#d99b26] ring-1 ring-[#d99b26]/30 bg-linear-to-b from-amber-50/20 to-white"
+                        : "border-[#ede4d1]"
+                    }`}
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                            ann.severity === "warning"
+                              ? "bg-amber-100 text-amber-900 border border-amber-300"
+                              : "bg-blue-100 text-blue-900 border border-blue-200"
+                          }`}
+                        >
+                          {ann.severity === "warning"
+                            ? language === "bn"
+                              ? "যান চলাচল সতর্কতা"
+                              : "Traffic Advisory"
+                            : language === "bn"
+                            ? "উৎসব বিজ্ঞপ্তি"
+                            : "Public Notice"}
+                        </span>
+                        {isCrowdAdvisory && (
+                          <span className="text-[10px] font-semibold text-[#8b2f1e] bg-[#f5ba42]/20 px-2 py-0.5 rounded-md">
+                            2026
+                          </span>
+                        )}
+                      </div>
+                      <h4 className="font-serif font-bold text-sm text-[#1c1917] leading-snug">
+                        {language === "bn" ? ann.title_bn : ann.title}
+                      </h4>
+                      <p className="text-xs text-[#57534e] leading-relaxed whitespace-pre-line">
+                        {language === "bn" ? ann.body_bn : ann.body}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>

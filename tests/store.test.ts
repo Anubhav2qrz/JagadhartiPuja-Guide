@@ -152,5 +152,15 @@ describe("DataStore & Search/Filter Operations", () => {
     const stringifiedNested = JSON.stringify(deeplyNested);
     expect(formatOpeningHours(stringifiedNested)).toBe("07:30 AM - 10:30 PM");
   });
+
+  it("retrieves published announcements including traffic and crowd management advisory", () => {
+    const announcements = dataStore.getAnnouncements();
+    expect(announcements.length).toBeGreaterThanOrEqual(3);
+    const trafficAnn = announcements.find((a) => a.id === "ann-traffic-crowd-management-2026");
+    expect(trafficAnn).toBeDefined();
+    expect(trafficAnn?.title).toContain("Traffic and crowd management");
+    expect(trafficAnn?.body).toContain("Chasapara, Post Office More, Rajbari Road and Bowbazar");
+    expect(trafficAnn?.body).toContain("Government College grounds and the Court premises");
+  });
 });
 
