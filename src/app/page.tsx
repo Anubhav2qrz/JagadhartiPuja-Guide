@@ -7,6 +7,7 @@ import { useDataStore } from "@/lib/data/useDataStore";
 import { PandalCard } from "@/components/pandal/PandalCard";
 import { PlaceCard } from "@/components/essentials/PlaceCard";
 import { InteractiveMap } from "@/components/map/InteractiveMap";
+import { FestivalThemesSection } from "@/components/home/FestivalThemesSection";
 import {
   Flame,
   Landmark,
@@ -23,6 +24,7 @@ import {
   ChevronRight,
   Crosshair,
   Zap,
+  Sparkles,
 } from "lucide-react";
 
 export default function HomePage() {
@@ -105,7 +107,7 @@ export default function HomePage() {
           </p>
 
           {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 pt-2 sm:pt-4 max-w-md mx-auto sm:max-w-none flex-wrap">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 pt-2 sm:pt-4 max-w-md mx-auto sm:max-w-none flex-wrap">
             <Link
               href="/pandals"
               className="btn-gold-action w-full sm:w-auto px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl text-sm sm:text-base font-bold flex items-center justify-center gap-2 shadow-xl active:scale-95"
@@ -114,6 +116,14 @@ export default function HomePage() {
               <span>{t.hero.exploreBtn}</span>
             </Link>
 
+            <a
+              href="#themes"
+              className="w-full sm:w-auto px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-sm sm:text-base font-bold bg-[#d99b26]/25 hover:bg-[#d99b26]/40 text-[#f5ba42] border border-[#d99b26]/70 flex items-center justify-center gap-2 transition-all backdrop-blur-xs shadow-md active:scale-95"
+            >
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#f5ba42] fill-[#f5ba42]" />
+              <span>{language === "bn" ? "✨ ২০২৬ মণ্ডপ থিম (৪৮)" : "✨ 2026 Themes (48)"}</span>
+            </a>
+
             <Link
               href="/route-planner?autoroute=gps"
               className="w-full sm:w-auto px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-sm sm:text-base font-bold bg-[#8b2f1e] hover:bg-[#a33b25] text-white border border-[#d99b26]/50 flex items-center justify-center gap-2 transition-all shadow-md active:scale-95"
@@ -121,14 +131,6 @@ export default function HomePage() {
             >
               <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-[#f5ba42] fill-[#f5ba42]" />
               <span>{language === "bn" ? "⚡ অটো রুট পরিক্রমা" : "⚡ Smart Auto Route"}</span>
-            </Link>
-
-            <Link
-              href="/route-planner"
-              className="w-full sm:w-auto px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-sm sm:text-base font-semibold bg-black/40 hover:bg-black/60 text-[#ede4d1] border border-white/20 flex items-center justify-center gap-2 transition-all backdrop-blur-xs active:scale-95"
-            >
-              <Route className="w-4 h-4 sm:w-5 sm:h-5 text-[#f5ba42]" />
-              <span>{t.hero.planRouteBtn}</span>
             </Link>
 
             <button
@@ -157,15 +159,23 @@ export default function HomePage() {
           <div className="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto border-t border-white/10 text-left">
             <div className="bg-white/5 backdrop-blur-xs p-3 rounded-xl border border-white/10">
               <span className="text-lg sm:text-xl font-bold font-serif text-[#f5ba42] block">
-                10+
+                ৪৮টি
               </span>
               <span className="text-[11px] text-[#ede4d1]/80">
-                {language === "bn" ? "ঐতিহাসিক মণ্ডপ" : "Verified Pandals"}
+                {language === "bn" ? "২০২৬ আকর্ষণ ও থিম" : "2026 Puja Themes"}
               </span>
             </div>
             <div className="bg-white/5 backdrop-blur-xs p-3 rounded-xl border border-white/10">
               <span className="text-lg sm:text-xl font-bold font-serif text-[#f5ba42] block">
-                1762
+                ৩০+
+              </span>
+              <span className="text-[11px] text-[#ede4d1]/80">
+                {language === "bn" ? "ভেরিফায়েড মণ্ডপ" : "Verified Pandals"}
+              </span>
+            </div>
+            <div className="bg-white/5 backdrop-blur-xs p-3 rounded-xl border border-white/10">
+              <span className="text-lg sm:text-xl font-bold font-serif text-[#f5ba42] block">
+                ১৭৬২
               </span>
               <span className="text-[11px] text-[#ede4d1]/80">
                 {language === "bn" ? "রাজকীয় ইতিহাস" : "Royal Heritage Year"}
@@ -173,18 +183,10 @@ export default function HomePage() {
             </div>
             <div className="bg-white/5 backdrop-blur-xs p-3 rounded-xl border border-white/10">
               <span className="text-lg sm:text-xl font-bold font-serif text-[#f5ba42] block">
-                100%
+                ১০০%
               </span>
               <span className="text-[11px] text-[#ede4d1]/80">
                 {language === "bn" ? "ম্যাপস নেভিগেশন" : "Direct Maps Links"}
-              </span>
-            </div>
-            <div className="bg-white/5 backdrop-blur-xs p-3 rounded-xl border border-white/10">
-              <span className="text-lg sm:text-xl font-bold font-serif text-[#f5ba42] block">
-                GI Tag
-              </span>
-              <span className="text-[11px] text-[#ede4d1]/80">
-                {language === "bn" ? "সরপুরিয়া ও সরভাজা" : "Sarpuria Confection"}
               </span>
             </div>
           </div>
@@ -218,7 +220,10 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* 3. FEATURED PANDALS */}
+      {/* 3. 2026 FESTIVAL THEMES DIRECTORY */}
+      <FestivalThemesSection />
+
+      {/* 4. FEATURED PANDALS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#ede4d1] pb-4">
           <div>

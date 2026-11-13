@@ -27,6 +27,11 @@ export function Navbar() {
 
   const navLinks = [
     { href: "/", label: t.nav.home },
+    {
+      href: "/#themes",
+      label: language === "bn" ? "২০২৬ থিম" : "2026 Themes",
+      highlight: true,
+    },
     { href: "/pandals", label: t.nav.explore },
     { href: "/map", label: t.nav.map },
     {
@@ -89,6 +94,8 @@ export function Navbar() {
                   className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
                     active
                       ? "bg-[#8b2f1e] text-[#f5ba42] shadow-sm font-semibold border border-[#d99b26]/30"
+                      : link.highlight
+                      ? "text-[#f5ba42] font-semibold hover:bg-[#8b2f1e]/60 hover:text-white"
                       : "text-[#fcfaf5]/85 hover:text-[#fcfaf5] hover:bg-[#8b2f1e]/60"
                   }`}
                 >

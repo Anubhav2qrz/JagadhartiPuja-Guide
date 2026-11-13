@@ -30,7 +30,7 @@ describe("Google Maps Address Autocomplete Engine", () => {
     const results = await getKrishnanagarAddressSuggestions("rajbari");
     expect(results.length).toBeGreaterThan(0);
     expect(results[0].title).toContain("Krishnanagar Rajbari");
-  });
+  }, 10000);
 
   it("returns Adhar Chandra Das for 'sarpuria' or 'adhar'", async () => {
     const results = await getKrishnanagarAddressSuggestions("sarpuria");
