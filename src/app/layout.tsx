@@ -49,6 +49,7 @@ export const metadata: Metadata = {
     statusBarStyle: "black-translucent",
     title: "Jagadhatri Darshan",
   },
+  manifest: "/manifest.webmanifest",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

@@ -18,6 +18,7 @@ import {
   Flame,
   MessageCircle,
 } from "lucide-react";
+import { InstallAppNavButton } from "@/components/pwa/InstallAppNavButton";
 
 export function Navbar() {
   const { t, language, toggleLanguage } = useLanguage();
@@ -111,7 +112,10 @@ export function Navbar() {
           </nav>
 
           {/* Right Action Controls: Language Switcher + Hamburger */}
-          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+            {/* PWA Install Button */}
+            <InstallAppNavButton />
+
             {/* Language Switcher */}
             <button
               onClick={toggleLanguage}
@@ -171,8 +175,13 @@ export function Navbar() {
             );
           })}
 
+          {/* Mobile Install App Button */}
+          <div className="pt-2">
+            <InstallAppNavButton isMobileDrawer={true} />
+          </div>
+
           {/* Mobile Direct WhatsApp Helpline */}
-          <div className="pt-3 mt-2 border-t border-[#d99b26]/20">
+          <div className="pt-2 border-t border-[#d99b26]/20">
             <a
               href="https://wa.me/917001919941?text=Hello!%20I%20need%20assistance%20with%20the%20Jagadhatri%20Darshan%20Krishnanagar%20Guide."
               target="_blank"
