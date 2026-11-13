@@ -41,6 +41,7 @@ export function Navbar() {
       badge: selectedPandalIds.length > 0 ? selectedPandalIds.length : undefined,
     },
     { href: "/essentials", label: t.nav.essentials },
+    { href: "/traditions", label: t.nav.traditions },
     { href: "/about", label: t.nav.about },
   ];
 

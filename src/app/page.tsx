@@ -266,6 +266,70 @@ export default function HomePage() {
       {/* 3. 2026 FESTIVAL THEMES DIRECTORY */}
       <FestivalThemesSection />
 
+      {/* 3.5. 2026 PUJA DATES & TWO-DAY SANG IMMERSION SHOWCASE */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-linear-to-br from-[#4a1810] via-[#38110b] to-[#240a06] text-[#fcfaf5] rounded-3xl p-6 sm:p-8 lg:p-10 border-2 border-[#d99b26]/50 shadow-xl space-y-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f5ba42]/20 border border-[#d99b26]/40 text-[#f5ba42] text-xs font-bold uppercase tracking-wider mb-2">
+                <Flame className="w-3.5 h-3.5 text-[#f5ba42] fill-[#f5ba42]" />
+                <span>{language === "bn" ? "ঐতিহাসিক সাঙ ও বিসর্জন" : "Two-Day Bhashan & Sang Tradition"}</span>
+              </div>
+              <h2 className="font-serif font-bold text-2xl sm:text-4xl text-[#f5ba42]">
+                {language === "bn"
+                  ? "জগদ্ধাত্রী পূজা ২০২৬ — নির্ঘণ্ট ও সাঙ মহোৎসব"
+                  : "Jagadhatri Puja 2026 — Schedule & Sacred Sang"}
+              </h2>
+              <p className="text-xs sm:text-sm text-[#ede4d1]/80 mt-1 max-w-2xl leading-relaxed">
+                {language === "bn"
+                  ? "১৬ থেকে ২০ নভেম্বর ২০২৬: মূল পূজা এবং দুই দিনের ঐতিহাসিক বিসর্জন। শত শত বেহারাদের কাঁধে বাঁশের সাঙে চেপে মা জগদ্ধাত্রীর বিদায় পরিক্রমা ও জলঙ্গী নদীতে নিরঞ্জন।"
+                  : "16–20 November 2026: The five-day grand festival culminating in the iconic two-day Bhashan carnival and the world-renowned bearer-borne Sang (সাঙ) immersion processions."}
+              </p>
+            </div>
+            <Link
+              href="/traditions"
+              className="btn-gold-action px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 shadow-lg self-start md:self-auto shrink-0 cursor-pointer active:scale-95"
+            >
+              <span>{language === "bn" ? "সম্পূর্ণ বিসর্জন গাইড দেখুন" : "View Full Immersion Guide"}</span>
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* 5-Day Quick Timeline Cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            <div className="bg-white/5 backdrop-blur-xs p-3.5 rounded-xl border border-white/10 space-y-1">
+              <span className="text-[10px] text-[#f5ba42] font-bold block uppercase tracking-wider">16 Nov (Mon)</span>
+              <strong className="text-xs sm:text-sm text-white block font-serif">{language === "bn" ? "সপ্তমী" : "Saptami"}</strong>
+              <p className="text-[11px] text-[#ede4d1]/70">{language === "bn" ? "পূজার শুভ সূচনা ও ঘট স্থাপন" : "Inauguration & ghat invocation"}</p>
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-xs p-3.5 rounded-xl border border-white/10 space-y-1">
+              <span className="text-[10px] text-[#f5ba42] font-bold block uppercase tracking-wider">17 Nov (Tue)</span>
+              <strong className="text-xs sm:text-sm text-white block font-serif">{language === "bn" ? "মহাষ্টমী" : "Ashtami"}</strong>
+              <p className="text-[11px] text-[#ede4d1]/70">{language === "bn" ? "বিশেষ পূজা ও পুষ্পাঞ্জলি" : "Mass offerings & pushpanjali"}</p>
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-xs p-3.5 rounded-xl border border-white/10 space-y-1">
+              <span className="text-[10px] text-[#f5ba42] font-bold block uppercase tracking-wider">18 Nov (Wed)</span>
+              <strong className="text-xs sm:text-sm text-white block font-serif">{language === "bn" ? "মহানবমী" : "Navami"}</strong>
+              <p className="text-[11px] text-[#ede4d1]/70">{language === "bn" ? "সন্ধিপূজা (৪৮ মি.) ও চার প্রহর" : "Sandhi Puja & 4-prahar worship"}</p>
+            </div>
+
+            <div className="bg-[#f5ba42]/15 backdrop-blur-xs p-3.5 rounded-xl border border-[#d99b26]/50 space-y-1">
+              <span className="text-[10px] text-[#f5ba42] font-bold block uppercase tracking-wider">19 Nov (Thu)</span>
+              <strong className="text-xs sm:text-sm text-[#f5ba42] block font-serif">{language === "bn" ? "প্রথম দিন ভাসান" : "Day 1 Bhashan"}</strong>
+              <p className="text-[11px] text-[#ede4d1]/80">{language === "bn" ? "ঘাট বিসর্জন ও পুজো কার্নিভাল" : "Ghat Bhashan & Carnival"}</p>
+            </div>
+
+            <div className="bg-[#d99b26]/25 backdrop-blur-xs p-3.5 rounded-xl border-2 border-[#d99b26] space-y-1 col-span-2 sm:col-span-1">
+              <span className="text-[10px] text-[#f5ba42] font-bold block uppercase tracking-wider">20 Nov (Fri)</span>
+              <strong className="text-xs sm:text-sm text-white block font-serif">{language === "bn" ? "দ্বিতীয় দিন ভাসান" : "Day 2 Bhashan"}</strong>
+              <p className="text-[11px] text-[#ede4d1]/90 font-medium">{language === "bn" ? "ঐতিহাসিক সাঙ শোভাযাত্রা" : "Sacred Sang Processions"}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 4. FEATURED PANDALS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#ede4d1] pb-4">

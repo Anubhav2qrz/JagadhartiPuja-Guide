@@ -14,6 +14,7 @@ export interface Translations {
     admin: string;
     myRoute: string;
     favourites: string;
+    traditions: string;
   };
   hero: {
     badge: string;
@@ -160,6 +161,7 @@ export const translations: Record<Language, Translations> = {
       admin: "Admin",
       myRoute: "My Route",
       favourites: "Favourites",
+      traditions: "Sang & Traditions",
     },
     hero: {
       badge: "Krishnanagar Jagadhatri Puja 2026",
@@ -316,6 +318,7 @@ export const translations: Record<Language, Translations> = {
       admin: "অ্যাডমিন",
       myRoute: "আমার রুট",
       favourites: "পছন্দের তালিকা",
+      traditions: "সাঙ ও প্রথা",
     },
     hero: {
       badge: "কৃষ্ণনগর জগদ্ধাত্রী পূজা ২০২৬",

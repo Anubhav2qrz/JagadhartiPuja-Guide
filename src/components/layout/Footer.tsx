@@ -85,6 +85,14 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
+                    href="/traditions"
+                    className="hover:text-[#f5ba42] transition-colors"
+                  >
+                    {t.nav.traditions} (Sang & Immersion)
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/about"
                     className="hover:text-[#f5ba42] transition-colors"
                   >
@@ -102,11 +110,15 @@ export function Footer() {
               <div className="space-y-2 text-xs text-[#a8a29e]">
                 <div className="flex items-center gap-2">
                   <PhoneCall className="w-3.5 h-3.5 text-[#f5ba42]" />
-                  <span>Krishnanagar Police Control: 100 / 03472-252222</span>
+                  <span>National Emergency Helpline: 112 / 100</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <PhoneCall className="w-3.5 h-3.5 text-[#f5ba42]" />
-                  <span>District Sadar Hospital: 03472-252300</span>
+                  <span>Nadia Police Control Room: 03472-252222</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <PhoneCall className="w-3.5 h-3.5 text-[#f5ba42]" />
+                  <span>Ambulance Service: 102</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <PhoneCall className="w-3.5 h-3.5 text-[#f5ba42]" />
