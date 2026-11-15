@@ -81,7 +81,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="space-y-16 sm:space-y-24">
+    <div className="flex flex-col">
       {/* 0. OFFICIAL DOMAIN LAUNCH NOTICE */}
       <section className="bg-linear-to-r from-[#2c0805] via-[#4a1810] to-[#2c0805] text-[#fcfaf5] border-b-2 border-[#d99b26]/50 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5">
@@ -253,7 +253,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. OFFICIAL FESTIVAL ANNOUNCEMENTS & POLICE ADVISORIES */}
+      {/* BODY CONTENT CONTAINER WITH SPACED SECTIONS */}
+      <div className="space-y-16 sm:space-y-24 pt-12 sm:pt-16 pb-12">
+        {/* 2. OFFICIAL FESTIVAL ANNOUNCEMENTS & POLICE ADVISORIES */}
       {announcements.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-[#fcfaf5] border-l-4 border-[#d99b26] p-5 sm:p-6 rounded-2xl shadow-sm border border-[#ede4d1] space-y-4">
@@ -545,6 +547,7 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+      </div>
     </div>
   );
 }
