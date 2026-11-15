@@ -1734,6 +1734,16 @@ export const SEED_PLACES: Place[] = [
 
 export const SEED_ANNOUNCEMENTS: Announcement[] = [
   {
+    id: "ann-domain-launch-2026",
+    title: "Official Portal Live: www.krishnanagarjagadhatripuja.in",
+    title_bn: "অফিসিয়াল পোর্টাল লাইভ: www.krishnanagarjagadhatripuja.in",
+    body: "Our primary official website www.krishnanagarjagadhatripuja.in is now live! You can access the Krishnanagar Jagadhatri Darshan guide anytime on either www.krishnanagarjagadhatripuja.in or puja-darshan.netlify.app.",
+    body_bn: "আমাদের প্রধান অফিসিয়াল ওয়েবসাইট www.krishnanagarjagadhatripuja.in এখন চালু হয়েছে! আপনি www.krishnanagarjagadhatripuja.in অথবা puja-darshan.netlify.app — উভয় লিঙ্ক থেকেই সরাসরি পুজো পরিক্রমা ও মণ্ডপের তথ্য পাবেন।",
+    severity: "info",
+    published_at: "2026-11-15T07:00:00Z",
+    is_published: true
+  },
+  {
     id: "ann-traffic-crowd-management-2026",
     title: "Traffic and crowd management",
     title_bn: "যানচলাচল ও ভিড় নিয়ন্ত্রণ নির্দেশিকা (Traffic & Crowd Management)",

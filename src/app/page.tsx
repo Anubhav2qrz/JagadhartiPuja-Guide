@@ -25,6 +25,8 @@ import {
   Crosshair,
   Zap,
   Palette,
+  ExternalLink,
+  Globe,
 } from "lucide-react";
 
 export default function HomePage() {
@@ -80,17 +82,68 @@ export default function HomePage() {
 
   return (
     <div className="space-y-16 sm:space-y-24">
+      {/* 0. OFFICIAL DOMAIN LAUNCH NOTICE */}
+      <section className="bg-linear-to-r from-[#2c0805] via-[#4a1810] to-[#2c0805] text-[#fcfaf5] border-b-2 border-[#d99b26]/50 shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="flex h-2.5 w-2.5 relative shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f5ba42] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#d99b26]"></span>
+              </span>
+              <div className="text-xs sm:text-sm">
+                <span className="font-bold text-[#f5ba42] mr-1.5">
+                  {language === "bn" ? "📢 অফিসিয়াল ওয়েবসাইট লাইভ:" : "📢 Official Domain is Live:"}
+                </span>
+                <span className="text-[#ede4d1]">
+                  {language === "bn" ? (
+                    <>
+                      আমাদের নতুন অফিসিয়াল ওয়েবসাইট <strong className="text-white underline underline-offset-2">www.krishnanagarjagadhatripuja.in</strong> এখন চালু হয়েছে! আপনি <strong className="text-white">www.krishnanagarjagadhatripuja.in</strong> অথবা <strong className="text-white">puja-darshan.netlify.app</strong> — যেকোনো লিঙ্ক থেকেই ভিজিট করতে পারবেন।
+                    </>
+                  ) : (
+                    <>
+                      Our new official domain <strong className="text-white underline underline-offset-2">www.krishnanagarjagadhatripuja.in</strong> is live! You can now visit either <strong className="text-white">www.krishnanagarjagadhatripuja.in</strong> or <strong className="text-white">puja-darshan.netlify.app</strong> anytime.
+                    </>
+                  )}
+                </span>
+              </div>
+            </div>
+
+            {/* Quick Visit Links */}
+            <div className="flex items-center gap-2 shrink-0">
+              <a
+                href="https://www.krishnanagarjagadhatripuja.in"
+                className="px-3 py-1.5 rounded-lg bg-[#d99b26] hover:bg-[#f5ba42] text-[#1c1917] text-xs font-bold transition-all shadow-xs active:scale-95 inline-flex items-center gap-1.5"
+                title="Visit www.krishnanagarjagadhatripuja.in"
+              >
+                <Globe className="w-3.5 h-3.5" />
+                <span>krishnanagarjagadhatripuja.in</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+              <a
+                href="https://puja-darshan.netlify.app"
+                className="px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-[#f5ba42] border border-white/15 text-xs font-semibold transition-all shadow-xs hidden sm:inline-flex items-center gap-1"
+                title="Visit puja-darshan.netlify.app"
+              >
+                <span>netlify.app</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[460px] sm:min-h-[640px] flex items-center justify-center bg-[#4a1810] text-[#fcfaf5] overflow-hidden">
-        {/* Festival Background Image with Dark Vignette & Gold Hue */}
+      <section className="relative min-h-[480px] sm:min-h-[660px] flex items-center justify-center bg-[#4a1810] text-[#fcfaf5] overflow-hidden">
+        {/* Festival Background Image with Buri Maa's Face Centered & High Visibility */}
         <div className="absolute inset-0 z-0">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg"
-            alt="Krishnanagar Jagadhatri Puja"
-            className="w-full h-full object-cover object-center opacity-30 filter brightness-75 contrast-125"
+            alt="Chasapara Buri Maa - Krishnanagar Jagadhatri Puja"
+            className="w-full h-full object-cover object-[center_20%] opacity-65 sm:opacity-75 filter brightness-105 contrast-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#4a1810] via-[#4a1810]/80 to-transparent" />
-          <div className="absolute inset-0 bg-radial from-transparent via-[#500710]/60 to-[#3b050c]/90" />
+          {/* Subtle gradient vignette to keep text readable while letting Buri Maa's face radiate through */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#4a1810] via-[#4a1810]/45 to-[#4a1810]/35" />
+          <div className="absolute inset-0 bg-radial from-transparent via-[#500710]/20 to-[#3b050c]/65" />
         </div>
 
         {/* Hero Content */}
@@ -104,12 +157,12 @@ export default function HomePage() {
           </div>
 
           {/* Heading */}
-          <h1 className="font-serif font-extrabold text-2xl sm:text-5xl md:text-6xl tracking-tight text-[#fcfaf5] leading-snug sm:leading-none max-w-4xl mx-auto">
+          <h1 className="font-serif font-extrabold text-2xl sm:text-5xl md:text-6xl tracking-tight text-[#fcfaf5] leading-snug sm:leading-none max-w-4xl mx-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
             {t.hero.title}
           </h1>
 
           {/* Tagline / Subtitle */}
-          <p className="text-xs sm:text-base md:text-xl text-[#ede4d1]/90 max-w-2xl mx-auto leading-relaxed font-light px-2 sm:px-0">
+          <p className="text-xs sm:text-base md:text-xl text-[#ede4d1]/95 max-w-2xl mx-auto leading-relaxed font-light px-2 sm:px-0 drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]">
             {t.hero.subtitle}
           </p>
 
