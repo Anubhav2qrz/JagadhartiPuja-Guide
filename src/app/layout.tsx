@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://krishnanagarjagadhatripuja.in"),
   title: {
     default: "Jagadhatri Darshan — Krishnanagar Pandal Hopping Guide",
     template: "%s | Jagadhatri Darshan Krishnanagar",
