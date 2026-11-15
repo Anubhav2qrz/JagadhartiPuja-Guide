@@ -162,5 +162,25 @@ describe("DataStore & Search/Filter Operations", () => {
     expect(trafficAnn?.body).toContain("Chasapara, Post Office More, Rajbari Road and Bowbazar");
     expect(trafficAnn?.body).toContain("Government College grounds and the Court premises");
   });
+
+  it("removes generic dummy placeholder photos from pandal gallery", () => {
+    const pandals = dataStore.getPandals();
+    pandals.forEach((p) => {
+      // No pandal should have Face_of_Jagaddhatri.jpg in gallery
+      const hasDummyFace = (p.gallery || []).some((img) => img.includes("Face_of_Jagaddhatri.jpg"));
+      expect(hasDummyFace).toBe(false);
+
+      // Non-Buri Maa pandals should not have Burima in gallery
+      if (p.slug !== "chasapara-barowari-buri-maa") {
+        const hasDummyBurima = (p.gallery || []).some((img) => img.includes("Burima%2C_Krishnanagar.jpg"));
+        expect(hasDummyBurima).toBe(false);
+      }
+    });
+
+    const baghadanga = dataStore.getPandalBySlug("baghadanga-barowari-bagha-maa");
+    expect(baghadanga).toBeDefined();
+    expect(baghadanga?.gallery.length).toBe(0);
+    expect(baghadanga?.cover_image_url).toBeDefined();
+  });
 });
 

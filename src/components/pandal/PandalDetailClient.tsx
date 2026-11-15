@@ -57,10 +57,18 @@ export function PandalDetailClient({ pandal }: PandalDetailClientProps) {
   const displayAddress =
     language === "bn" ? pandal.address_bn || pandal.address : pandal.address;
 
-  const allImages =
-    pandal.gallery && pandal.gallery.length > 0
-      ? [pandal.cover_image_url, ...pandal.gallery]
-      : [pandal.cover_image_url];
+  const isBuriMaa = pandal.slug === "chasapara-barowari-buri-maa";
+  // Filter out any legacy dummy placeholder images
+  const cleanGallery = (pandal.gallery || []).filter((img) => {
+    if (!img) return false;
+    if (img === pandal.cover_image_url) return false;
+    if (img.includes("Face_of_Jagaddhatri.jpg")) return false;
+    if (!isBuriMaa && img.includes("Burima%2C_Krishnanagar.jpg")) return false;
+    return true;
+  });
+
+  // Pandal's distinct thumbnail photo always comes first, followed only by real uploaded gallery photos
+  const allImages = [pandal.cover_image_url, ...cleanGallery].filter(Boolean);
   const uniqueImages = Array.from(new Set(allImages));
 
   const handleShare = async () => {

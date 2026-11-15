@@ -15,7 +15,7 @@ import {
 import { formatOpeningHours } from "@/lib/utils";
 
 const STORAGE_KEYS = {
-  PANDALS: "jd_pandals_v2",
+  PANDALS: "jd_pandals_v3",
   LOCALITIES: "jd_localities_v2",
   PLACES: "jd_places_v4",
   ANNOUNCEMENTS: "jd_announcements_v2",
@@ -65,6 +65,18 @@ let memorySubmissions: Submission[] = [
   },
 ];
 
+function sanitizePandalGallery(pandal: Pandal): Pandal {
+  const isBuriMaa = pandal.slug === "chasapara-barowari-buri-maa";
+  const cleanGallery = (pandal.gallery || []).filter((img) => {
+    if (!img) return false;
+    if (img === pandal.cover_image_url) return false;
+    if (img.includes("Face_of_Jagaddhatri.jpg")) return false;
+    if (!isBuriMaa && img.includes("Burima%2C_Krishnanagar.jpg")) return false;
+    return true;
+  });
+  return { ...pandal, gallery: cleanGallery };
+}
+
 export const dataStore = {
   // PANDALS
   getPandals(options?: {
@@ -85,7 +97,8 @@ export const dataStore = {
       return true;
     });
 
-    let filtered = deduplicated.filter((p) => options?.includeUnpublished || p.is_published);
+    const sanitized = deduplicated.map(sanitizePandalGallery);
+    let filtered = sanitized.filter((p) => options?.includeUnpublished || p.is_published);
 
     if (options?.localityId && options.localityId !== "all") {
       filtered = filtered.filter((p) => p.locality_id === options.localityId);
@@ -113,12 +126,14 @@ export const dataStore = {
 
   getPandalBySlug(slug: string): Pandal | undefined {
     const all = getStored<Pandal[]>(STORAGE_KEYS.PANDALS, memoryPandals);
-    return all.find((p) => p.slug === slug || p.id === slug);
+    const found = all.find((p) => p.slug === slug || p.id === slug);
+    return found ? sanitizePandalGallery(found) : undefined;
   },
 
   getPandalById(id: string): Pandal | undefined {
     const all = getStored<Pandal[]>(STORAGE_KEYS.PANDALS, memoryPandals);
-    return all.find((p) => p.id === id);
+    const found = all.find((p) => p.id === id);
+    return found ? sanitizePandalGallery(found) : undefined;
   },
 
   savePandal(pandal: Partial<Pandal> & { name: string }): Pandal {
@@ -477,8 +492,9 @@ export const dataStore = {
         Array.isArray(json.pandals) &&
         json.pandals.length > 0
       ) {
-        setStored(STORAGE_KEYS.PANDALS, json.pandals);
-        memoryPandals = json.pandals;
+        const sanitizedPandals = json.pandals.map(sanitizePandalGallery);
+        setStored(STORAGE_KEYS.PANDALS, sanitizedPandals);
+        memoryPandals = sanitizedPandals;
 
         if (Array.isArray(json.localities) && json.localities.length > 0) {
           setStored(STORAGE_KEYS.LOCALITIES, json.localities);

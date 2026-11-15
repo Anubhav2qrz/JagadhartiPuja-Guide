@@ -221,10 +221,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.410188,
     longitude: 88.496313,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "heritage",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -256,10 +253,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.397453,
     longitude: 88.498662,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Jagaddhatri_Krishnanagar_Rajbati.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/d/d2/Jagaddhatri_Krishnanagar_Rajbati.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "heritage",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -291,10 +285,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.405938,
     longitude: 88.500063,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "heritage",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -326,10 +317,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "heritage",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -361,10 +349,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.403313,
     longitude: 88.485063,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -396,10 +381,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -431,10 +413,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Idol_of_Maa_Jagadhatri_2012.JPG",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/0/0e/Idol_of_Maa_Jagadhatri_2012.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -466,10 +445,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/6/67/Jagaddhatri_devi.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/6/67/Jagaddhatri_devi.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -501,10 +477,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Jagadhatri_Idol.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/4/4c/Jagadhatri_Idol.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -536,10 +509,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/d/d6/Traditional_Jagaddhatri_idol_from_Chandannagar.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/d/d6/Traditional_Jagaddhatri_idol_from_Chandannagar.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -571,10 +541,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Dui_Maa.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/f/f9/Dui_Maa.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -606,10 +573,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -641,10 +605,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Idol_of_Maa_Jagadhatri_2012.JPG",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/0/0e/Idol_of_Maa_Jagadhatri_2012.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -676,10 +637,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.410938,
     longitude: 88.508063,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/6/67/Jagaddhatri_devi.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/6/67/Jagaddhatri_devi.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -711,10 +669,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.410313,
     longitude: 88.511438,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/d/d6/Traditional_Jagaddhatri_idol_from_Chandannagar.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/d/d6/Traditional_Jagaddhatri_idol_from_Chandannagar.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "theme",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -746,10 +701,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.410063,
     longitude: 88.512063,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -781,10 +733,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Jagadhatri_Idol.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/4/4c/Jagadhatri_Idol.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -816,10 +765,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Jagaddhatri_Krishnanagar_Rajbati.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/d/d2/Jagaddhatri_Krishnanagar_Rajbati.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "heritage",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -851,10 +797,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -886,10 +829,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Idol_of_Maa_Jagadhatri_2012.JPG",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/0/0e/Idol_of_Maa_Jagadhatri_2012.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "theme",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -921,10 +861,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.399688,
     longitude: 88.507563,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/6/67/Jagaddhatri_devi.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/6/67/Jagaddhatri_devi.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "theme",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -956,10 +893,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Dui_Maa.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/f/f9/Dui_Maa.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -991,10 +925,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1026,10 +957,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "heritage",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1061,10 +989,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Jagadhatri_Idol.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/4/4c/Jagadhatri_Idol.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "theme",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1096,10 +1021,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.397813,
     longitude: 88.501563,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1131,10 +1053,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1166,10 +1085,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Idol_of_Maa_Jagadhatri_2012.JPG",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/0/0e/Idol_of_Maa_Jagadhatri_2012.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1201,10 +1117,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/6/67/Jagaddhatri_devi.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/6/67/Jagaddhatri_devi.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1236,10 +1149,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/d/d6/Traditional_Jagaddhatri_idol_from_Chandannagar.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/d/d6/Traditional_Jagaddhatri_idol_from_Chandannagar.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1271,10 +1181,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1306,10 +1213,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: null,
     longitude: null,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Jagaddhatri_Krishnanagar_Rajbati.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/d/d2/Jagaddhatri_Krishnanagar_Rajbati.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "heritage",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1341,10 +1245,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.407438,
     longitude: 88.494813,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Idol_of_Maa_Jagadhatri_2012.JPG",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/0/0e/Idol_of_Maa_Jagadhatri_2012.JPG",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1376,10 +1277,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.401938,
     longitude: 88.498688,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/6/67/Jagaddhatri_devi.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/6/67/Jagaddhatri_devi.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1411,10 +1309,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.402938,
     longitude: 88.504938,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Jagadhatri_Idol.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/4/4c/Jagadhatri_Idol.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1446,10 +1341,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.392063,
     longitude: 88.505688,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Dui_Maa.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/f/f9/Dui_Maa.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1481,10 +1373,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.392563,
     longitude: 88.501063,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1516,10 +1405,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.413313,
     longitude: 88.495938,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "heritage",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
@@ -1551,10 +1437,7 @@ export const SEED_PANDALS: Pandal[] = [
     latitude: 23.393813,
     longitude: 88.499938,
     cover_image_url: "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-    gallery: [
-      "https://upload.wikimedia.org/wikipedia/commons/3/34/Idol_of_goddess_Jagaddhatri.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/8/8b/Face_of_Jagaddhatri.jpg"
-    ],
+    gallery: [],
     category: "traditional",
     darshan_start: "2026-11-17T06:00:00+05:30",
     darshan_end: "2026-11-20T04:00:00+05:30",
