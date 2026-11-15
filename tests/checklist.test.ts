@@ -105,3 +105,4 @@ describe("Darshan Checklist & Visited Tracker Logic", () => {
     expect(calculateStats(40).rank).toBe("Maha Darshan Champion");
   });
 });
+

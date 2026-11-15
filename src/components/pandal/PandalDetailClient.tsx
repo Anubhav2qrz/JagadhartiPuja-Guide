@@ -7,6 +7,7 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useFavorites } from "@/lib/favorites/FavoritesContext";
 import { useRoutePlanner } from "@/lib/route-planner/RoutePlannerContext";
 import { useChecklist } from "@/lib/checklist/ChecklistContext";
+import { useDataStore } from "@/lib/data/useDataStore";
 import { NavigateButton } from "@/components/navigation/NavigateButton";
 import { CorrectionModal } from "@/components/feedback/CorrectionModal";
 import { formatDate, formatTime } from "@/lib/utils";
@@ -31,13 +32,18 @@ interface PandalDetailClientProps {
   pandal: Pandal;
 }
 
-export function PandalDetailClient({ pandal }: PandalDetailClientProps) {
+export function PandalDetailClient({ pandal: initialPandal }: PandalDetailClientProps) {
   const { t, language } = useLanguage();
+  const { pandals } = useDataStore();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { isInRoute, addStop, removeStop } = useRoutePlanner();
   const { isVisited, toggleVisited } = useChecklist();
 
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  // Dynamically resolve pandal from client dataStore if freshly synced from cloud
+  const pandal =
+    pandals.find((p) => p.slug === initialPandal.slug || p.id === initialPandal.id) ||
+    initialPandal;
+
   const [copied, setCopied] = useState(false);
   const [correctionModalOpen, setCorrectionModalOpen] = useState(false);
 
@@ -60,20 +66,10 @@ export function PandalDetailClient({ pandal }: PandalDetailClientProps) {
   const displayAddress =
     language === "bn" ? pandal.address_bn || pandal.address : pandal.address;
 
-  const isBuriMaa = pandal.slug === "chasapara-barowari-buri-maa";
-  // Filter out any legacy dummy placeholder images
-  const cleanGallery = (pandal.gallery || []).filter((img) => {
-    if (!img) return false;
-    if (img === pandal.cover_image_url) return false;
-    if (img.includes("Face_of_Jagaddhatri.jpg")) return false;
-    if (!isBuriMaa && img.includes("Burima%2C_Krishnanagar.jpg")) return false;
-    return true;
-  });
-
-  // Pandal's distinct thumbnail photo always comes first, followed only by real uploaded gallery photos
-  const allImages = [pandal.cover_image_url, ...cleanGallery].filter(Boolean);
-  const uniqueImages = Array.from(new Set(allImages));
-  const hasMultipleRealPhotos = cleanGallery.length > 0;
+  // Exact thumbnail photo from the pandal card
+  const pandalThumbnail =
+    pandal.cover_image_url ||
+    "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg";
 
   const handleShare = async () => {
     if (typeof window === "undefined") return;
@@ -263,20 +259,17 @@ export function PandalDetailClient({ pandal }: PandalDetailClientProps) {
         </div>
       </div>
 
-      {/* Media Gallery & Core Details Grid */}
+      {/* Pandal Cover Photo & Core Details Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Gallery (7 cols) */}
+        {/* Cover Photo (7 cols) */}
         <div className="lg:col-span-7 space-y-4">
           <div className="bg-white rounded-3xl overflow-hidden border border-[#ede4d1] shadow-xs">
             <div className="relative aspect-16/10 w-full bg-stone-200">
               <img
-                src={
-                  uniqueImages[activeImageIndex] ||
-                  pandal.cover_image_url ||
-                  "https://upload.wikimedia.org/wikipedia/commons/2/2a/Burima%2C_Krishnanagar.jpg"
-                }
+                src={pandalThumbnail}
                 alt={displayName}
                 className="w-full h-full object-cover"
+                loading="eager"
                 onError={(e) => {
                   const target = e.currentTarget;
                   if (!target.src.includes("Burima%2C_Krishnanagar.jpg")) {
@@ -286,29 +279,6 @@ export function PandalDetailClient({ pandal }: PandalDetailClientProps) {
                 }}
               />
             </div>
-
-            {/* Thumbnail Strip: Only show if there are additional real uploaded photos */}
-            {hasMultipleRealPhotos && uniqueImages.length > 1 && (
-              <div className="p-3 bg-[#fcfaf5] border-t border-[#ede4d1] flex items-center gap-2 overflow-x-auto">
-                {uniqueImages.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveImageIndex(idx)}
-                    className={`relative w-16 h-16 rounded-xl overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
-                      activeImageIndex === idx
-                        ? "border-[#d99b26] ring-2 ring-[#d99b26]"
-                        : "border-transparent opacity-70 hover:opacity-100"
-                    }`}
-                  >
-                    <img
-                      src={img}
-                      alt={`${displayName} thumbnail ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Detailed Story & History */}

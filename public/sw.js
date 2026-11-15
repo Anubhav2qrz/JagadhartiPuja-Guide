@@ -1,5 +1,5 @@
 // Jagadhatri Darshan Service Worker (Offline Support & PWA)
-const CACHE_NAME = "jd-pwa-cache-v2";
+const CACHE_NAME = "jd-pwa-cache-v3";
 
 const CORE_ASSETS = [
   "/",
