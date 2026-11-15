@@ -13,6 +13,8 @@ interface PandalFiltersProps {
   onLocalityChange: (loc: string) => void;
   selectedCategory: string;
   onCategoryChange: (cat: string) => void;
+  visitedFilter?: "all" | "unvisited" | "visited";
+  onVisitedFilterChange?: (v: "all" | "unvisited" | "visited") => void;
   verifiedOnly: boolean;
   onVerifiedOnlyChange: (v: boolean) => void;
   wheelchairOnly: boolean;
@@ -30,6 +32,8 @@ export function PandalFilters({
   onLocalityChange,
   selectedCategory,
   onCategoryChange,
+  visitedFilter = "all",
+  onVisitedFilterChange,
   verifiedOnly,
   onVerifiedOnlyChange,
   wheelchairOnly,
@@ -54,29 +58,74 @@ export function PandalFilters({
         />
       </div>
 
-      {/* Categories Horizontal Tabs */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-        {[
-          { id: "all", label: t.categories.all },
-          { id: "heritage", label: t.categories.heritage },
-          { id: "traditional", label: t.categories.traditional },
-          { id: "theme", label: t.categories.theme },
-        ].map((cat) => {
-          const active = selectedCategory === cat.id;
-          return (
+      {/* Row with Categories & Visited Checklist Tabs */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-0.5">
+        {/* Categories Horizontal Tabs */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+          {[
+            { id: "all", label: t.categories.all },
+            { id: "heritage", label: t.categories.heritage },
+            { id: "traditional", label: t.categories.traditional },
+            { id: "theme", label: t.categories.theme },
+          ].map((cat) => {
+            const active = selectedCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => onCategoryChange(cat.id)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                  active
+                    ? "bg-[#4a1810] text-[#fcfaf5] shadow-xs border border-[#d99b26]/30"
+                    : "bg-stone-100 text-stone-700 hover:bg-stone-200"
+                }`}
+              >
+                {cat.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Visited Status Quick Filter Toggle */}
+        {onVisitedFilterChange && (
+          <div className="flex items-center gap-1 p-1 bg-stone-100 rounded-xl self-start sm:self-auto shrink-0 border border-stone-200">
             <button
-              key={cat.id}
-              onClick={() => onCategoryChange(cat.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                active
-                  ? "bg-[#4a1810] text-[#fcfaf5] shadow-xs border border-[#d99b26]/30"
-                  : "bg-stone-100 text-stone-700 hover:bg-stone-200"
+              type="button"
+              onClick={() => onVisitedFilterChange("all")}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                visitedFilter === "all"
+                  ? "bg-white text-[#1c1917] shadow-xs font-bold"
+                  : "text-stone-600 hover:text-stone-900"
               }`}
             >
-              {cat.label}
+              {language === "bn" ? "সব" : "All"}
             </button>
-          );
-        })}
+            <button
+              type="button"
+              onClick={() => onVisitedFilterChange("unvisited")}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1 ${
+                visitedFilter === "unvisited"
+                  ? "bg-[#8b2f1e] text-white shadow-xs font-bold"
+                  : "text-stone-600 hover:text-stone-900"
+              }`}
+              title={language === "bn" ? "যেসব মণ্ডপ এখনও দর্শন করা বাকি" : "Pandals you haven't visited yet"}
+            >
+              <span>{language === "bn" ? "বাকি দর্শন" : "Unvisited"}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => onVisitedFilterChange("visited")}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1 ${
+                visitedFilter === "visited"
+                  ? "bg-emerald-600 text-white shadow-xs font-bold"
+                  : "text-stone-600 hover:text-stone-900"
+              }`}
+              title={language === "bn" ? "যেসব মণ্ডপ ইতোমধ্যে দর্শন করেছেন" : "Pandals marked as visited"}
+            >
+              <Check className="w-3 h-3 stroke-[2.5]" />
+              <span>{language === "bn" ? "দর্শন সম্পন্ন" : "Visited"}</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Locality Dropdown & Sorting */}

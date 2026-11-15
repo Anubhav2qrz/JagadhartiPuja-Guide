@@ -6,6 +6,7 @@ import { Pandal } from "@/types";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useFavorites } from "@/lib/favorites/FavoritesContext";
 import { useRoutePlanner } from "@/lib/route-planner/RoutePlannerContext";
+import { useChecklist } from "@/lib/checklist/ChecklistContext";
 import { NavigateButton } from "@/components/navigation/NavigateButton";
 import { CorrectionModal } from "@/components/feedback/CorrectionModal";
 import { formatDate, formatTime } from "@/lib/utils";
@@ -34,6 +35,7 @@ export function PandalDetailClient({ pandal }: PandalDetailClientProps) {
   const { t, language } = useLanguage();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { isInRoute, addStop, removeStop } = useRoutePlanner();
+  const { isVisited, toggleVisited } = useChecklist();
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [copied, setCopied] = useState(false);
@@ -41,6 +43,7 @@ export function PandalDetailClient({ pandal }: PandalDetailClientProps) {
 
   const favorite = isFavorite(pandal.id);
   const inRoute = isInRoute(pandal.id);
+  const visited = isVisited(pandal.id);
 
   const displayName =
     language === "bn" ? pandal.name_bn || pandal.name : pandal.name;
@@ -155,8 +158,40 @@ export function PandalDetailClient({ pandal }: PandalDetailClientProps) {
             </p>
           </div>
 
-          {/* Quick Action Buttons (Favorite & Share & Add Route) */}
-          <div className="flex items-center gap-2 shrink-0">
+          {/* Quick Action Buttons (Visited & Favorite & Share & Add Route) */}
+          <div className="flex items-center gap-2 shrink-0 flex-wrap">
+            {/* Mark as Visited Button */}
+            <button
+              type="button"
+              onClick={() => toggleVisited(pandal.id)}
+              className={`px-3.5 py-2.5 rounded-2xl border font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-95 ${
+                visited
+                  ? "bg-emerald-600 text-white border-emerald-600 hover:bg-emerald-700"
+                  : "bg-white text-stone-700 border-stone-200 hover:bg-stone-50"
+              }`}
+              title={
+                visited
+                  ? language === "bn"
+                    ? "দর্শন সম্পন্ন (ক্লিক করে আনমার্ক করুন)"
+                    : "Visited (Click to unmark)"
+                  : language === "bn"
+                  ? "দর্শন হিসেবে চিহ্নিত করুন"
+                  : "Mark as Visited"
+              }
+              aria-label="Toggle visited"
+            >
+              <Check className={`w-4 h-4 ${visited ? "stroke-[3]" : ""}`} />
+              <span>
+                {visited
+                  ? language === "bn"
+                    ? "দর্শন সম্পন্ন"
+                    : "Visited"
+                  : language === "bn"
+                  ? "দর্শন করেছি"
+                  : "Mark Visited"}
+              </span>
+            </button>
+
             <button
               onClick={() => toggleFavorite(pandal.id)}
               className={`p-3 rounded-2xl border transition-all cursor-pointer ${

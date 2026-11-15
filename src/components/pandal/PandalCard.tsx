@@ -7,6 +7,7 @@ import { Pandal } from "@/types";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useFavorites } from "@/lib/favorites/FavoritesContext";
 import { useRoutePlanner } from "@/lib/route-planner/RoutePlannerContext";
+import { useChecklist } from "@/lib/checklist/ChecklistContext";
 import { NavigateButton } from "@/components/navigation/NavigateButton";
 import { formatDate } from "@/lib/utils";
 import {
@@ -30,9 +31,11 @@ export function PandalCard({ pandal }: PandalCardProps) {
   const { t, language } = useLanguage();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { isInRoute, addStop, removeStop } = useRoutePlanner();
+  const { isVisited, toggleVisited } = useChecklist();
 
   const favorite = isFavorite(pandal.id);
   const inRoute = isInRoute(pandal.id);
+  const visited = isVisited(pandal.id);
 
   const displayName =
     language === "bn" ? pandal.name_bn || pandal.name : pandal.name;
@@ -50,7 +53,13 @@ export function PandalCard({ pandal }: PandalCardProps) {
   const categoryLabel = t.categories[pandal.category] || pandal.category;
 
   return (
-    <div className="bg-[#ffffff] rounded-2xl overflow-hidden border border-[#ede4d1] shadow-sm hover:shadow-md transition-all flex flex-col group relative">
+    <div
+      className={`bg-[#ffffff] rounded-2xl overflow-hidden border transition-all flex flex-col group relative ${
+        visited
+          ? "border-emerald-400 ring-2 ring-emerald-500/20 shadow-xs"
+          : "border-[#ede4d1] shadow-sm hover:shadow-md"
+      }`}
+    >
       {/* Pandal Cover Image & Badges */}
       <div className="relative aspect-16/10 w-full overflow-hidden bg-stone-200">
         <img
@@ -90,39 +99,78 @@ export function PandalCard({ pandal }: PandalCardProps) {
             )}
           </div>
 
-          {/* Favorite Toggle Button */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              toggleFavorite(pandal.id);
-            }}
-            className={`p-2 rounded-full pointer-events-auto backdrop-blur-sm transition-all shadow-md ${
-              favorite
-                ? "bg-rose-600 text-white"
-                : "bg-black/40 text-white hover:bg-black/60"
-            }`}
-            title={favorite ? t.actions.saved : t.actions.saveFavorite}
-            aria-label={t.actions.saveFavorite}
-          >
-            <Heart
-              className={`w-4 h-4 ${favorite ? "fill-white" : ""}`}
-            />
-          </button>
+          {/* Quick Buttons: Visited Checkmark & Favorite Toggle */}
+          <div className="flex items-center gap-1.5 pointer-events-auto">
+            {/* Visited Checkbox Button */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleVisited(pandal.id);
+              }}
+              className={`p-2 rounded-full backdrop-blur-sm transition-all shadow-md cursor-pointer ${
+                visited
+                  ? "bg-emerald-600 text-white ring-2 ring-white/70 hover:bg-emerald-700"
+                  : "bg-black/40 text-white hover:bg-black/60"
+              }`}
+              title={
+                visited
+                  ? language === "bn"
+                    ? "দর্শন সম্পন্ন (ক্লিক করে আনমার্ক করুন)"
+                    : "Visited (Click to unmark)"
+                  : language === "bn"
+                  ? "দর্শন হিসেবে চিহ্নিত করুন"
+                  : "Mark as Visited"
+              }
+              aria-label="Toggle visited"
+            >
+              <Check className={`w-4 h-4 ${visited ? "stroke-[3]" : ""}`} />
+            </button>
+
+            {/* Favorite Toggle Button */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleFavorite(pandal.id);
+              }}
+              className={`p-2 rounded-full backdrop-blur-sm transition-all shadow-md cursor-pointer ${
+                favorite
+                  ? "bg-rose-600 text-white"
+                  : "bg-black/40 text-white hover:bg-black/60"
+              }`}
+              title={favorite ? t.actions.saved : t.actions.saveFavorite}
+              aria-label={t.actions.saveFavorite}
+            >
+              <Heart
+                className={`w-4 h-4 ${favorite ? "fill-white" : ""}`}
+              />
+            </button>
+          </div>
         </div>
 
-        {/* Verification Status Pill (Bottom Image Overlay) */}
-        <div className="absolute bottom-3 left-3 pointer-events-none">
-          {pandal.is_verified ? (
-            <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-md bg-emerald-950/80 text-emerald-200 border border-emerald-500/40 backdrop-blur-xs flex items-center gap-1 shadow-xs">
-              <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-              <span>{t.status.verified}</span>
-            </span>
-          ) : (
-            <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-md bg-amber-950/80 text-amber-200 border border-amber-500/40 backdrop-blur-xs flex items-center gap-1 shadow-xs">
-              <AlertCircle className="w-3 h-3 text-amber-400" />
-              <span>{t.status.unverified}</span>
+        {/* Verification Status Pill & Visited Badge (Bottom Image Overlay) */}
+        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
+          <div>
+            {pandal.is_verified ? (
+              <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-md bg-emerald-950/80 text-emerald-200 border border-emerald-500/40 backdrop-blur-xs flex items-center gap-1 shadow-xs">
+                <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                <span>{t.status.verified}</span>
+              </span>
+            ) : (
+              <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-md bg-amber-950/80 text-amber-200 border border-amber-500/40 backdrop-blur-xs flex items-center gap-1 shadow-xs">
+                <AlertCircle className="w-3 h-3 text-amber-400" />
+                <span>{t.status.unverified}</span>
+              </span>
+            )}
+          </div>
+
+          {visited && (
+            <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-600 text-white border border-emerald-400 backdrop-blur-xs flex items-center gap-1 shadow-xs">
+              <Check className="w-3 h-3 stroke-[3]" />
+              <span>{language === "bn" ? "দর্শন সম্পন্ন" : "Visited"}</span>
             </span>
           )}
         </div>

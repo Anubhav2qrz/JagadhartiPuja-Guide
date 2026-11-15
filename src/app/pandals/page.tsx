@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useDataStore } from "@/lib/data/useDataStore";
 import { dataStore } from "@/lib/data/store";
+import { useChecklist } from "@/lib/checklist/ChecklistContext";
+import { DarshanPassportCard } from "@/components/checklist/DarshanPassportCard";
 import { PandalCard } from "@/components/pandal/PandalCard";
 import { PandalFilters } from "@/components/pandal/PandalFilters";
 import { MapPin, Compass, RefreshCw, Zap } from "lucide-react";
@@ -12,6 +14,7 @@ import { MapPin, Compass, RefreshCw, Zap } from "lucide-react";
 export default function ExplorePandalsPage() {
   const { t, language } = useLanguage();
   const { pandals: allPandals, localities } = useDataStore();
+  const { isVisited, visitedCount } = useChecklist();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleManualRefresh = async () => {
@@ -26,6 +29,7 @@ export default function ExplorePandalsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocality, setSelectedLocality] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [visitedFilter, setVisitedFilter] = useState<"all" | "unvisited" | "visited">("all");
   const [verifiedOnly, setVerifiedOnly] = useState(false);
   const [wheelchairOnly, setWheelchairOnly] = useState(false);
   const [sortBy, setSortBy] = useState<"featured" | "name" | "locality">(
@@ -36,6 +40,7 @@ export default function ExplorePandalsPage() {
     setSearchQuery("");
     setSelectedLocality("all");
     setSelectedCategory("all");
+    setVisitedFilter("all");
     setVerifiedOnly(false);
     setWheelchairOnly(false);
     setSortBy("featured");
@@ -47,6 +52,12 @@ export default function ExplorePandalsPage() {
         return false;
       }
       if (selectedCategory !== "all" && p.category !== selectedCategory) {
+        return false;
+      }
+      if (visitedFilter === "unvisited" && isVisited(p.id)) {
+        return false;
+      }
+      if (visitedFilter === "visited" && !isVisited(p.id)) {
         return false;
       }
       if (verifiedOnly && !p.is_verified) {
@@ -96,6 +107,8 @@ export default function ExplorePandalsPage() {
     searchQuery,
     selectedLocality,
     selectedCategory,
+    visitedFilter,
+    isVisited,
     verifiedOnly,
     wheelchairOnly,
     sortBy,
@@ -133,6 +146,9 @@ export default function ExplorePandalsPage() {
         </Link>
       </div>
 
+      {/* Darshan Passport & Progress Tracker */}
+      <DarshanPassportCard totalPandals={allPandals.length || 39} />
+
       {/* Filter Component */}
       <PandalFilters
         localities={localities}
@@ -142,6 +158,8 @@ export default function ExplorePandalsPage() {
         onLocalityChange={setSelectedLocality}
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
+        visitedFilter={visitedFilter}
+        onVisitedFilterChange={setVisitedFilter}
         verifiedOnly={verifiedOnly}
         onVerifiedOnlyChange={setVerifiedOnly}
         wheelchairOnly={wheelchairOnly}
