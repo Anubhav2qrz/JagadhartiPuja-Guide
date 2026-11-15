@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { useRadar } from "@/lib/radar/RadarContext";
 import { useDataStore } from "@/lib/data/useDataStore";
 import { PandalCard } from "@/components/pandal/PandalCard";
 import { PlaceCard } from "@/components/essentials/PlaceCard";
@@ -31,6 +32,7 @@ import {
 
 export default function HomePage() {
   const { t, language } = useLanguage();
+  const { openRadar } = useRadar();
   const [locatingUser, setLocatingUser] = useState(false);
   const [userNearbyNotice, setUserNearbyNotice] = useState<string | null>(null);
 
@@ -58,26 +60,9 @@ export default function HomePage() {
     )
     .slice(0, 4);
 
-  // Hero Locate Me action (user-initiated only)
+  // Hero Locate Me action (opens the Near Me Radar directly)
   const handleNearMeClick = () => {
-    if (!("geolocation" in navigator)) {
-      setUserNearbyNotice("Geolocation is not supported by your browser.");
-      return;
-    }
-    setLocatingUser(true);
-    setUserNearbyNotice(null);
-    navigator.geolocation.getCurrentPosition(
-      () => {
-        setLocatingUser(false);
-        // Redirect to map with active location
-        window.location.href = "/map";
-      },
-      (err) => {
-        setLocatingUser(false);
-        setUserNearbyNotice(t.hero.locationDenied);
-      },
-      { timeout: 6000 }
-    );
+    openRadar();
   };
 
   return (

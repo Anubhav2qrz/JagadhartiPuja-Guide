@@ -1,5 +1,5 @@
 // Jagadhatri Darshan Service Worker (Offline Support & PWA)
-const CACHE_NAME = "jd-pwa-cache-v4";
+const CACHE_NAME = "jd-pwa-cache-v5";
 
 const CORE_STATIC_ASSETS = [
   "/",
@@ -11,7 +11,7 @@ const CORE_STATIC_ASSETS = [
   "/icon.svg",
 ];
 
-// Install Event: precache essential offline assets
+// Install Event: precache essential offline assets & skip waiting immediately
 self.addEventListener("install", (event) => {
   self.skipWaiting();
   event.waitUntil(
@@ -24,7 +24,7 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Activate Event: instantly clean up old caches and take control
+// Activate Event: instantly clean up old caches and take control of all clients
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
@@ -33,6 +33,7 @@ self.addEventListener("activate", (event) => {
         Promise.all(
           keys.map((key) => {
             if (key !== CACHE_NAME) {
+              console.log("[SW] Deleting old cache:", key);
               return caches.delete(key);
             }
           })
@@ -42,18 +43,17 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Fetch Event: strictly avoid intercepting Next.js internal router and RSC streams
+// Fetch Event: cache images/fonts, never interfere with Next.js navigation when online
 self.addEventListener("fetch", (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // 1. NEVER intercept non-GET requests or cross-origin requests (except images)
+  // 1. NEVER intercept non-GET requests
   if (request.method !== "GET") {
     return;
   }
 
   // 2. NEVER intercept Next.js internal assets, RSC requests, or API routes
-  // Next.js Turbopack handles its own routing, chunk loading, and RSC prefetching.
   if (
     url.pathname.startsWith("/_next/") ||
     url.pathname.startsWith("/api/") ||
@@ -90,34 +90,21 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // 4. HTML Navigation: Network-First with safe Cache Fallback
+  // 4. HTML Navigation: Let native browser networking handle it when online.
+  // ONLY intervene when offline to serve the cached app shell or friendly offline page.
   if (request.mode === "navigate") {
+    if (navigator.onLine) {
+      // Online: let the browser and Next.js App Router perform navigation directly.
+      // Do NOT call event.respondWith() so no Response.error() or AbortError can ever occur.
+      return;
+    }
+
+    // Offline: return cached page or home or friendly offline fallback
     event.respondWith(
-      fetch(request)
-        .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            const responseClone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, responseClone);
-            });
-          }
-          return networkResponse;
-        })
-        .catch(async (err) => {
-          // If the navigation request was intentionally aborted by the user navigating away, do not fail
-          if (err && err.name === "AbortError") {
-            return Response.error();
-          }
-
-          // Try cached specific page first
-          const cachedResponse = await caches.match(request);
-          if (cachedResponse) return cachedResponse;
-
-          // Try cached home page
-          const fallback = await caches.match("/");
-          if (fallback) return fallback;
-
-          // Return a user-friendly offline HTML page (status 200, NOT 503)
+      caches.match(request).then((cached) => {
+        if (cached) return cached;
+        return caches.match("/").then((home) => {
+          if (home) return home;
           return new Response(
             `<!DOCTYPE html>
             <html lang="en">
@@ -134,7 +121,7 @@ self.addEventListener("fetch", (event) => {
               </head>
               <body>
                 <h1>জগদ্ধাত্রী দর্শন (Offline)</h1>
-                <p>You appear to be offline. Reconnect to the internet or return to the home screen.</p>
+                <p>You appear to be offline. Please reconnect to the internet or return to the home screen.</p>
                 <a href="/">Go to Home Screen</a>
               </body>
             </html>`,
@@ -143,7 +130,8 @@ self.addEventListener("fetch", (event) => {
               headers: { "Content-Type": "text/html; charset=utf-8" },
             }
           );
-        })
+        });
+      })
     );
     return;
   }

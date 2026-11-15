@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useRoutePlanner } from "@/lib/route-planner/RoutePlannerContext";
+import { useRadar } from "@/lib/radar/RadarContext";
 import {
   Compass,
   MapPin,
@@ -23,6 +24,7 @@ import { InstallAppNavButton } from "@/components/pwa/InstallAppNavButton";
 export function Navbar() {
   const { t, language, toggleLanguage } = useLanguage();
   const { selectedPandalIds } = useRoutePlanner();
+  const { openRadar } = useRadar();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -87,6 +89,21 @@ export function Navbar() {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+            {/* Quick Radar Trigger */}
+            <button
+              type="button"
+              onClick={() => openRadar()}
+              className="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-[#8b2f1e]/80 hover:bg-[#8b2f1e] text-[#f5ba42] border border-[#d99b26]/50 transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
+              title={
+                language === "bn"
+                  ? "আমার আশেপাশে কি আছে দেখুন (রাডার)"
+                  : "Explore what's near me right now"
+              }
+            >
+              <Compass className="w-3.5 h-3.5 text-[#f5ba42] animate-spin-slow" />
+              <span>{language === "bn" ? "আশেপাশে" : "Near Me"}</span>
+            </button>
+
             {navLinks.map((link) => {
               const active = isActive(link.href);
               return (
@@ -153,6 +170,24 @@ export function Navbar() {
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-[#500710] border-t border-[#d99b26]/30 px-4 pt-3 pb-6 space-y-1 animate-in slide-in-from-top duration-150">
+          {/* Quick Radar Action on Mobile */}
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              openRadar();
+            }}
+            className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-bold bg-[#8b2f1e] text-[#f5ba42] border border-[#d99b26]/60 shadow-sm transition-colors cursor-pointer mb-2"
+          >
+            <div className="flex items-center gap-2">
+              <Compass className="w-5 h-5 text-[#f5ba42]" />
+              <span>{language === "bn" ? "আমার আশেপাশে কি আছে (রাডার)" : "Near Me Right Now (Radar)"}</span>
+            </div>
+            <span className="text-xs bg-[#f5ba42] text-[#4a1810] font-bold px-2 py-0.5 rounded-full">
+              Live
+            </span>
+          </button>
+
           {navLinks.map((link) => {
             const active = isActive(link.href);
             return (

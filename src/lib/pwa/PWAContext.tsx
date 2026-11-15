@@ -45,6 +45,8 @@ export function PWAProvider({ children }: { children: React.ReactNode }) {
         .register("/sw.js")
         .then((reg) => {
           console.log("[PWA] Service Worker registered with scope:", reg.scope);
+          // Check for sw update immediately
+          reg.update().catch(() => {});
         })
         .catch((err) => {
           console.warn("[PWA] Service Worker registration failed:", err);
