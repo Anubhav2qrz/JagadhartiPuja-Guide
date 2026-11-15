@@ -408,14 +408,37 @@ export function RoutePlannerView({
               <label className="block text-xs font-bold text-[#4a1810]">
                 {language === "bn" ? "২. পরিক্রমার পরিধি / মণ্ডপ সংখ্যা:" : "2. Tour Size & Number of Stops:"}
               </label>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
                 {[
                   { count: 5, label: "5 Stops", sub: "~1.5 hrs" },
                   { count: 8, label: "8 Stops", sub: "~3 hrs" },
                   { count: 12, label: "12 Stops", sub: "~5 hrs" },
-                  { count: 25, label: "All Verified", sub: "Grand" },
+                  { count: 25, label: "25 Stops", sub: "Major" },
+                  {
+                    count: Math.max(
+                      allPandals.filter(
+                        (p) =>
+                          typeof p.latitude === "number" &&
+                          typeof p.longitude === "number"
+                      ).length,
+                      39
+                    ),
+                    label:
+                      language === "bn"
+                        ? `সব মণ্ডপ (${allPandals.length})`
+                        : `All Pandals (${allPandals.length})`,
+                    sub: language === "bn" ? "সম্পূর্ণ পরিক্রমা" : "Complete",
+                    isAll: true,
+                  },
                 ].map((option) => {
-                  const isSelected = autoRouteStopsLimit === option.count;
+                  const totalCount = allPandals.filter(
+                    (p) =>
+                      typeof p.latitude === "number" &&
+                      typeof p.longitude === "number"
+                  ).length;
+                  const isSelected =
+                    autoRouteStopsLimit === option.count ||
+                    (option.isAll && autoRouteStopsLimit >= totalCount);
                   return (
                     <button
                       key={option.count}
@@ -423,12 +446,12 @@ export function RoutePlannerView({
                       onClick={() => setAutoRouteStopsLimit(option.count)}
                       className={`p-2 rounded-xl text-center transition-all cursor-pointer border ${
                         isSelected
-                          ? "bg-[#4a1810] text-white border-[#d99b26] shadow-sm"
+                          ? "bg-[#4a1810] text-[#f5ba42] border-[#d99b26] ring-1 ring-[#d99b26] shadow-sm font-bold"
                           : "bg-white text-stone-700 border-stone-200 hover:border-stone-400"
                       }`}
                     >
                       <div className="text-xs font-bold">{option.label}</div>
-                      <div className="text-[9px] opacity-75">{option.sub}</div>
+                      <div className="text-[10px] opacity-80">{option.sub}</div>
                     </button>
                   );
                 })}
@@ -457,7 +480,11 @@ export function RoutePlannerView({
                     <Zap className="w-4 h-4 text-[#f5ba42] fill-[#f5ba42]" />
                     <span>
                       {language === "bn"
-                        ? `⚡ ${autoRouteStopsLimit}টি নিকটবর্তী মণ্ডপের অটো রুট তৈরি করুন`
+                        ? autoRouteStopsLimit >= allPandals.length
+                          ? `⚡ কৃষ্ণনগরের সকল (${allPandals.length}টি) মণ্ডপের সম্পূর্ণ অটো রুট তৈরি করুন`
+                          : `⚡ ${autoRouteStopsLimit}টি নিকটবর্তী মণ্ডপের অটো রুট তৈরি করুন`
+                        : autoRouteStopsLimit >= allPandals.length
+                        ? `⚡ Generate Complete Route for All ${allPandals.length} Pandals`
                         : `⚡ Generate ${autoRouteStopsLimit}-Stop Auto Route`}
                     </span>
                   </>
@@ -765,7 +792,7 @@ export function RoutePlannerView({
             </p>
 
             {/* Quick Search & Locality Filter */}
-            <div className="space-y-2 mb-4">
+            <div className="space-y-2 mb-3">
               <input
                 type="text"
                 value={searchQuery}
@@ -786,6 +813,25 @@ export function RoutePlannerView({
                 ))}
               </select>
             </div>
+
+            {/* Quick Add All Available Button */}
+            {availablePandals.length > 0 && (
+              <button
+                type="button"
+                onClick={() => {
+                  availablePandals.forEach((p) => addStop(p.id));
+                }}
+                className="w-full mb-3 py-2 px-3 rounded-xl border border-[#d99b26] bg-[#fcfaf5] hover:bg-[#8b2f1e] hover:text-[#f5ba42] text-[#8b2f1e] text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer active:scale-98"
+                title="Add all remaining pandals to your route in one tap"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>
+                  {language === "bn"
+                    ? `বাকি সকল (${availablePandals.length}টি) মণ্ডপ যুক্ত করুন`
+                    : `Add All ${availablePandals.length} Pandals to Route`}
+                </span>
+              </button>
+            )}
 
             {/* Available List */}
             <div className="space-y-2.5 max-h-[500px] overflow-y-auto pr-1">
