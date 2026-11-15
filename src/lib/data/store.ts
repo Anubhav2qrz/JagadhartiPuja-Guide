@@ -15,7 +15,7 @@ import {
 import { formatOpeningHours } from "@/lib/utils";
 
 const STORAGE_KEYS = {
-  PANDALS: "jd_pandals_v3",
+  PANDALS: "jd_pandals_v4",
   LOCALITIES: "jd_localities_v2",
   PLACES: "jd_places_v4",
   ANNOUNCEMENTS: "jd_announcements_v2",

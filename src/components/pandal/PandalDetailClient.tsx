@@ -73,6 +73,7 @@ export function PandalDetailClient({ pandal }: PandalDetailClientProps) {
   // Pandal's distinct thumbnail photo always comes first, followed only by real uploaded gallery photos
   const allImages = [pandal.cover_image_url, ...cleanGallery].filter(Boolean);
   const uniqueImages = Array.from(new Set(allImages));
+  const hasMultipleRealPhotos = cleanGallery.length > 0;
 
   const handleShare = async () => {
     if (typeof window === "undefined") return;
@@ -286,8 +287,8 @@ export function PandalDetailClient({ pandal }: PandalDetailClientProps) {
               />
             </div>
 
-            {/* Thumbnail Strip */}
-            {uniqueImages.length > 1 && (
+            {/* Thumbnail Strip: Only show if there are additional real uploaded photos */}
+            {hasMultipleRealPhotos && uniqueImages.length > 1 && (
               <div className="p-3 bg-[#fcfaf5] border-t border-[#ede4d1] flex items-center gap-2 overflow-x-auto">
                 {uniqueImages.map((img, idx) => (
                   <button
